@@ -192,6 +192,12 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   // With the hook the UI lands inside the first second (question first, then header / watermark / bar / ring).
   const h = lit ? ex(pr(t, 0.3, 0.85)) : ex(pr(t, 0.45, 1.15));
   const wmE = lit ? ex(pr(t, 0.5, 1.0)) : ex(pr(t, 0.8, 1.4));
+  // Watermark glint + breathing glow (Zoom-Out style)
+  const wmGlint = cl((Math.max(0, t - 1.6) % 8) / (8 * 0.15), 0, 1);
+  const wmBreathe = 0.5 + 0.5 * Math.sin((t / 3.4) * Math.PI * 2);
+  const wmParts = String(text.watermark || "QUIZ MATRIX").trim().split(/\s+/);
+  const wmLast = wmParts.length > 1 ? wmParts.pop() : "";
+  const wmFirst = wmParts.join(" ") || wmLast;
   const barIn = lit ? ex(pr(t, 0.35, 0.95)) : ex(pr(t, 0.55, 1.3));
   const words = String(isBonus ? BT.prompt : text.promptText).trim().split(/\s+/);
   const promptSpacing = lit ? lerp(0.16, 0.05, ex(pr(t, 0.1, 1.2))) : lerp(0.16, 0.05, ex(pr(t, 0.6, 1.7)));
@@ -532,13 +538,46 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
           <span>{isBonus ? fillTemplate(text.bonusHeaderTemplate || "Bonus Round \u2022 {label}", { n: round.bonusNo, label: BT.label }) : fillTemplate(text.headerTemplate, { n: round.id, universe: round.universe })}</span>
         </div>
 
-        <div id="wm" style={{ opacity: 0.85 * wmE, transform: `translateX(${(40 * (1 - wmE)).toFixed(1)}px)` }}>
-          <b>
-            <svg width="24" height="28" viewBox="0 0 24 28" aria-hidden="true">
-              <path d="M14 1 L3 16 H11 L9 27 L21 11 H13 Z" fill={colors.brandPink || "#ff4d8d"} />
-            </svg>
-          </b>
-          <span>{text.watermark}</span>
+        <div id="wm" style={{
+          opacity: 0.85 * wmE,
+          transform: `translateX(${(40 * (1 - wmE)).toFixed(1)}px) scale(${lerp(0.92, 1, wmE).toFixed(3)})`,
+          gap: 14,
+          padding: "10px 26px 10px 16px",
+          borderRadius: 14,
+          background: "rgba(14,8,60,.42)",
+          border: "1.5px solid rgba(255,255,255,.4)",
+          backdropFilter: "blur(3px)",
+          WebkitBackdropFilter: "blur(3px)",
+          overflow: "hidden",
+        }}>
+          {/* glint sweep */}
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            overflow: "hidden",
+            borderRadius: 14,
+            pointerEvents: "none",
+          }}>
+            <div style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(105deg, transparent 38%, rgba(255,255,255,.6) 50%, transparent 62%)",
+              transform: `translateX(${lerp(-130, 130, wmGlint).toFixed(1)}%)`,
+            }} />
+          </div>
+          <Img
+            src={staticFile("images/logo.svg")}
+            style={{
+              height: 52,
+              width: "auto",
+              display: "block",
+              filter: `drop-shadow(0 0 ${lerp(5, 14, wmBreathe).toFixed(1)}px rgba(255,200,60,${lerp(0.5, 1, wmBreathe).toFixed(2)}))`,
+            }}
+          />
+          <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.15, whiteSpace: "nowrap", fontFamily: "var(--display)", fontWeight: 800, fontSize: "var(--t-s)", letterSpacing: ".1em", textTransform: "uppercase" }}>
+            <b style={{ fontWeight: 800, color: "#fff" }}>{wmFirst}</b>
+            {wmLast && wmFirst !== wmLast ? <i style={{ fontStyle: "normal", color: "#ffc13a" }}>{wmLast}</i> : null}
+          </span>
         </div>
 
         {PG.enabled ? (
