@@ -559,7 +559,10 @@
     "imageQuery": "",
     "imageFile": "501.png",
     "seriesColor": "#FFB53D",
-    "type": "eye"
+    "type": "eye",
+    "peekX": 50,
+    "peekY": 41,
+    "peekR": 75
   },
   {
     "id": 502,
@@ -571,7 +574,10 @@
     "imageQuery": "",
     "imageFile": "502.png",
     "seriesColor": "#FFB53D",
-    "type": "weapon"
+    "type": "weapon",
+    "peekX": 50,
+    "peekY": 50,
+    "peekR": 85
   },
   {
     "id": 503,
