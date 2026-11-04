@@ -759,7 +759,10 @@ export const Round = ({ roundId, motionBlur, hookVariant, animatic }) => {
   const frame = useCurrentFrame();
   const t = frame / T.fps;
   const mb = settings.motionBlur || { mode: "off" };
-  const mode = motionBlur === false || animatic ? "off" : mb.mode;
+  // Motion blur is Omit during the Studio preview: the plus-lighter sample stacking
+  // overwhelms the browser compositor and makes the whole page blink. It stays on
+  // for real renders: scripts/render-batches.js passes motionBlur:true.
+  const mode = motionBlur === false || animatic ? "off" : motionBlur === true ? "windows" : mb.mode;
   const round = findRound(rounds, roundId);
   const VR = round ? varietyOf(round) : null;
   // the wipe-out blur window (last entry) is skipped on clips that end in a plain cut

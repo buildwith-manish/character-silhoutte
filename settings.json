@@ -134,7 +134,7 @@
     "burst": true
   },
   "motionBlur": {
-    "mode": "windows",
+    "mode": "off",
     "shutterAngle": 220,
     "samples": 4
   },

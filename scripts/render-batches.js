@@ -47,7 +47,7 @@ batches.forEach((batch, bi) => {
   for (const r of batch) {
     if (fs.existsSync(path.join(P.root, outFile(r.id)))) { console.log(`[render] #${r.id} exists, skipping`); skipped++; continue; }
     const props = path.join("out", ".props", `${r.id}${sfx}.json`);
-    fs.writeFileSync(path.join(P.root, props), JSON.stringify({ roundId: r.id, ...(noBlur ? { motionBlur: false } : {}), ...(variant ? { hookVariant: variant } : {}) }));
+    fs.writeFileSync(path.join(P.root, props), JSON.stringify({ roundId: r.id, ...(noBlur ? { motionBlur: false } : { motionBlur: true }), ...(variant ? { hookVariant: variant } : {}) }));
     const tmp = path.join("out", `.tmp-${r.id}${sfx}.mp4`);
     console.log(`[render] #${r.id} ${r.heroName} ...`);
     const res = spawnSync(bin("npx"), ["remotion", "render", "src/index.js", "Round", tmp, `--props=${props}`], { cwd: P.root, stdio: "inherit", shell: useShell });
