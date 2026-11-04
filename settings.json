@@ -12,9 +12,9 @@
     "secondsLabel": "SECONDS",
     "scoreText": "+1",
     "watermark": "Quiz Matrix",
-    "headerTemplate": "Question #{n} • {universe}",
+    "headerTemplate": "Question #{n} \u2022 {universe}",
     "realNameTemplate": "({realName})",
-    "bonusHeaderTemplate": "Bonus Round • {label}",
+    "bonusHeaderTemplate": "Bonus Round \u2022 {label}",
     "bonusLabel": "BONUS"
   },
   "colors": {
@@ -136,7 +136,7 @@
   "motionBlur": {
     "mode": "windows",
     "shutterAngle": 220,
-    "samples": 8
+    "samples": 4
   },
   "reveal": {
     "freezeFrames": 3,
@@ -325,7 +325,7 @@
         "{seconds} seconds to name it",
         "+1 for every hero you get"
       ],
-      "footer": "{total} HEROES • {bonus} BONUS ROUNDS",
+      "footer": "{total} HEROES \u2022 {bonus} BONUS ROUNDS",
       "go": "READY?"
     },
     "recap": {
@@ -333,7 +333,7 @@
       "afterQuestion": 25,
       "seconds": 4.5,
       "title": "SCORE CHECK",
-      "progress": "{done} DONE • {left} TO GO",
+      "progress": "{done} DONE \u2022 {left} TO GO",
       "ask": "HOW MANY DID YOU GET?",
       "sub": "COMMENT YOUR SCORE SO FAR"
     },

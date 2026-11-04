@@ -544,10 +544,8 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
           gap: 14,
           padding: "10px 26px 10px 16px",
           borderRadius: 14,
-          background: "rgba(14,8,60,.42)",
+          background: "rgba(14,8,60,.72)",
           border: "1.5px solid rgba(255,255,255,.4)",
-          backdropFilter: "blur(3px)",
-          WebkitBackdropFilter: "blur(3px)",
           overflow: "hidden",
         }}>
           {/* glint sweep */}
