@@ -121,6 +121,28 @@
     "seriesColor": "#FFB53D"
   },
   {
+    "id": 12,
+    "universe": "Marvel Universe",
+    "heroName": "Loki",
+    "realName": "Loki Laufeyson",
+    "hint": "God of Mischief",
+    "fact": "Journey into Mystery #85 (1962)",
+    "imageQuery": "",
+    "imageFile": "12.png",
+    "seriesColor": "#FFB53D"
+  },
+  {
+    "id": 13,
+    "universe": "Marvel Universe",
+    "heroName": "Venom",
+    "realName": "Eddie Brock",
+    "hint": "We are...",
+    "fact": "The Amazing Spider-Man #300 (1988)",
+    "imageQuery": "",
+    "imageFile": "13.png",
+    "seriesColor": "#FFB53D"
+  },
+  {
     "id": 14,
     "universe": "Marvel Universe",
     "heroName": "Star-Lord",
