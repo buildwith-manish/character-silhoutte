@@ -1,0 +1,356 @@
+{
+  "fps": 60,
+  "questionSeconds": 7,
+  "hintAtSeconds": 4.5,
+  "revealSeconds": 3.5,
+  "wipeSeconds": 0.5,
+  "text": {
+    "promptText": "WHO IS THIS HERO?",
+    "hintLabel": "HINT",
+    "factLabel": "FIRST APPEARED IN",
+    "scoreLabel": "YOUR SCORE",
+    "secondsLabel": "SECONDS",
+    "scoreText": "+1",
+    "watermark": "Quiz Matrix",
+    "headerTemplate": "Question #{n} • {universe}",
+    "realNameTemplate": "({realName})",
+    "bonusHeaderTemplate": "Bonus Round • {label}",
+    "bonusLabel": "BONUS"
+  },
+  "colors": {
+    "navy": "#0B1230",
+    "navy2": "#162456",
+    "series": "#FFB53D",
+    "mint": "#3DDC97",
+    "red": "#FF6B6B",
+    "text": "#E8EDFF",
+    "muted": "#8F9BC7",
+    "brandPink": "#FF4D8D",
+    "brandViolet": "#5B2FD6"
+  },
+  "audio": {
+    "tick": {
+      "file": "tick.wav",
+      "volume": 1
+    },
+    "tickHigh": {
+      "file": "tick-high.wav",
+      "volume": 1
+    },
+    "ping": {
+      "file": "ping.wav",
+      "volume": 1
+    },
+    "riser": {
+      "file": "riser.wav",
+      "volume": 1
+    },
+    "impact": {
+      "file": "impact.wav",
+      "volume": 1
+    },
+    "chime": {
+      "file": "chime.wav",
+      "volume": 1
+    },
+    "whoosh": {
+      "file": "whoosh.wav",
+      "volume": 1
+    },
+    "whooshIn": {
+      "file": "whoosh-in.wav",
+      "volume": 1
+    }
+  },
+  "mix": {
+    "targetLufs": -14,
+    "truePeakDb": -1.5,
+    "duckLeadMs": 150,
+    "duckDepthDb": 30,
+    "heartbeatSeconds": 3,
+    "heartbeatStartPeriod": 0.95,
+    "heartbeatEndPeriod": 0.4,
+    "pitchSemitones": 1.2,
+    "pitchJitterSemitones": 0.35,
+    "timingJitterMs": 12,
+    "levelJitterDb": 1.0,
+    "whooshPan": 0.85,
+    "reverb": {
+      "room": 0.86,
+      "damp": 0.35,
+      "preDelayMs": 18,
+      "width": 1,
+      "chimeSend": 1.0,
+      "impactSend": 0.25
+    },
+    "padDetuneCents": 7,
+    "padFilter": {
+      "start": 260,
+      "peak": 2400,
+      "end": 800,
+      "q": 1.1
+    },
+    "sidechain": {
+      "attackMs": 8,
+      "releaseMs": 260,
+      "depthDb": 9,
+      "threshold": 0.22
+    },
+    "levels": {
+      "tick": 0.7,
+      "heartbeat": 0.8,
+      "ping": 0.7,
+      "riser": 0.8,
+      "impact": 0.55,
+      "chime": 0.7,
+      "whoosh": 0.7,
+      "whooshIn": 0.6,
+      "pad": 0.2,
+      "hookHit": 0.6
+    },
+    "volume": 1
+  },
+  "peek": {
+    "enabled": true,
+    "x": 50,
+    "y": 15,
+    "radius": 52,
+    "glowRadius": 2.6,
+    "glowColor": "255,214,130",
+    "flickerSeconds": 0.8,
+    "holdUntilReveal": true
+  },
+  "depth": {
+    "bg": 0.35,
+    "mid": 0.65,
+    "hero": 1.0,
+    "fg": 1.8,
+    "snapZoom": 0.06,
+    "introPush": 0.06,
+    "driftX": 14,
+    "driftY": 6,
+    "dust": true,
+    "foreground": true,
+    "burst": true
+  },
+  "motionBlur": {
+    "mode": "windows",
+    "shutterAngle": 220,
+    "samples": 8
+  },
+  "reveal": {
+    "freezeFrames": 3,
+    "snapZoom": 0.07,
+    "caPx": 18,
+    "rays": true,
+    "flare": false,
+    "shock2": false,
+    "rollShake": 0
+  },
+  "hook": {
+    "enabled": true,
+    "zoom": 1.25,
+    "shiftY": 560,
+    "holdSeconds": 0.2,
+    "pullSeconds": 0.85,
+    "focusBlurPx": 5,
+    "rimPx": 26,
+    "variants": {
+      "A": {},
+      "B": {
+        "zoom": 1.7,
+        "shiftY": 728,
+        "holdSeconds": 0.3,
+        "pullSeconds": 0.9
+      },
+      "C": {
+        "zoom": 0.8,
+        "shiftY": 389,
+        "holdSeconds": 0.1,
+        "pullSeconds": 0.6
+      }
+    }
+  },
+  "type": {
+    "xl": 128,
+    "l": 72,
+    "m": 44,
+    "s": 28
+  },
+  "universes": {
+    "marvel": {
+      "match": "marvel",
+      "accent": "#FFB53D",
+      "motif": "halftone",
+      "motifOpacity": 0.2,
+      "bg": [
+        "#2D1850",
+        "#150B33",
+        "#05020F"
+      ],
+      "grade": {
+        "color": "#FF3D5A",
+        "opacity": 0.1,
+        "blend": "soft-light"
+      }
+    },
+    "dc": {
+      "match": "dc",
+      "accent": "#6FA8FF",
+      "motif": "panels",
+      "motifOpacity": 0.2,
+      "bg": [
+        "#123A68",
+        "#0A1F45",
+        "#020812"
+      ],
+      "grade": {
+        "color": "#2AA9FF",
+        "opacity": 0.12,
+        "blend": "soft-light"
+      }
+    },
+    "anime": {
+      "match": "anime",
+      "accent": "#FF7A59",
+      "motif": "speed",
+      "motifOpacity": 0.14,
+      "bg": [
+        "#4A1F5E",
+        "#26123F",
+        "#080314"
+      ],
+      "grade": {
+        "color": "#FF9A3D",
+        "opacity": 0.12,
+        "blend": "soft-light"
+      }
+    }
+  },
+  "heroTint": {
+    "enabled": true
+  },
+  "progress": {
+    "enabled": true,
+    "total": 50
+  },
+  "cta": {
+    "enabled": true,
+    "lastN": 0,
+    "startSeconds": 1.9,
+    "text": "How many did you get?",
+    "sub": "Comment your score",
+    "autoLast": false
+  },
+  "bonus": {
+    "every": 10,
+    "look": {
+      "accent": "#B58CFF",
+      "motif": "speed",
+      "motifOpacity": 0.12,
+      "bg": [
+        "#3A1A7A",
+        "#1B0E45",
+        "#07031A"
+      ],
+      "grade": {
+        "color": "#8A5CFF",
+        "opacity": 0.14,
+        "blend": "soft-light"
+      }
+    },
+    "types": {
+      "eye": {
+        "label": "Eyes Only",
+        "prompt": "Who has these eyes?",
+        "zoom": 2.6,
+        "peekX": 50,
+        "peekY": 15,
+        "radius": 70
+      },
+      "weapon": {
+        "label": "Weapon Only",
+        "prompt": "Whose weapon is this?",
+        "zoom": 2.4,
+        "peekX": 77,
+        "peekY": 54,
+        "radius": 80
+      },
+      "half": {
+        "label": "Half Silhouette",
+        "prompt": "Name the hero from half"
+      },
+      "fake": {
+        "label": "Spot the Fake",
+        "prompt": "Which one is fake?"
+      },
+      "blur": {
+        "label": "Out of Focus",
+        "prompt": "Who is this blurry hero?",
+        "blurStart": 46,
+        "blurEnd": 8
+      }
+    }
+  },
+  "variety": {
+    "enabled": true,
+    "milestoneEvery": 10,
+    "bigIds": [
+      1
+    ],
+    "wipeOnlyBonus": true,
+    "jitter": true,
+    "skipGlitchChance": 0.25,
+    "calm": {
+      "shake": 0.35,
+      "ca": 0.45,
+      "flash": 0.5,
+      "snapZoom": 0.65,
+      "pop": 0.7,
+      "rays": false,
+      "flare": false,
+      "shock2": false,
+      "freezeFrames": 1,
+      "impact": 0.6
+    }
+  },
+  "structure": {
+    "intro": {
+      "enabled": true,
+      "seconds": 6,
+      "title": "GUESS THE HERO",
+      "subtitle": "BY THE SILHOUETTE",
+      "rules": [
+        "Spot the silhouette",
+        "{seconds} seconds to name it",
+        "+1 for every hero you get"
+      ],
+      "footer": "{total} HEROES • {bonus} BONUS ROUNDS",
+      "go": "READY?"
+    },
+    "recap": {
+      "enabled": true,
+      "afterQuestion": 25,
+      "seconds": 4.5,
+      "title": "SCORE CHECK",
+      "progress": "{done} DONE • {left} TO GO",
+      "ask": "HOW MANY DID YOU GET?",
+      "sub": "COMMENT YOUR SCORE SO FAR"
+    },
+    "outro": {
+      "enabled": true,
+      "seconds": 8,
+      "titleLines": [
+        "HOW MANY",
+        "DID YOU GET?"
+      ],
+      "tierNames": [
+        "LEGEND",
+        "HERO",
+        "SIDEKICK",
+        "CIVILIAN"
+      ],
+      "subscribe": "SUBSCRIBE FOR MORE HERO QUIZZES"
+    }
+  }
+}

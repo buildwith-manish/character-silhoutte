@@ -1,0 +1,44 @@
+{
+  "name": "quiz-matrix-hero-silhouette",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Guess the Hero by Silhouette: Remotion + GSAP (Pattern 1) quiz video, one round = 11 s clip",
+  "scripts": {
+    "csv": "node scripts/csv-to-json.js",
+    "sounds": "node scripts/generate-sounds.js",
+    "fetch": "node scripts/fetch-images.js",
+    "resize": "node scripts/resize-images.js",
+    "refetch": "node scripts/refetch-broken.js",
+    "predev": "npm run csv --silent && npm run mix --silent && npm run cardsounds --silent",
+    "dev": "remotion studio src/index.js",
+    "prerender": "npm run csv --silent && npm run mix --silent",
+    "render": "remotion render src/index.js Round out/sample.mp4",
+    "prerender:batch": "npm run csv --silent && npm run mix --silent && npm run cardsounds --silent",
+    "render:batch": "node scripts/render-batches.js",
+    "prestill": "npm run csv --silent && npm run mix --silent",
+    "still": "node scripts/stills.js",
+    "mix": "node scripts/generate-mix.js",
+    "animatic": "node scripts/animatic.js",
+    "phone": "node scripts/phone-check.js",
+    "preanimatic": "npm run csv --silent && npm run mix --silent",
+    "still:board": "node scripts/stills.js --all",
+    "prestill:board": "npm run csv --silent && npm run mix --silent",
+    "cardsounds": "node scripts/generate-card-sounds.js",
+    "still:cards": "node scripts/still-cards.js",
+    "precards": "npm run csv --silent && npm run cardsounds --silent",
+    "cards": "node scripts/render-batches.js --cards-only"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.540",
+    "@remotion/cli": "4.0.540",
+    "@remotion/motion-blur": "4.0.540",
+    "gsap": "^3.13.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.540"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "typescript": "^5.6.3"
+  }
+}
