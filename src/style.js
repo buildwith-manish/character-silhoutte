@@ -33,6 +33,8 @@ export const buildCss = (colors, series, TY = { xl: 128, l: 72, m: 44, s: 28 }) 
 #hdr{left:64px;top:50px;display:flex;align-items:center;gap:16px;padding:12px 28px 12px 18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:6px}
 #hdr i{width:14px;height:14px;border-radius:50%;background:var(--series)}
 #hdr span{font-family:var(--display);font-weight:800;font-size:var(--t-s);letter-spacing:.07em;text-transform:uppercase;line-height:1}
+/* Progress tracker moved from top-center to top-left corner (replaces the old #hdr badge). */
+#trk{left:64px;top:50px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:14px 26px;background:rgba(10,16,48,.72);border:1px solid rgba(255,255,255,.16);border-radius:8px}
 #wm{right:64px;top:54px;display:flex;align-items:center;gap:12px}
 #wm b{width:44px;height:44px;border-radius:10px;background:var(--violet);display:flex;align-items:center;justify-content:center}
 #wm span{font-family:var(--display);font-weight:800;font-size:var(--t-s);letter-spacing:.08em;text-transform:uppercase}
@@ -64,10 +66,10 @@ export const buildCss = (colors, series, TY = { xl: 128, l: 72, m: 44, s: 28 }) 
 .grain{inset:0;pointer-events:none;background-repeat:repeat;background-size:160px 160px}
 #flash{inset:0;background:#fff;opacity:0;pointer-events:none}
 .pn{left:0;top:-100px;width:2400px;height:1100px;pointer-events:none}
-#trk{left:650px;top:54px;width:300px;display:flex;flex-direction:column;align-items:center;gap:9px}
-#trk .row{display:flex;gap:.55em;font-family:var(--display);font-weight:800;font-size:var(--t-s);letter-spacing:.1em;line-height:1;color:var(--text)}
-#trk .row b{color:var(--series);font-weight:900}
-#trk .bar{width:200px;height:6px;border-radius:3px;background:rgba(255,255,255,.14);overflow:hidden}
+#trk .row{display:flex;gap:.5em;font-family:var(--display);font-weight:800;font-size:var(--t-s);letter-spacing:.08em;line-height:1;color:var(--text);align-items:baseline}
+#trk .row b{color:var(--series);font-weight:900;font-size:calc(var(--t-s) * 1.15)}
+#trk .row span{color:var(--muted)}
+#trk .bar{width:180px;height:5px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
 #trk .bar i{display:block;height:100%;border-radius:3px;background:var(--series)}
 #cta{left:1120px;top:350px;width:440px;padding:26px 32px 30px;background:var(--series);color:var(--navy);border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,.35)}
 #cta b{display:block;font-family:var(--display);font-weight:900;font-size:var(--t-m);line-height:1.04;letter-spacing:.03em;text-transform:uppercase}

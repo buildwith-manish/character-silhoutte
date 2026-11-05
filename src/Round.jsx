@@ -204,7 +204,10 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
 
   // ---- countdown ring --------------------------------------------------------
   const ri = lit ? eb(pr(t, 0.55, 1.1)) : eb(pr(t, 0.85, 1.5));
-  const rc = cl(ri, 0, 1);
+  // Ring fades out at the reveal moment — the "+1 / YOUR SCORE" post-reveal display is removed per request.
+  // The countdown (7,6,5...) stays fully visible during the question phase, then disappears with the flash.
+  const ringFade = preQ ? 1 : cl(1 - pr(t, Q, Q + 0.3), 0, 1);
+  const rc = cl(ri, 0, 1) * ringFade;
   const redFrom = T.Q - T.redSeconds;
   const sec = t % 1;
   const segColor = (i) => (preQ ? (i >= N - T.redSeconds ? colors.red : series) : colors.mint);
@@ -526,18 +529,6 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
         {!animatic ? <div className="grain" style={{ backgroundImage: `url(${staticFile("fx/grain.png")})`, backgroundSize: `${(256 * 1600) / width}px ${(256 * 1600) / width}px` }} /> : null}
         <div id="urg" style={{ opacity: Number(urgOpacity.toFixed(3)) }} />
 
-        <div
-          id="hdr"
-          style={{
-            opacity: h > 0 ? 1 : 0,
-            clipPath: `inset(0 ${((1 - h) * 100).toFixed(1)}% 0 0)`,
-            transform: `translateX(${(-30 * (1 - h)).toFixed(1)}px)`,
-          }}
-        >
-          <i />
-          <span>{isBonus ? fillTemplate(text.bonusHeaderTemplate || "Bonus Round \u2022 {label}", { n: round.bonusNo, label: BT.label }) : fillTemplate(text.headerTemplate, { n: round.id, universe: round.universe })}</span>
-        </div>
-
         <div id="wm" style={{
           opacity: 0.85 * wmE,
           transform: `translateX(${(40 * (1 - wmE)).toFixed(1)}px) scale(${lerp(0.92, 1, wmE).toFixed(3)})`,
@@ -579,7 +570,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
         </div>
 
         {PG.enabled ? (
-          <div id="trk" style={{ opacity: trkE, transform: `translateY(${(-24 * (1 - trkE)).toFixed(1)}px)` }}>
+          <div id="trk" style={{ opacity: trkE, transform: `translateX(${(-30 * (1 - trkE)).toFixed(1)}px)` }}>
             <div className="row">
               {isBonus ? (
                 <>
