@@ -26,7 +26,16 @@
     "text": "#E8EDFF",
     "muted": "#8F9BC7",
     "brandPink": "#FF4D8D",
-    "brandViolet": "#5B2FD6"
+    "brandViolet": "#5B2FD6",
+    "easy": "#3DDC97",
+    "medium": "#FFB53D",
+    "hard": "#FF6B6B"
+  },
+  "difficulty": {
+    "enabled": true,
+    "ranges": { "easy": [1, 17], "medium": [18, 34], "hard": [35, 50] },
+    "labels": { "easy": "EASY", "medium": "MEDIUM", "hard": "HARD" },
+    "flameOnHard": true
   },
   "audio": {
     "tick": {
