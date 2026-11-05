@@ -234,6 +234,14 @@
     "enabled": true,
     "total": 50
   },
+  "letterSlots": {
+    "enabled": true,
+    "startSeconds": 4.5,
+    "endSeconds": 6.5,
+    "size": "m",
+    "maxRevealed": 2,
+    "strategy": "firstLast"
+  },
   "cta": {
     "enabled": true,
     "lastN": 0,

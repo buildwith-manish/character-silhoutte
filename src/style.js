@@ -36,10 +36,13 @@ export const buildCss = (colors, series, TY = { xl: 128, l: 72, m: 44, s: 28 }) 
 #wm{right:64px;top:54px;display:flex;align-items:center;gap:12px}
 #wm b{width:44px;height:44px;border-radius:10px;background:var(--violet);display:flex;align-items:center;justify-content:center}
 #wm span{font-family:var(--display);font-weight:800;font-size:var(--t-s);letter-spacing:.08em;text-transform:uppercase}
-#pr{left:0;top:704px;width:1600px;text-align:center;font-family:var(--display);font-weight:900;font-size:var(--t-l);line-height:1.12;text-transform:uppercase;white-space:nowrap}
-#pr .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .14em}
+#pr{left:1120px;top:350px;width:440px;padding:26px 32px;font-family:var(--display);font-weight:900;font-size:var(--t-m);line-height:1.12;text-transform:uppercase;white-space:normal;text-align:left;display:flex;flex-wrap:wrap;gap:.18em;align-items:center}
+#pr .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .02em}
 #pr .wi{display:inline-block;will-change:transform}
 #pr .q{color:var(--series)}
+#lslots{left:0;top:794px;width:1600px;text-align:center;display:flex;justify-content:center;align-items:baseline;gap:.04em;font-family:var(--display);font-weight:900;font-size:var(--t-m);line-height:1;letter-spacing:.06em;pointer-events:none}
+#lslots .slot{display:inline-block;min-width:.52em;text-align:center;will-change:transform,opacity}
+#lslots .slot.gap{min-width:.22em}
 #ring{left:150px;top:350px;width:180px;text-align:center}
 #ringbox{position:relative;width:180px;height:180px}
 #ringbox svg{position:absolute;left:0;top:0;display:block;overflow:visible}

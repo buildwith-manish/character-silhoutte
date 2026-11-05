@@ -260,11 +260,42 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const ns = eo5(pr(t, Q + 0.6, Q + 1.15));
   const realName = fillTemplate(text.realNameTemplate, { realName: String(round.realName).replace(/^\(|\)$/g, "") });
 
+  // ---- letter slots (max 2 hints: first + last letter) -------------------------
+  // Shows underscores for all letters, with only the first and last letter revealed as a psychological hint.
+  // Spaces and hyphens are structural gaps (always shown). Skipped on detail/fake bonus rounds.
+  const LS = settings.letterSlots || { enabled: false };
+  const lsSkipDetail = isBonus && (btype === "eye" || btype === "weapon" || btype === "fake");
+  const letterSlotsShow = LS.enabled && !lsSkipDetail && Boolean(round.heroName);
+  const lslotsChars = letterSlotsShow ? nameChars : [];
+  // Indices to reveal: first letter (index 0) and last letter (last non-gap char)
+  const lsLetterIdx = [];
+  for (let i = 0; i < lslotsChars.length; i++) {
+    const c = lslotsChars[i];
+    if (c !== " " && c !== "-") lsLetterIdx.push(i);
+  }
+  const lsRevealSet = new Set();
+  if (lsLetterIdx.length >= 2) {
+    lsRevealSet.add(lsLetterIdx[0]);                         // first letter
+    lsRevealSet.add(lsLetterIdx[lsLetterIdx.length - 1]);    // last letter
+  } else if (lsLetterIdx.length === 1) {
+    lsRevealSet.add(lsLetterIdx[0]);
+  }
+  const lsStart = LS.startSeconds ?? H;
+  const lsPop = LS.popSeconds ?? 0.35;
+  const lsSize = TY[LS.size] || TY.m;
+  // First letter pops at lsStart, last letter pops 0.5s later
+  const lsRevealTimes = Array.from(lsRevealSet).sort((a, b) => a - b).map((idx, k) => ({
+    idx,
+    t0: lsStart + k * 0.5,
+  }));
+  const lsE = ex(pr(t, lsStart - 0.2, lsStart + 0.1));
+  const lsOut = cl(1 - pr(t, Q - 0.1, Q + 0.1), 0, 1);
+  const lsOpacity = lsE * lsOut;
+
   // ---- auto-fit text (long names / hints shrink instead of overflowing) -------------------------------------
   // Cards: text area must stay above the ledge (4 lines at 50px = 208px) and no single word may overflow the card.
-  const hintRef = useRef(null), factRef = useRef(null), nameRef = useRef(null), realRef = useRef(null);
+  const factRef = useRef(null), nameRef = useRef(null), realRef = useRef(null);
   const cardFits = (el) => el.scrollHeight <= 208 && el.scrollWidth <= el.clientWidth + 1;
-  const hintSize = useFit(hintRef, fontsReady, round.hint, { max: TY.m, min: TY.s, fits: cardFits });
   const factSize = useFit(factRef, fontsReady, round.fact, { max: TY.m, min: TY.s, fits: cardFits });
   // Hero name: one line, at most as wide as the progress bar (1440px).
   const nameSize = useFit(nameRef, fontsReady, round.heroName, {
@@ -661,18 +692,6 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
 
         <div
           className="card"
-          id="hint"
-          style={{
-            opacity: hn * (1 - ho),
-            clipPath: `inset(0 0 0 ${((1 - hn) * 100).toFixed(1)}%)`,
-            transform: `translateX(${((1 - hs) * 60 - ho * 30).toFixed(1)}px)`,
-          }}
-        >
-          <small>{text.hintLabel}</small>
-          <p ref={hintRef} style={{ fontSize: hintSize }}>{round.hint}</p>
-        </div>
-        <div
-          className="card"
           id="fact"
           style={{
             opacity: fn * (1 - factOut),
@@ -703,6 +722,29 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
             {`${tr.toFixed(2)}s  f${frame}\n${tr < 0.5 ? "WIPE IN" : tr < H ? "QUESTION" : tr < Q ? "HINT + COUNTDOWN" : tr < ctaT ? "REVEAL" : tr < W || !VR.wipeOut ? (isCta ? "CTA" : "FACT") : "WIPE OUT"}`}
           </div>
         ) : null}
+
+        <div id="lslots" style={{ opacity: Number(lsOpacity.toFixed(3)), transform: `translateY(${((1 - lsE) * 16).toFixed(1)}px)`, fontSize: lsSize }}>
+          {lslotsChars.map((ch, i) => {
+            const isGap = ch === " " || ch === "-";
+            const revealEntry = lsRevealTimes.find((r) => r.idx === i);
+            const lp = revealEntry ? cl(pr(t, revealEntry.t0, revealEntry.t0 + lsPop), 0, 1) : 0;
+            const le = eb(lp);
+            const revealed = lp > 0.5;
+            return (
+              <span
+                key={i}
+                className={`slot${isGap ? " gap" : ""}`}
+                style={{
+                  opacity: isGap ? 0.45 : Number(lerp(0.35, 1, eo(Math.max(lp, revealed ? 1 : 0))).toFixed(3)),
+                  transform: `scale(${isGap ? 1 : Number((0.8 + 0.2 * le).toFixed(3))})`,
+                  color: isGap ? "var(--muted)" : (revealed ? "var(--series)" : "var(--text)"),
+                }}
+              >
+                {isGap ? (ch === " " ? "\u00A0" : "\u2013") : revealed ? ch : "_"}
+              </span>
+            );
+          })}
+        </div>
 
         <div id="nm">
           <div id="nmain" ref={nameRef} style={{ fontSize: nameSize }}>
