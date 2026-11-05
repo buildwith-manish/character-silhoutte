@@ -530,43 +530,51 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
         <div id="urg" style={{ opacity: Number(urgOpacity.toFixed(3)) }} />
 
         <div id="wm" style={{
-          opacity: 0.85 * wmE,
-          transform: `translateX(${(40 * (1 - wmE)).toFixed(1)}px) scale(${lerp(0.92, 1, wmE).toFixed(3)})`,
-          gap: 14,
-          padding: "10px 26px 10px 16px",
-          borderRadius: 14,
-          background: "rgba(14,8,60,.72)",
-          border: "1.5px solid rgba(255,255,255,.4)",
-          overflow: "hidden",
+          opacity: 0.7 * wmE,
+          transform: `translateY(${((1 - wmE) * -16).toFixed(1)}px) scale(${lerp(0.92, 1, wmE).toFixed(3)})`,
         }}>
-          {/* glint sweep */}
           <div style={{
-            position: "absolute",
-            inset: 0,
+            position: "relative",
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+            padding: "9px 22px 9px 13px",
+            borderRadius: 27,
+            background: "rgba(14,8,60,.42)",
+            border: "2px solid rgba(255,255,255,.4)",
+            backdropFilter: "blur(3px)",
+            WebkitBackdropFilter: "blur(3px)",
             overflow: "hidden",
-            borderRadius: 14,
-            pointerEvents: "none",
           }}>
+            {/* glint sweep */}
             <div style={{
               position: "absolute",
               inset: 0,
-              background: "linear-gradient(105deg, transparent 38%, rgba(255,255,255,.6) 50%, transparent 62%)",
-              transform: `translateX(${lerp(-130, 130, wmGlint).toFixed(1)}%)`,
-            }} />
+              overflow: "hidden",
+              borderRadius: 27,
+              pointerEvents: "none",
+            }}>
+              <div style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(105deg, transparent 38%, rgba(255,255,255,.6) 50%, transparent 62%)",
+                transform: `translateX(${lerp(-130, 130, wmGlint).toFixed(1)}%)`,
+              }} />
+            </div>
+            <Img
+              src={staticFile("images/logo.svg")}
+              style={{
+                height: 58,
+                width: "auto",
+                display: "block",
+                filter: `drop-shadow(0 0 ${lerp(5, 15, wmBreathe).toFixed(1)}px rgba(255,200,60,${lerp(0.5, 1, wmBreathe).toFixed(2)}))`,
+              }}
+            />
+            <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.15, whiteSpace: "nowrap" }}>
+              <b>{wmFirst}</b>
+              {wmLast && wmFirst !== wmLast ? <i>{wmLast}</i> : null}
+            </span>
           </div>
-          <Img
-            src={staticFile("images/logo.svg")}
-            style={{
-              height: 52,
-              width: "auto",
-              display: "block",
-              filter: `drop-shadow(0 0 ${lerp(5, 14, wmBreathe).toFixed(1)}px rgba(255,200,60,${lerp(0.5, 1, wmBreathe).toFixed(2)}))`,
-            }}
-          />
-          <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.15, whiteSpace: "nowrap", fontFamily: "var(--display)", fontWeight: 800, fontSize: "var(--t-s)", letterSpacing: ".1em", textTransform: "uppercase" }}>
-            <b style={{ fontWeight: 800, color: "#fff" }}>{wmFirst}</b>
-            {wmLast && wmFirst !== wmLast ? <i style={{ fontStyle: "normal", color: "#ffc13a" }}>{wmLast}</i> : null}
-          </span>
         </div>
 
         {PG.enabled ? (

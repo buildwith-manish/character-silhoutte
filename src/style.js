@@ -7,6 +7,7 @@ export const buildCss = (colors, series, TY = { xl: 128, l: 72, m: 44, s: 28 }) 
   --t-xl:${TY.xl}px;--t-l:${TY.l}px;--t-m:${TY.m}px;--t-s:${TY.s}px;
   --display:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;
   --body:'Manrope','Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono','Menlo','Consolas',monospace;
 }
 #stage,#stage *{box-sizing:border-box}
 #stage{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;overflow:hidden;background:#070b1e;font-family:var(--body);color:var(--text)}
@@ -35,9 +36,9 @@ export const buildCss = (colors, series, TY = { xl: 128, l: 72, m: 44, s: 28 }) 
 #hdr span{font-family:var(--display);font-weight:800;font-size:var(--t-s);letter-spacing:.07em;text-transform:uppercase;line-height:1}
 /* Progress tracker moved from top-center to top-left corner (replaces the old #hdr badge). */
 #trk{left:64px;top:50px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:14px 26px;background:rgba(10,16,48,.72);border:1px solid rgba(255,255,255,.16);border-radius:8px}
-#wm{right:64px;top:54px;display:flex;align-items:center;gap:12px}
-#wm b{width:44px;height:44px;border-radius:10px;background:var(--violet);display:flex;align-items:center;justify-content:center}
-#wm span{font-family:var(--display);font-weight:800;font-size:var(--t-s);letter-spacing:.08em;text-transform:uppercase}
+#wm{right:45px;top:29px;display:flex;align-items:center;gap:13px;color:#fff;font-family:var(--mono);font-weight:700;font-size:21px;letter-spacing:.2em;line-height:1;text-transform:uppercase}
+#wm b{font-weight:700;color:#fff}
+#wm i{font-style:normal;color:#ffc13a}
 #pr{left:0;top:704px;width:1600px;text-align:center;font-family:var(--display);font-weight:900;font-size:var(--t-l);line-height:1.12;text-transform:uppercase;white-space:nowrap}
 #pr .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .14em}
 #pr .wi{display:inline-block;will-change:transform}

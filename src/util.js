@@ -13,6 +13,7 @@ const FONT_FILES = [
   { family: "Big Shoulders Display", weight: "900", file: "fonts/big-shoulders-display-latin-900-normal.woff2" },
   { family: "Manrope", weight: "500", file: "fonts/manrope-latin-500-normal.woff2" },
   { family: "Manrope", weight: "700", file: "fonts/manrope-latin-700-normal.woff2" },
+  { family: "JetBrains Mono", weight: "700", file: "fonts/JetBrainsMono-Bold.ttf" },
 ];
 
 // Local fonts from public/fonts, no network. Holds the render until every face is loaded.
