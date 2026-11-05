@@ -394,31 +394,50 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
     maskImage: `url(${imgSrc})`, maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "center",
   };
 
-  // ---- visual hint: one body-part detail flashes in colour for ~1s at hint time --------------
-  // Auto-assigns a body part per hero (chest/weapon/hand/eye/leg). The peek flashes on at peek.startSeconds
-  // and off after peek.durationSeconds — it does NOT hold until the reveal (that would give away too much).
+  // ---- visual hint: body-part detail flashes in colour — a double-flash for premium energy ----------
+  // Auto-assigns a body part per hero (chest/weapon/hand/eye/leg). Two quick flashes: one at ~3.8s,
+  // a second at ~5.2s. Each has a snappy flicker-on then a smooth ease-out fade. Does NOT hold until reveal.
   const pk = settings.peek || { enabled: false };
   const pkPart = pk.bodyParts ? (round.peekPart || peekPartFor(round.heroName)) : null;
   const pkPartCfg = pkPart && pk.bodyParts ? pk.bodyParts[pkPart] : null;
   const pkX = round.peekX ?? (BT && BT.peekX) ?? (pkPartCfg ? pkPartCfg.x : pk.x) ?? 50;
   const pkY = round.peekY ?? (BT && BT.peekY) ?? (pkPartCfg ? pkPartCfg.y : pk.y) ?? 15;
   const pkR = round.peekR ?? (BT && BT.radius) ?? (pkPartCfg ? pkPartCfg.radius : pk.radius) ?? 52;
-  const pkOn = detail || (pk.enabled && !isBonus); // the colour spot is the puzzle on eye / weapon rounds; off for other bonus types
+  const pkOn = detail || (pk.enabled && !isBonus);
   const pkStart = detail ? 0.3 : (pk.startSeconds ?? H);
-  const pkDur = detail ? 999 : (pk.durationSeconds ?? 1.1);
+  const pkDur = detail ? 999 : (pk.durationSeconds ?? 0.85);
+  const pk2At = detail ? null : (pk.secondFlashAt ?? 5.2);
+  const pk2Dur = detail ? 0 : (pk.secondFlashDuration ?? 0.7);
+  // Single flash envelope: snappy flicker-on (0.18s), hold, smooth ease-out fade (0.3s)
+  const flashEnv = (t0, dur) => {
+    if (t < t0 || t >= t0 + dur) return 0;
+    const pt = t - t0;
+    const open = ex(pr(t, t0, t0 + 0.18));               // fast expo-in open
+    const flick = pt < (pk.flickerSeconds ?? 0.18) ? (Math.sin(pt * 73) + Math.sin(pt * 41 + 1) > -0.15 ? 1 : 0.25) : 1;
+    const pulse = 0.85 + 0.15 * Math.sin(pt * 9);         // gentle breathing pulse
+    const fadeOut = 1 - ex(pr(t, t0 + dur - 0.3, t0 + dur)); // smooth expo-out fade
+    return open * flick * pulse * cl(fadeOut, 0, 1);
+  };
   let pkVis = 0;
-  if (pkOn && t >= pkStart && (detail || t < pkStart + pkDur)) {
-    const pt = t - pkStart;
-    const open = eo(pr(t, pkStart, pkStart + 0.35));
-    // Stutter while it powers on, then a pulse that speeds up towards the end of the flash
-    const flick = pt < (pk.flickerSeconds ?? 0.3) ? (Math.sin(pt * 61) + Math.sin(pt * 37 + 1) > -0.2 ? 1 : 0.2) : 1;
-    const pulse = pt < (pk.flickerSeconds ?? 0.3) ? 1 : 0.82 + 0.18 * Math.sin(pt * (6 + pt * 2.4));
-    // For normal rounds: fade out at the end of the duration. For detail rounds (eye/weapon bonus): hold until reveal.
-    const fadeOut = detail ? (t < Q ? 1 : 1 - pr(t, Q + 0.2, Q + 0.5)) : (1 - pr(t, pkStart + pkDur - 0.3, pkStart + pkDur));
-    pkVis = open * flick * pulse * cl(fadeOut, 0, 1);
+  if (pkOn && t >= pkStart) {
+    if (detail) {
+      // Eye/weapon bonus: hold until reveal (the colour spot IS the puzzle)
+      const open = eo(pr(t, pkStart, pkStart + 0.35));
+      const pt = t - pkStart;
+      const flick = pt < 0.3 ? (Math.sin(pt * 61) + Math.sin(pt * 37 + 1) > -0.2 ? 1 : 0.2) : 1;
+      const pulse = pt < 0.3 ? 1 : 0.82 + 0.18 * Math.sin(pt * (6 + pt * 2.4));
+      const fadeOut = t < Q ? 1 : 1 - pr(t, Q + 0.2, Q + 0.5);
+      pkVis = open * flick * pulse * cl(fadeOut, 0, 1);
+    } else {
+      // Normal round: double-flash
+      const f1 = flashEnv(pkStart, pkDur);
+      const f2 = pk2At != null ? flashEnv(pk2At, pk2Dur) : 0;
+      pkVis = cl(f1 + f2, 0, 1);
+    }
   }
-  const pkRad = pkR * (0.6 + 0.4 * cl(pkVis * 1.2, 0, 1)) * (preQ ? 1 + 0.5 * pre * 8 : 1);
-  const pkGlow = pkRad * (pk.glowRadius || 2.6);
+  // Subtle scale breathing: the peek window grows slightly with visibility
+  const pkRad = pkR * (0.7 + 0.3 * cl(pkVis * 1.1, 0, 1)) * (preQ ? 1 + 0.5 * pre * 8 : 1);
+  const pkGlow = pkRad * (pk.glowRadius || 3.2);
   const pkMaskFor = (cx, cy) =>
     `radial-gradient(circle at ${cx.toFixed(1)}px ${cy.toFixed(1)}px, #000 0, #000 ${(pkRad * 0.55).toFixed(1)}px, transparent ${pkRad.toFixed(1)}px)`;
   const pkLayerStyle = (mask) => ({ WebkitMaskImage: mask, maskImage: mask, WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat", opacity: Number(cl(pkVis, 0, 1).toFixed(3)) });
