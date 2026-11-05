@@ -54,6 +54,12 @@ export const buildCss = (colors, series, TY = { xl: 128, l: 72, m: 44, s: 28 }) 
 .card p{margin:0;font-family:var(--display);font-weight:800;font-size:var(--t-m);line-height:1.04;letter-spacing:.02em}
 #hint small{color:var(--series)}
 #hint{border-color:color-mix(in srgb,var(--series) 60%,transparent)}
+/* Letter-slot hints: sits on the ledge between the prompt (ends ~785) and the timer bar (starts 864). */
+#lh{left:0;top:792px;width:1600px;height:56px;display:flex;justify-content:center;align-items:center;pointer-events:none;transform-origin:50% 50%}
+#lh .tile{position:relative;flex:none;height:56px}
+#lh .tile .face{position:absolute;inset:0;border-radius:10px;overflow:hidden}
+#lh .tile .face b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:var(--t-m);line-height:1;letter-spacing:0}
+#lh .fixed{flex:none;display:flex;align-items:center;justify-content:center;height:56px;font-family:var(--display);font-weight:900;font-size:var(--t-m);color:var(--muted)}
 #fact small{color:var(--mint)}
 #fact{border-color:rgba(61,220,151,.6)}
 #nm{left:0;top:684px;width:1600px;text-align:center}

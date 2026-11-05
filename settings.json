@@ -110,8 +110,22 @@
     },
     "volume": 1
   },
-  "peek": {
+  "letterHints": {
     "enabled": true,
+    "hideTextCard": true,
+    "skipTypes": ["eye", "weapon", "fake"],
+    "showAtSeconds": 1.0,
+    "hint1AtSeconds": 3.0,
+    "hint2AtSeconds": null,
+    "tileW": 46,
+    "tileH": 56,
+    "gap": 10,
+    "fixedW": 22,
+    "spaceW": 34,
+    "maxWidth": 1380
+  },
+  "peek": {
+    "enabled": false,
     "x": 50,
     "y": 15,
     "radius": 52,

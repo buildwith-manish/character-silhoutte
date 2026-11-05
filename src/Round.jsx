@@ -19,6 +19,7 @@ import {
 } from "./gsap-helpers";
 import { buildCss } from "./style";
 import { varietyFor } from "./variation";
+import { buildSlots } from "./letterHints";
 import { colourSVG, silhouetteSVG } from "./hero-svg";
 import { findRound, fillTemplate, useFit, useFonts, usePreloadImage, useHeroColor, hexToRgb, mixRgb, lookFor, pickAccent } from "./util";
 
@@ -245,6 +246,19 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const ho = pr(t, Q - 0.12, Q + 0.15);
   const fn = ex(pr(t, Q + 0.6, Q + 1.2));
   const fs = spring(pr(t, Q + 0.6, Q + 1.5));
+
+  // ---- letter-slot hints (src/letterHints.js, settings.letterHints) ------------------------------------------------------
+  // One tile per character of the name. Hint 1 fills in at hint1AtSeconds, hint 2 at hint2AtSeconds (default: hintAtSeconds, where
+  // the ping + riser sit). Only those two exact positions fill in. They replace the text hint card unless hideTextCard is false.
+  const LH = settings.letterHints || { enabled: false };
+  const slotsOn = Boolean(LH.enabled && !(isBonus && (LH.skipTypes || []).includes(btype)));
+  const showTextCard = !(slotsOn && LH.hideTextCard);
+  const slots = slotsOn ? buildSlots(round.heroName) : [];
+  const slotW = (s) => (s.letter ? LH.tileW : s.ch === " " ? LH.spaceW : LH.fixedW);
+  const slotRowW = slots.reduce((a, s) => a + slotW(s), 0) + (LH.gap || 0) * Math.max(0, slots.length - 1);
+  const slotScale = slotRowW > 0 ? Math.min(1, LH.maxWidth / slotRowW) : 1; // long names shrink instead of overflowing
+  const hintT = [0, LH.hint1AtSeconds ?? 3, LH.hint2AtSeconds ?? H]; // seconds at which hint 1 / hint 2 fill in
+  const slotOut = eio(pr(t, Q - 0.15, Q + 0.12)); // leaves together with the prompt, before the name stamps in
 
   // ---- progress tracker ("12 / 50") and end-card CTA --------------------------------------------------------------------
   const PG = settings.progress || { enabled: false };
@@ -614,6 +628,99 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
           })}
         </div>
 
+        {slotsOn && slots.length ? (
+          <div
+            id="lh"
+            style={{
+              gap: LH.gap,
+              opacity: Number((1 - slotOut).toFixed(3)),
+              transform: `translateY(${(slotOut * 40).toFixed(1)}px) scale(${slotScale.toFixed(4)})`,
+            }}
+          >
+            {slots.map((s, i) => {
+              const e = ex(pr(t, LH.showAtSeconds + i * 0.04, LH.showAtSeconds + 0.5 + i * 0.04)); // staggered rise-in
+              const rise = `translateY(${((1 - e) * 34).toFixed(1)}px)`;
+              const enter = { opacity: Number(e.toFixed(3)), transform: rise };
+              if (!s.letter) {
+                if (s.ch === " ") return <div key={i} className="fixed" style={{ width: LH.spaceW }} />;
+                const bar = s.ch === "-" || s.ch === "–" || s.ch === "—";
+                return (
+                  <div key={i} className="fixed" style={{ width: LH.fixedW, ...enter }}>
+                    {bar ? <i style={{ display: "block", width: 16, height: 4, borderRadius: 2, background: "rgba(255,255,255,.6)" }} /> : s.ch}
+                  </div>
+                );
+              }
+              const u = s.hint ? t - hintT[s.hint] : -1; // seconds since this tile's hint fired
+              const on = u >= 0;
+              const pop = on ? spring(pr(u, 0, 0.7)) : 0;
+              const settle = on ? 1 - pr(u, 0, 0.9) : 0;
+              const flash = on ? Math.pow(1 - pr(u, 0, 0.4), 2) : 0;
+              const ring = on ? pr(u, 0, 0.65) : 1;
+              const glint = on ? pr(u, 0.08, 0.62) : 0;
+              const breathe = 0.5 + 0.5 * Math.sin(t * 2.4 + i * 0.7);
+              return (
+                <div
+                  key={i}
+                  className="tile"
+                  style={{
+                    width: LH.tileW,
+                    opacity: enter.opacity,
+                    transform: `${rise} scale(${(on ? 0.55 + 0.45 * pop : 1).toFixed(4)})`,
+                    borderRadius: 10,
+                    boxShadow: on
+                      ? `0 0 ${(16 + 18 * settle).toFixed(1)}px color-mix(in srgb, ${series} 75%, transparent), 0 8px 18px rgba(0,0,0,.35)`
+                      : "0 8px 18px rgba(0,0,0,.35)",
+                  }}
+                >
+                  <div
+                    className="face"
+                    style={{
+                      background: on
+                        ? `linear-gradient(180deg, color-mix(in srgb, ${series} 60%, #fff) 0%, ${series} 100%)`
+                        : "linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.035))",
+                      border: on ? `1.5px solid color-mix(in srgb, ${series} 35%, #fff)` : "1.5px solid rgba(255,255,255,.24)",
+                      boxShadow: on ? "inset 0 1px 0 rgba(255,255,255,.55)" : "inset 0 1px 0 rgba(255,255,255,.18)",
+                    }}
+                  >
+                    {on ? (
+                      <>
+                        <b style={{ color: colors.navy }}>{s.ch}</b>
+                        <div style={{ position: "absolute", inset: 0, background: "#fff", opacity: Number((0.9 * flash).toFixed(3)) }} />
+                        {glint > 0 && glint < 1 ? (
+                          <div
+                            style={{
+                              position: "absolute", top: -10, bottom: -10, left: 0, width: 22,
+                              background: "linear-gradient(105deg, rgba(255,255,255,0), rgba(255,255,255,.75), rgba(255,255,255,0))",
+                              transform: `translateX(${lerp(-30, 56, glint).toFixed(1)}px)`,
+                            }}
+                          />
+                        ) : null}
+                      </>
+                    ) : (
+                      <div
+                        style={{
+                          position: "absolute", left: "20%", bottom: 12, width: "60%", height: 3, borderRadius: 2,
+                          background: `rgba(255,255,255,${(0.34 + 0.24 * breathe).toFixed(3)})`,
+                        }}
+                      />
+                    )}
+                  </div>
+                  {on && ring < 1 ? (
+                    <div
+                      style={{
+                        position: "absolute", inset: -2, borderRadius: 12, pointerEvents: "none",
+                        border: `2px solid ${series}`,
+                        opacity: Number((0.7 * (1 - ring)).toFixed(3)),
+                        transform: `scale(${(1 + 0.8 * eo(ring)).toFixed(3)})`,
+                      }}
+                    />
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
+
         <div id="ring" style={{ opacity: rc, transform: `translateX(${(-90 * (1 - rc)).toFixed(1)}px)` }}>
           <div id="ringbox">
             <svg id="rsvg" width="180" height="180" viewBox="0 0 180 180" aria-hidden="true">
@@ -662,7 +769,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
           className="card"
           id="hint"
           style={{
-            opacity: hn * (1 - ho),
+            opacity: showTextCard ? hn * (1 - ho) : 0,
             clipPath: `inset(0 0 0 ${((1 - hn) * 100).toFixed(1)}%)`,
             transform: `translateX(${((1 - hs) * 60 - ho * 30).toFixed(1)}px)`,
           }}

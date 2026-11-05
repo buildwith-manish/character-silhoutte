@@ -78,3 +78,12 @@ with score tiers LEGEND / HERO / SIDEKICK / CIVILIAN computed from the real numb
 - Impact stack trimmed to: hit (flash, 1-3 frame hit-stop, position shake, colour fringe) -> colour circle + one shockwave ring + sparks -> name -> fact.
   Big reveals keep the light rays; lens flare is off (`reveal.flare` false), the second shockwave is off (`reveal.shock2` false) and the impact camera roll is off
   (`reveal.rollShake` 0). Set those back to true / 1 to restore them.
+
+## Letter-slot hints (settings.json -> letterHints, code in src/letterHints.js)
+- One tile per character of the hero's name sits on the ledge under the silhouette. Exactly 2 hints fill in, nothing else is revealed:
+  - Two-word or hyphenated names (Spider-Man, Iron Man): hint 1 = first letter of the first word, hint 2 = first letter of the last word.
+  - Single-word names (Thor, Hulk): hint 1 = first letter, hint 2 = last letter.
+  - Hyphens, spaces and dots show from the start. Only that exact position fills in, never every matching letter.
+- Timing: tiles rise in at `showAtSeconds` (1.0), hint 1 at `hint1AtSeconds` (3.0), hint 2 at `hint2AtSeconds` (default `hintAtSeconds`, so it lands on the ping + riser). They leave with the prompt at the reveal.
+- The text hint card is replaced by the slots (`hideTextCard`). Set it to false to show both. `skipTypes` lists bonus types that keep the old card.
+- The colour "peek" flicker is a third hint, so it is off on normal rounds: `peek.enabled: false`. Set it back to true to restore it. Eye / weapon bonus rounds are unaffected.
