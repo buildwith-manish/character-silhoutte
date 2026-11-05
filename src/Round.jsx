@@ -271,7 +271,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const cs = spring(pr(t, ctaT, ctaT + 0.8));
 
   // ---- difficulty badge (EASY / MEDIUM / HARD) ---------------------------------
-  // Derived from the round id using settings.difficulty.ranges; bonus rounds (id >= 500) show BONUS.
+  // Derived from the round id using settings.difficulty.ranges. Bonus rounds do NOT show a difficulty badge.
   const DF = settings.difficulty || { enabled: false };
   const diffLevel = (() => {
     if (!DF.enabled || isBonus) return null;
@@ -283,8 +283,8 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
     }
     return null;
   })();
-  const diffLabel = diffLevel ? (DF.labels || {})[diffLevel] || diffLevel.toUpperCase() : (isBonus ? (text.bonusLabel || "BONUS") : null);
-  const diffColor = diffLevel ? colors[diffLevel] : (isBonus ? colors.brandViolet : null);
+  const diffLabel = diffLevel ? (DF.labels || {})[diffLevel] || diffLevel.toUpperCase() : null;
+  const diffColor = diffLevel ? colors[diffLevel] : null;
   const diffShow = Boolean(diffLabel) && DF.enabled;
   const diffE = cl(trkE, 0, 1);  // same entrance as the tracker
   const diffFlame = diffLevel === "hard" && (DF.flameOnHard !== false);
@@ -632,15 +632,15 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
 
         {diffShow ? (
           <div id="lvl" style={{
-            opacity: Number(diffE.toFixed(3)),
+            opacity: Number((diffE * 0.78).toFixed(3)),
             transform: `translateX(${(-30 * (1 - diffE)).toFixed(1)}px)`,
-            background: `rgba(${diffColor ? hexToRgb(diffColor).join(",") : "255,255,255"},.14)`,
-            border: `1.5px solid ${diffColor || "rgba(255,255,255,.3)"}`,
+            background: `rgba(${diffColor ? hexToRgb(diffColor).join(",") : "255,255,255"},.08)`,
+            border: `1px solid rgba(${diffColor ? hexToRgb(diffColor).join(",") : "255,255,255"},.32)`,
             color: diffColor || "#fff",
-            boxShadow: diffFlame ? `0 0 14px rgba(${diffColor ? hexToRgb(diffColor).join(",") : "255,107,107"},.35)` : "none",
+            boxShadow: diffFlame ? `0 0 10px rgba(${diffColor ? hexToRgb(diffColor).join(",") : "255,107,107"},.18)` : "none",
           }}>
             {diffFlame ? (
-              <svg className="flame" width="18" height="22" viewBox="0 0 24 30" fill="currentColor" aria-hidden="true">
+              <svg className="flame" width="14" height="17" viewBox="0 0 24 30" fill="currentColor" aria-hidden="true">
                 <path d="M12 0 C 13.5 5, 18 7.5, 18 14 C 18 18.5, 15.5 22, 12 22 C 8.5 22, 6 18.5, 6 14 C 6 11, 8 9.5, 9 8 C 10.5 10, 11.5 9, 12 6 C 12.5 3, 11 2, 12 0 Z M 11 19 C 11 21, 13 21, 13 19 C 13 17.5, 11 17.5, 11 19 Z" />
               </svg>
             ) : null}

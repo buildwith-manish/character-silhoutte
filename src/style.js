@@ -78,8 +78,8 @@ export const buildCss = (colors, series, TY = { xl: 128, l: 72, m: 44, s: 28 }) 
 #trk .row span{color:var(--muted)}
 #trk .bar{width:180px;height:5px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
 #trk .bar i{display:block;height:100%;border-radius:3px;background:var(--series)}
-#lvl{left:64px;top:118px;display:flex;align-items:center;gap:8px;padding:7px 16px;border-radius:6px;font-family:var(--display);font-weight:900;font-size:18px;letter-spacing:.16em;line-height:1;text-transform:uppercase;white-space:nowrap}
-#lvl .flame{display:block;filter:drop-shadow(0 0 4px currentColor)}
+#lvl{left:64px;top:142px;display:flex;align-items:center;gap:7px;padding:5px 14px 5px 11px;border-radius:4px;font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.18em;line-height:1;text-transform:uppercase;white-space:nowrap;opacity:.78}
+#lvl .flame{display:block;filter:drop-shadow(0 0 3px currentColor)}
 #cta{left:1120px;top:350px;width:440px;padding:26px 32px 30px;background:var(--series);color:var(--navy);border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,.35)}
 #cta b{display:block;font-family:var(--display);font-weight:900;font-size:var(--t-m);line-height:1.04;letter-spacing:.03em;text-transform:uppercase}
 #cta small{display:block;margin-top:12px;font-size:var(--t-s);letter-spacing:.1em;font-weight:700;text-transform:uppercase}
