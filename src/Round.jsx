@@ -33,6 +33,38 @@ const BAR_W = 1440;
 
 const f1 = (x) => Number(x.toFixed(1));
 
+// Auto-assign a body-part peek per hero. Keyed by hero name (lowercase, no punctuation).
+// Heroes with iconic weapons → weapon; heroes with chest emblems → chest; etc.
+const PEEK_PART_OVERRIDE = {
+  // Weapons
+  "thor": "weapon", "iron man": "chest", "captain america": "weapon", "hawkeye": "weapon",
+  "wolverine": "hand", "deadpool": "weapon", "punisher": "chest", "blade": "weapon",
+  "ghost rider": "weapon", "iron fist": "hand", "gambit": "hand", "elektra": "weapon",
+  "moon knight": "weapon", "magneto": "hand", "doctor strange": "hand",
+  // Chest emblems
+  "superman": "chest", "batman": "chest", "spider-man": "chest", "black panther": "chest",
+  "wonder woman": "chest", "flash": "chest", "green lantern": "chest", "shazam": "chest",
+  "captain marvel": "chest", "ms. marvel": "chest", "nova": "chest",
+  // Hands / claws
+  "hulk": "hand", "the thing": "hand", "beast": "hand", "colossus": "hand",
+  // Eyes / mask focus
+  "black widow": "eye", "winter soldier": "eye", "nightcrawler": "eye", "gambit": "eye",
+  // Legs
+  "quicksilver": "leg", "flash": "leg", "black canary": "leg",
+};
+
+function peekPartFor(heroName) {
+  const key = String(heroName || "").toLowerCase().replace(/[^a-z .]/g, "").trim();
+  // Direct override
+  if (PEEK_PART_OVERRIDE[key]) return PEEK_PART_OVERRIDE[key];
+  // Partial-match fallback: check if any override key is a substring of the hero name
+  for (const k of Object.keys(PEEK_PART_OVERRIDE)) {
+    if (key.includes(k) || k.includes(key)) return PEEK_PART_OVERRIDE[k];
+  }
+  // Default: chest (most heroes have an emblem or distinctive chest detail)
+  return "chest";
+}
+
 // Per-round variety (seeded beats, calm / big reveal, wipe only on bonus rounds): see src/variation.js and settings.json -> variety.
 const varietyOf = (round) =>
   varietyFor(round, settings, round.total ?? (settings.progress && settings.progress.total) ?? rounds.length);
@@ -362,19 +394,28 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
     maskImage: `url(${imgSrc})`, maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "center",
   };
 
-  // ---- visual hint: one detail of the hero flickers on in colour at the hint time (eyes by default) --------------
+  // ---- visual hint: one body-part detail flashes in colour for ~1s at hint time --------------
+  // Auto-assigns a body part per hero (chest/weapon/hand/eye/leg). The peek flashes on at peek.startSeconds
+  // and off after peek.durationSeconds — it does NOT hold until the reveal (that would give away too much).
   const pk = settings.peek || { enabled: false };
-  const pkX = round.peekX ?? (BT && BT.peekX) ?? pk.x, pkY = round.peekY ?? (BT && BT.peekY) ?? pk.y, pkR = round.peekR ?? (BT && BT.radius) ?? pk.radius;
-  const pkOn = detail || (pk.enabled && !isBonus); // the colour spot is the puzzle on eye / weapon rounds, and is off for the other bonus types
-  const pkStart = detail ? 0.3 : H;
+  const pkPart = pk.bodyParts ? (round.peekPart || peekPartFor(round.heroName)) : null;
+  const pkPartCfg = pkPart && pk.bodyParts ? pk.bodyParts[pkPart] : null;
+  const pkX = round.peekX ?? (BT && BT.peekX) ?? (pkPartCfg ? pkPartCfg.x : pk.x) ?? 50;
+  const pkY = round.peekY ?? (BT && BT.peekY) ?? (pkPartCfg ? pkPartCfg.y : pk.y) ?? 15;
+  const pkR = round.peekR ?? (BT && BT.radius) ?? (pkPartCfg ? pkPartCfg.radius : pk.radius) ?? 52;
+  const pkOn = detail || (pk.enabled && !isBonus); // the colour spot is the puzzle on eye / weapon rounds; off for other bonus types
+  const pkStart = detail ? 0.3 : (pk.startSeconds ?? H);
+  const pkDur = detail ? 999 : (pk.durationSeconds ?? 1.1);
   let pkVis = 0;
-  if (pkOn && t >= pkStart) {
+  if (pkOn && t >= pkStart && (detail || t < pkStart + pkDur)) {
     const pt = t - pkStart;
-    const open = eo(pr(t, pkStart, pkStart + 0.45));
-    // stutter while it powers on, then a pulse that speeds up towards the reveal
-    const flick = pt < pk.flickerSeconds ? (Math.sin(pt * 61) + Math.sin(pt * 37 + 1) > -0.2 ? 1 : 0.2) : 1;
-    const pulse = pt < pk.flickerSeconds ? 1 : 0.82 + 0.18 * Math.sin(pt * (6 + pt * 2.4));
-    pkVis = t < Q ? open * flick * pulse : 1 - pr(t, Q + 0.2, Q + 0.5); // the reveal circle swallows it after Q
+    const open = eo(pr(t, pkStart, pkStart + 0.35));
+    // Stutter while it powers on, then a pulse that speeds up towards the end of the flash
+    const flick = pt < (pk.flickerSeconds ?? 0.3) ? (Math.sin(pt * 61) + Math.sin(pt * 37 + 1) > -0.2 ? 1 : 0.2) : 1;
+    const pulse = pt < (pk.flickerSeconds ?? 0.3) ? 1 : 0.82 + 0.18 * Math.sin(pt * (6 + pt * 2.4));
+    // For normal rounds: fade out at the end of the duration. For detail rounds (eye/weapon bonus): hold until reveal.
+    const fadeOut = detail ? (t < Q ? 1 : 1 - pr(t, Q + 0.2, Q + 0.5)) : (1 - pr(t, pkStart + pkDur - 0.3, pkStart + pkDur));
+    pkVis = open * flick * pulse * cl(fadeOut, 0, 1);
   }
   const pkRad = pkR * (0.6 + 0.4 * cl(pkVis * 1.2, 0, 1)) * (preQ ? 1 + 0.5 * pre * 8 : 1);
   const pkGlow = pkRad * (pk.glowRadius || 2.6);

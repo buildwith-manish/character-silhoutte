@@ -134,14 +134,21 @@
     "maxWidth": 1380
   },
   "peek": {
-    "enabled": false,
-    "x": 50,
-    "y": 15,
-    "radius": 52,
+    "enabled": true,
+    "startSeconds": 4,
+    "durationSeconds": 1.1,
     "glowRadius": 2.6,
     "glowColor": "255,214,130",
-    "flickerSeconds": 0.8,
-    "holdUntilReveal": true
+    "flickerSeconds": 0.3,
+    "holdUntilReveal": false,
+    "bodyParts": {
+      "eye":    { "x": 50, "y": 15, "radius": 48 },
+      "chest":  { "x": 50, "y": 35, "radius": 58 },
+      "hand":   { "x": 30, "y": 55, "radius": 44 },
+      "weapon": { "x": 72, "y": 58, "radius": 52 },
+      "leg":    { "x": 50, "y": 78, "radius": 46 },
+      "head":   { "x": 50, "y": 10, "radius": 52 }
+    }
   },
   "depth": {
     "bg": 0.35,
