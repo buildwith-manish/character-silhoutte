@@ -260,23 +260,6 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const ns = eo5(pr(t, Q + 0.6, Q + 1.15));
   const realName = fillTemplate(text.realNameTemplate, { realName: String(round.realName).replace(/^\(|\)$/g, "") });
 
-  // ---- letter slots (hint → reveal teaser) -------------------------------------
-  // Underscore slots under the silhouette; letters pop in one-by-one from hintAtSeconds to ~0.5s before the reveal.
-  // Skipped on bonus rounds where the player has to spot a detail (eye / weapon) or spot the fake — the name would be a giveaway.
-  const LS = settings.letterSlots || { enabled: false };
-  const lsSkipDetail = isBonus && (btype === "eye" || btype === "weapon" || btype === "fake");
-  const letterSlotsShow = LS.enabled && !lsSkipDetail && Boolean(round.heroName);
-  const lslotsChars = letterSlotsShow ? nameChars : [];
-  const lsStart = LS.startSeconds ?? H;
-  const lsEnd = LS.endSeconds ?? (Q - 0.5);
-  const lsPop = LS.popSeconds ?? 0.35;
-  const lsN = lslotsChars.length;
-  const lsPer = lsN > 1 ? Math.max(0, (lsEnd - lsStart - lsPop) / (lsN - 1)) : 0;
-  const lsSize = TY[LS.size] || TY.l;
-  const lsE = ex(pr(t, lsStart - 0.2, lsStart + 0.1));  // entrance: fade + slide up
-  const lsOut = cl(1 - pr(t, Q - 0.1, Q + 0.1), 0, 1);  // exit: fade out right at the reveal
-  const lsOpacity = lsE * lsOut;
-
   // ---- auto-fit text (long names / hints shrink instead of overflowing) -------------------------------------
   // Cards: text area must stay above the ledge (4 lines at 50px = 208px) and no single word may overflow the card.
   const hintRef = useRef(null), factRef = useRef(null), nameRef = useRef(null), realRef = useRef(null);
@@ -720,28 +703,6 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
             {`${tr.toFixed(2)}s  f${frame}\n${tr < 0.5 ? "WIPE IN" : tr < H ? "QUESTION" : tr < Q ? "HINT + COUNTDOWN" : tr < ctaT ? "REVEAL" : tr < W || !VR.wipeOut ? (isCta ? "CTA" : "FACT") : "WIPE OUT"}`}
           </div>
         ) : null}
-
-        <div id="lslots" style={{ opacity: Number(lsOpacity.toFixed(3)), transform: `translateY(${((1 - lsE) * 16).toFixed(1)}px)`, fontSize: lsSize }}>
-          {lslotsChars.map((ch, i) => {
-            const lp = cl(pr(t, lsStart + i * lsPer, lsStart + i * lsPer + lsPop), 0, 1);
-            const le = eb(lp);
-            const isGap = ch === " " || ch === "-";
-            const revealed = lp > 0.5;
-            return (
-              <span
-                key={i}
-                className={`slot${isGap ? " gap" : ""}`}
-                style={{
-                  opacity: isGap ? 0.5 : Number(lerp(0.3, 1, eo(lp)).toFixed(3)),
-                  transform: `scale(${isGap ? 1 : Number((0.75 + 0.25 * le).toFixed(3))})`,
-                  color: isGap ? "var(--muted)" : "var(--text)",
-                }}
-              >
-                {isGap ? (ch === " " ? "\u00A0" : "\u2013") : revealed ? ch : "_"}
-              </span>
-            );
-          })}
-        </div>
 
         <div id="nm">
           <div id="nmain" ref={nameRef} style={{ fontSize: nameSize }}>

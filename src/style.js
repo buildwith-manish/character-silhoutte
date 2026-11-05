@@ -58,9 +58,6 @@ export const buildCss = (colors, series, TY = { xl: 128, l: 72, m: 44, s: 28 }) 
 #nmain span{display:inline-block;will-change:transform}
 #nsubw{overflow:hidden;margin-top:6px;padding-bottom:4px}
 #nsub{font-family:var(--display);font-weight:700;font-size:var(--t-m);line-height:1.1;letter-spacing:.22em;color:var(--series);text-transform:uppercase}
-#lslots{left:0;top:790px;width:1600px;text-align:center;display:flex;justify-content:center;align-items:baseline;gap:.03em;font-family:var(--display);font-weight:900;font-size:var(--t-m);line-height:1;letter-spacing:.06em;pointer-events:none}
-#lslots .slot{display:inline-block;min-width:.52em;text-align:center;will-change:transform,opacity}
-#lslots .slot.gap{min-width:.22em}
 #track{left:80px;top:868px;width:1440px;height:10px;border-radius:5px;background:rgba(255,255,255,.14)}
 #fill{left:80px;top:868px;height:10px;border-radius:5px;width:1440px}
 .tk{top:864px;width:3px;height:18px;background:rgba(5,8,22,.9)}
