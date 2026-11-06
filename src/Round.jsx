@@ -193,7 +193,11 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const halfClip = half ? (showLeft ? `inset(-10% ${(50 - 140 * hp).toFixed(1)}% -10% -90%)` : `inset(-10% -90% -10% ${(50 - 140 * hp).toFixed(1)}%)`) : undefined;
   const heroTransform = `translate(${(glitchX + fakeDx).toFixed(2)}px, ${((1 - heroIn) * (lit ? 14 : 50) + br * 4).toFixed(2)}px) scale(${(1.14 * fakeSc * (1 + 0.01 * br - antiSc + pop)).toFixed(4)})`;
   const shadowScale = (preQ ? 1 - 1.2 * antiSc : 1 + 0.4 * Math.exp(-(t - Q) * 6)) + 0.03 * br;
-  const heroFilter = `blur(${((1 - hi) * (HK ? HK.focusBlurPx : lit ? 5 : 12)).toFixed(1)}px) drop-shadow(0 0 ${glow.toFixed(1)}px ${preQ ? "rgba(190,210,255,.35)" : rim})`;
+  // During the pre-reveal silhouette phase, the drop-shadow is a very subtle neutral glow (not colored)
+  // so no color bleeds into the silhouette edges. At the reveal, the full colored rim kicks in.
+  const heroFilter = preQ
+    ? `blur(${((1 - hi) * (HK ? HK.focusBlurPx : lit ? 5 : 12)).toFixed(1)}px) drop-shadow(0 0 6px rgba(180,195,235,.12))`
+    : `blur(${((1 - hi) * (HK ? HK.focusBlurPx : lit ? 5 : 12)).toFixed(1)}px) drop-shadow(0 0 ${glow.toFixed(1)}px ${rim})`;
   const capeAng = Math.sin(t * 1.9) * 1.3 + Math.sin(t * 3) * 0.6;
 
   // light band sweeps (1.6-3.0 s and 4.9-6.3 s)
