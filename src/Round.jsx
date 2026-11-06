@@ -788,6 +788,9 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
               const ring   = on ? pr(u, 0, 0.65) : 1;
               const glint  = on ? pr(u, 0.08, 0.62) : 0;
               const breathe = 0.5 + 0.5 * Math.sin(t * 2.4 + i * 0.7);
+              // hint tiles (the clue) are solid; tiles filled at the reveal stay GLASS with the letter inside
+              const solid = on && s.hint > 0;
+              const glass = on && !s.hint;
 
               return (
                 <div
@@ -800,23 +803,25 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
                     transform: `${rise} scale(${(on ? 0.55 + 0.45 * pop : 1).toFixed(4)})`,
                     borderRadius: 14,
                     boxShadow: on
-                      ? `0 0 ${(16 + 18 * settle).toFixed(1)}px color-mix(in srgb, ${series} 75%, transparent), 0 8px 18px rgba(0,0,0,.35)`
+                      ? `0 0 ${((s.hint ? 16 : 10) + 18 * settle).toFixed(1)}px color-mix(in srgb, ${series} ${s.hint ? 75 : 55}%, transparent), 0 8px 18px rgba(0,0,0,.35)`
                       : "0 8px 18px rgba(0,0,0,.35)",
                   }}
                 >
                   <div
                     className="face"
                     style={{
-                      background: on
+                      background: solid
                         ? `linear-gradient(180deg, color-mix(in srgb, ${series} 60%, #fff) 0%, ${series} 100%)`
-                        : "linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.035))",
-                      border: on ? `1.5px solid color-mix(in srgb, ${series} 35%, #fff)` : "1.5px solid rgba(255,255,255,.24)",
-                      boxShadow: on ? "inset 0 1px 0 rgba(255,255,255,.55)" : "inset 0 1px 0 rgba(255,255,255,.18)",
+                        : glass
+                          ? `linear-gradient(180deg, color-mix(in srgb, ${series} 30%, rgba(255,255,255,.22)), color-mix(in srgb, ${series} 14%, rgba(255,255,255,.06)))`
+                          : "linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.035))",
+                      border: solid ? `1.5px solid color-mix(in srgb, ${series} 35%, #fff)` : glass ? `1.5px solid color-mix(in srgb, ${series} 55%, rgba(255,255,255,.4))` : "1.5px solid rgba(255,255,255,.24)",
+                      boxShadow: on ? "inset 0 1px 0 rgba(255,255,255,.45)" : "inset 0 1px 0 rgba(255,255,255,.18)",
                     }}
                   >
                     {on ? (
                       <>
-                        <b style={{ color: colors.navy, transform: GLYPH[s.ch] ? `scaleX(${Math.min(1, (LH.tileW - 14) / (GLYPH[s.ch] * TY.xl)).toFixed(3)})` : undefined }}>{s.ch}</b>
+                        <b style={{ color: solid ? colors.navy : "#fff", transform: GLYPH[s.ch] ? `scaleX(${Math.min(1, (LH.tileW - 14) / (GLYPH[s.ch] * TY.xl)).toFixed(3)})` : undefined }}>{s.ch}</b>
                         <div style={{ position: "absolute", inset: 0, background: "#fff", opacity: Number((0.9 * flash).toFixed(3)) }} />
                         {glint > 0 && glint < 1 ? (
                           <div style={{
