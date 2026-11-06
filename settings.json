@@ -417,11 +417,7 @@
       ],
       "footer": "{total} HEROES \u2022 {bonus} BONUS ROUNDS",
       "go": "READY?",
-      "teaserIds": [
-        1,
-        15,
-        36
-      ],
+      "teaserIds": [12, 10, 13],
       "teaserText": "Can you name all 50?",
       "teaserSeconds": 2
     },
