@@ -12,7 +12,7 @@ const st = JSON.parse(fs.readFileSync(P.settings, "utf8"));
 const widths = [["portrait, video full-width (390 px)", 390], ["landscape / full-screen (844 px)", 844]];
 const MIN_PX = 9; // rough floor for comfortable reading of bold display text
 console.log("type size   role                                  " + widths.map(([n]) => n).join("   "));
-const roles = { xl: "hero name, countdown number, +1", l: "question prompt", m: "hint / fact / CTA text, real name", s: "header, watermark, labels, tracker" };
+const roles = { xl: "hero name, countdown number, +1", l: "question card text, letter-hint tiles at xl", m: "fact / CTA text, real name", s: "header, watermark, labels, tracker" };
 let warn = 0;
 for (const k of ["xl", "l", "m", "s"]) {
   const cols = widths.map(([, w]) => { const px = (st.type[k] / 1600) * w; if (px < MIN_PX) warn++; return `${px.toFixed(1)} px${px < MIN_PX ? " (!)" : ""}`.padEnd(36); });

@@ -39,8 +39,10 @@ export const buildCss = (colors, series, TY = { xl: 128, l: 72, m: 44, s: 28 }) 
 #wm{right:45px;top:29px;display:flex;align-items:center;gap:13px;color:#fff;font-family:var(--mono);font-weight:700;font-size:21px;letter-spacing:.2em;line-height:1;text-transform:uppercase}
 #wm b{font-weight:700;color:#fff}
 #wm i{font-style:normal;color:#ffc13a}
-#pr{left:0;top:704px;width:1600px;text-align:center;font-family:var(--display);font-weight:900;font-size:var(--t-l);line-height:1.12;text-transform:uppercase;white-space:nowrap}
-#pr .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .14em}
+#pr{left:1120px;top:350px;width:440px;padding:26px 32px 30px;background:rgba(255,255,255,.08);border:1.5px solid color-mix(in srgb,var(--series) 60%,transparent);border-radius:10px;font-family:var(--display);font-weight:900;font-size:var(--t-l);line-height:1.04;letter-spacing:.03em;text-transform:uppercase;text-align:left}
+#pr small{display:block;font-family:var(--body);font-size:var(--t-s);letter-spacing:.1em;font-weight:700;color:var(--series);margin-bottom:12px}
+#pr .ln{display:flex;flex-wrap:wrap;column-gap:.26em}
+#pr .w{display:block;overflow:hidden;padding-bottom:.08em;white-space:nowrap}
 #pr .wi{display:inline-block;will-change:transform}
 #pr .q{color:var(--series)}
 #ring{left:150px;top:350px;width:180px;text-align:center}
@@ -52,14 +54,12 @@ export const buildCss = (colors, series, TY = { xl: 128, l: 72, m: 44, s: 28 }) 
 .card{left:1120px;top:350px;width:440px;padding:26px 32px 30px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);border-radius:10px}
 .card small{display:block;font-size:var(--t-s);letter-spacing:.1em;font-weight:700;text-transform:uppercase;margin-bottom:10px}
 .card p{margin:0;font-family:var(--display);font-weight:800;font-size:var(--t-m);line-height:1.04;letter-spacing:.02em}
-#hint small{color:var(--series)}
-#hint{border-color:color-mix(in srgb,var(--series) 60%,transparent)}
-/* Letter-slot hints: sits on the ledge between the prompt (ends ~785) and the timer bar (starts 864). */
-#lh{left:0;top:792px;width:1600px;height:56px;display:flex;justify-content:center;align-items:center;pointer-events:none;transform-origin:50% 50%}
-#lh .tile{position:relative;flex:none;height:56px}
-#lh .tile .face{position:absolute;inset:0;border-radius:10px;overflow:hidden}
-#lh .tile .face b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:var(--t-m);line-height:1;letter-spacing:0}
-#lh .fixed{flex:none;display:flex;align-items:center;justify-content:center;height:56px;font-family:var(--display);font-weight:900;font-size:var(--t-m);color:var(--muted)}
+/* Letter-slot hints: same size and same spot as the revealed hero name (#nm, top 684, 128px type), so the name stamps in over the tiles. */
+#lh{left:0;top:684px;width:1600px;display:flex;justify-content:center;align-items:center;pointer-events:none;transform-origin:50% 50%}
+#lh .tile{position:relative;flex:none}
+#lh .tile .face{position:absolute;inset:0;border-radius:14px;overflow:hidden}
+#lh .tile .face b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:var(--t-xl);line-height:1;letter-spacing:0;padding-top:4px}
+#lh .fixed{flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:var(--t-xl);color:var(--muted)}
 #fact small{color:var(--mint)}
 #fact{border-color:rgba(61,220,151,.6)}
 #nm{left:0;top:684px;width:1600px;text-align:center}

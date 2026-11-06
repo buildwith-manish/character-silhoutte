@@ -80,10 +80,12 @@ with score tiers LEGEND / HERO / SIDEKICK / CIVILIAN computed from the real numb
   (`reveal.rollShake` 0). Set those back to true / 1 to restore them.
 
 ## Letter-slot hints (settings.json -> letterHints, code in src/letterHints.js)
-- One tile per character of the hero's name sits on the ledge under the silhouette. Exactly 2 hints fill in, nothing else is revealed:
+- One tile per character of the hero's name. The tiles are the same size and in the same spot as the revealed name (128 px type, `tileH` 122, row top 684), so the name stamps in right where the tiles were. Exactly 2 hints fill in, nothing else is revealed:
   - Two-word or hyphenated names (Spider-Man, Iron Man): hint 1 = first letter of the first word, hint 2 = first letter of the last word.
   - Single-word names (Thor, Hulk): hint 1 = first letter, hint 2 = last letter.
   - Hyphens, spaces and dots show from the start. Only that exact position fills in, never every matching letter.
-- Timing: tiles rise in at `showAtSeconds` (1.0), hint 1 at `hint1AtSeconds` (3.0), hint 2 at `hint2AtSeconds` (default `hintAtSeconds`, so it lands on the ping + riser). They leave with the prompt at the reveal.
-- The text hint card is replaced by the slots (`hideTextCard`). Set it to false to show both. `skipTypes` lists bonus types that keep the old card.
-- The colour "peek" flicker is a third hint, so it is off on normal rounds: `peek.enabled: false`. Set it back to true to restore it. Eye / weapon bonus rounds are unaffected.
+- Timing: tiles rise in at `showAtSeconds` (1.0), hint 1 at `hint1AtSeconds` (3.0, soft ping in the mix), hint 2 at `hint2AtSeconds` (default `hintAtSeconds`, which is where the main ping + riser sit). Tiles leave with the question card at the reveal.
+- `skipTypes` lists the bonus types that show no tiles (eye, weapon, fake).
+- The text hint card is gone (code and `hint` column are no longer needed; the column is optional now).
+- The question ("WHO IS THIS HERO?") is a card on the right, in the same spot as the fact card, with a small label (`text.promptLabel`, bonus rounds show their own label). It slides out as the fact card slides in.
+- Peek (body-part flash) is still a separate setting: `peek.enabled`.

@@ -53,7 +53,7 @@ function readSourceRounds() {
   const seen = new Set();
   const BONUS_TYPES = ["eye", "weapon", "half", "fake", "blur"];
   const mapped = raw.map((r, idx) => {
-    for (const k of ["id", "universe", "heroName", "realName", "hint", "fact"]) {
+    for (const k of ["id", "universe", "heroName", "realName", "fact"]) {
       if (r[k] == null || String(r[k]).trim() === "") throw new Error(`${source}: row ${idx + 1} is missing "${k}"`);
     }
     const id = Number(r.id);
@@ -69,7 +69,7 @@ function readSourceRounds() {
       universe: String(r.universe).trim(),
       heroName: String(r.heroName).trim(),
       realName: String(r.realName).trim(),
-      hint: String(r.hint).trim(),
+      hint: String(r.hint || "").trim(), // optional and unused: the letter-slot tiles replaced the text hint card
       fact: String(r.fact).trim(),
       imageQuery: String(r.imageQuery || "").trim() || `${String(r.heroName).trim()} ${String(r.universe).trim()}`,
       imageFile,

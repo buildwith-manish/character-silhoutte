@@ -233,7 +233,6 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const wmFirst = wmParts.join(" ") || wmLast;
   const barIn = lit ? ex(pr(t, 0.35, 0.95)) : ex(pr(t, 0.55, 1.3));
   const words = String(isBonus ? BT.prompt : text.promptText).trim().split(/\s+/);
-  const promptSpacing = lit ? lerp(0.16, 0.05, ex(pr(t, 0.1, 1.2))) : lerp(0.16, 0.05, ex(pr(t, 0.6, 1.7)));
 
   // ---- countdown ring --------------------------------------------------------
   const ri = lit ? eb(pr(t, 0.55, 1.1)) : eb(pr(t, 0.85, 1.5));
@@ -272,25 +271,25 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
     ringLabel = text.scoreLabel;
   }
 
-  // ---- hint / fact cards --------------------------------------------------------
-  const hn = ex(pr(t, H, H + 0.6));
-  const hs = spring(pr(t, H, H + 0.9));
-  const ho = pr(t, Q - 0.12, Q + 0.15);
+  // ---- question / fact cards ----------------------------------------------------
+  // question card (right side, same spot as the fact card) + fact card timing
+  const qIn = lit ? ex(pr(t, 0.05, 0.6)) : ex(pr(t, 0.5, 1.1));
+  const qOut = eio(pr(t, Q - 0.15, Q + 0.12));
   const fn = ex(pr(t, Q + 0.6, Q + 1.2));
   const fs = spring(pr(t, Q + 0.6, Q + 1.5));
 
   // ---- letter-slot hints (src/letterHints.js, settings.letterHints) ------------------------------------------------------
   // One tile per character of the name. Hint 1 fills in at hint1AtSeconds, hint 2 at hint2AtSeconds (default: hintAtSeconds, where
-  // the ping + riser sit). Only those two exact positions fill in. They replace the text hint card unless hideTextCard is false.
+  // the ping + riser sit). Only those two exact positions fill in. The old text hint card is gone.
   const LH = settings.letterHints || { enabled: false };
   const slotsOn = Boolean(LH.enabled && !(isBonus && (LH.skipTypes || []).includes(btype)));
-  const showTextCard = !(slotsOn && LH.hideTextCard);
   const slots = slotsOn ? buildSlots(round.heroName) : [];
   const slotW = (s) => (s.letter ? LH.tileW : s.ch === " " ? LH.spaceW : LH.fixedW);
   const slotRowW = slots.reduce((a, s) => a + slotW(s), 0) + (LH.gap || 0) * Math.max(0, slots.length - 1);
   const slotScale = slotRowW > 0 ? Math.min(1, LH.maxWidth / slotRowW) : 1; // long names shrink instead of overflowing
   const hintT = [0, LH.hint1AtSeconds ?? 3, LH.hint2AtSeconds ?? H]; // seconds at which hint 1 / hint 2 fill in
-  const slotOut = eio(pr(t, Q - 0.15, Q + 0.12)); // leaves together with the prompt, before the name stamps in
+  const slotOut = qOut; // tiles leave together with the question card, right before the name stamps in over the same spot
+  const GLYPH = { W: 0.8, M: 0.745 }; // the only two letters wider than a tile at name size: squeezed a little to fit
 
   // ---- progress tracker ("12 / 50") and end-card CTA --------------------------------------------------------------------
   const PG = settings.progress || { enabled: false };
@@ -330,9 +329,8 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
 
   // ---- auto-fit text (long names / hints shrink instead of overflowing) -------------------------------------
   // Cards: text area must stay above the ledge (4 lines at 50px = 208px) and no single word may overflow the card.
-  const hintRef = useRef(null), factRef = useRef(null), nameRef = useRef(null), realRef = useRef(null);
+  const factRef = useRef(null), nameRef = useRef(null), realRef = useRef(null);
   const cardFits = (el) => el.scrollHeight <= 208 && el.scrollWidth <= el.clientWidth + 1;
-  const hintSize = useFit(hintRef, fontsReady, round.hint, { max: TY.m, min: TY.s, fits: cardFits });
   const factSize = useFit(factRef, fontsReady, round.fact, { max: TY.m, min: TY.s, fits: cardFits });
   // Hero name: one line, at most as wide as the progress bar (1440px).
   const nameSize = useFit(nameRef, fontsReady, round.heroName, {
@@ -708,21 +706,31 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
           </div>
         ) : null}
 
-        <div id="pr" style={{ letterSpacing: `${promptSpacing.toFixed(3)}em` }}>
-          {words.map((w, i) => {
-            const ein = lit ? ex(pr(t, 0.1 + i * 0.09, 0.55 + i * 0.09)) : ex(pr(t, 0.65 + i * 0.1, 1.2 + i * 0.1));
-            const eout = eio(pr(t, Q - 0.15 + i * 0.04, Q + 0.12 + i * 0.04));
-            return (
-              <span className="w" key={i}>
-                <span
-                  className={`wi${i === words.length - 1 ? " q" : ""}`}
-                  style={{ transform: `translateY(${((1 - ein) * 115 - eout * 115).toFixed(1)}%)` }}
-                >
-                  {w}
+        <div
+          id="pr"
+          style={{
+            opacity: Number((qIn * (1 - qOut)).toFixed(3)),
+            clipPath: `inset(0 0 0 ${((1 - qIn) * 100).toFixed(1)}%)`,
+            transform: `translateX(${((1 - qIn) * 60 + qOut * 30).toFixed(1)}px)`,
+          }}
+        >
+          <small>{isBonus ? BT.label : text.promptLabel || "QUESTION"}</small>
+          <div className="ln">
+            {words.map((w, i) => {
+              const ein = lit ? ex(pr(t, 0.15 + i * 0.09, 0.6 + i * 0.09)) : ex(pr(t, 0.65 + i * 0.1, 1.2 + i * 0.1));
+              const eout = eio(pr(t, Q - 0.15 + i * 0.04, Q + 0.12 + i * 0.04));
+              return (
+                <span className="w" key={i}>
+                  <span
+                    className={`wi${i === words.length - 1 ? " q" : ""}`}
+                    style={{ transform: `translateY(${((1 - ein) * 115 - eout * 115).toFixed(1)}%)` }}
+                  >
+                    {w}
+                  </span>
                 </span>
-              </span>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
         {slotsOn && slots.length ? (
@@ -731,6 +739,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
             style={{
               gap: LH.gap,
               opacity: Number((1 - slotOut).toFixed(3)),
+              height: LH.tileH,
               transform: `translateY(${(slotOut * 40).toFixed(1)}px) scale(${slotScale.toFixed(4)})`,
             }}
           >
@@ -739,11 +748,11 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
               const rise = `translateY(${((1 - e) * 34).toFixed(1)}px)`;
               const enter = { opacity: Number(e.toFixed(3)), transform: rise };
               if (!s.letter) {
-                if (s.ch === " ") return <div key={i} className="fixed" style={{ width: LH.spaceW }} />;
+                if (s.ch === " ") return <div key={i} className="fixed" style={{ width: LH.spaceW, height: LH.tileH }} />;
                 const bar = s.ch === "-" || s.ch === "–" || s.ch === "—";
                 return (
-                  <div key={i} className="fixed" style={{ width: LH.fixedW, ...enter }}>
-                    {bar ? <i style={{ display: "block", width: 16, height: 4, borderRadius: 2, background: "rgba(255,255,255,.6)" }} /> : s.ch}
+                  <div key={i} className="fixed" style={{ width: LH.fixedW, height: LH.tileH, ...enter }}>
+                    {bar ? <i style={{ display: "block", width: 30, height: 8, borderRadius: 4, background: "rgba(255,255,255,.6)" }} /> : s.ch}
                   </div>
                 );
               }
@@ -761,9 +770,10 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
                   className="tile"
                   style={{
                     width: LH.tileW,
+                    height: LH.tileH,
                     opacity: enter.opacity,
                     transform: `${rise} scale(${(on ? 0.55 + 0.45 * pop : 1).toFixed(4)})`,
-                    borderRadius: 10,
+                    borderRadius: 14,
                     boxShadow: on
                       ? `0 0 ${(16 + 18 * settle).toFixed(1)}px color-mix(in srgb, ${series} 75%, transparent), 0 8px 18px rgba(0,0,0,.35)`
                       : "0 8px 18px rgba(0,0,0,.35)",
@@ -781,14 +791,14 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
                   >
                     {on ? (
                       <>
-                        <b style={{ color: colors.navy }}>{s.ch}</b>
+                        <b style={{ color: colors.navy, transform: GLYPH[s.ch] ? `scaleX(${Math.min(1, (LH.tileW - 14) / (GLYPH[s.ch] * TY.xl)).toFixed(3)})` : undefined }}>{s.ch}</b>
                         <div style={{ position: "absolute", inset: 0, background: "#fff", opacity: Number((0.9 * flash).toFixed(3)) }} />
                         {glint > 0 && glint < 1 ? (
                           <div
                             style={{
-                              position: "absolute", top: -10, bottom: -10, left: 0, width: 22,
+                              position: "absolute", top: -10, bottom: -10, left: 0, width: 36,
                               background: "linear-gradient(105deg, rgba(255,255,255,0), rgba(255,255,255,.75), rgba(255,255,255,0))",
-                              transform: `translateX(${lerp(-30, 56, glint).toFixed(1)}px)`,
+                              transform: `translateX(${lerp(-44, LH.tileW + 8, glint).toFixed(1)}px)`,
                             }}
                           />
                         ) : null}
@@ -796,7 +806,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
                     ) : (
                       <div
                         style={{
-                          position: "absolute", left: "20%", bottom: 12, width: "60%", height: 3, borderRadius: 2,
+                          position: "absolute", left: "18%", bottom: Math.round(LH.tileH * 0.2), width: "64%", height: 6, borderRadius: 3,
                           background: `rgba(255,255,255,${(0.34 + 0.24 * breathe).toFixed(3)})`,
                         }}
                       />
@@ -805,8 +815,8 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
                   {on && ring < 1 ? (
                     <div
                       style={{
-                        position: "absolute", inset: -2, borderRadius: 12, pointerEvents: "none",
-                        border: `2px solid ${series}`,
+                        position: "absolute", inset: -3, borderRadius: 17, pointerEvents: "none",
+                        border: `3px solid ${series}`,
                         opacity: Number((0.7 * (1 - ring)).toFixed(3)),
                         transform: `scale(${(1 + 0.8 * eo(ring)).toFixed(3)})`,
                       }}
@@ -862,18 +872,6 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
           <div id="ringlbl">{ringLabel}</div>
         </div>
 
-        <div
-          className="card"
-          id="hint"
-          style={{
-            opacity: showTextCard ? hn * (1 - ho) : 0,
-            clipPath: `inset(0 0 0 ${((1 - hn) * 100).toFixed(1)}%)`,
-            transform: `translateX(${((1 - hs) * 60 - ho * 30).toFixed(1)}px)`,
-          }}
-        >
-          <small>{text.hintLabel}</small>
-          <p ref={hintRef} style={{ fontSize: hintSize }}>{round.hint}</p>
-        </div>
         <div
           className="card"
           id="fact"

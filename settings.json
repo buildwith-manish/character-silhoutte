@@ -6,7 +6,6 @@
   "wipeSeconds": 0.5,
   "text": {
     "promptText": "WHO IS THIS HERO?",
-    "hintLabel": "HINT",
     "factLabel": "FIRST APPEARED IN",
     "scoreLabel": "YOUR SCORE",
     "secondsLabel": "SECONDS",
@@ -15,7 +14,8 @@
     "headerTemplate": "Question #{n} \u2022 {universe}",
     "realNameTemplate": "({realName})",
     "bonusHeaderTemplate": "Bonus Round \u2022 {label}",
-    "bonusLabel": "BONUS"
+    "bonusLabel": "BONUS",
+    "promptLabel": "QUESTION"
   },
   "colors": {
     "navy": "#0B1230",
@@ -33,8 +33,25 @@
   },
   "difficulty": {
     "enabled": true,
-    "ranges": { "easy": [1, 17], "medium": [18, 34], "hard": [35, 50] },
-    "labels": { "easy": "EASY", "medium": "MEDIUM", "hard": "HARD" },
+    "ranges": {
+      "easy": [
+        1,
+        17
+      ],
+      "medium": [
+        18,
+        34
+      ],
+      "hard": [
+        35,
+        50
+      ]
+    },
+    "labels": {
+      "easy": "EASY",
+      "medium": "MEDIUM",
+      "hard": "HARD"
+    },
     "flameOnHard": true
   },
   "audio": {
@@ -121,17 +138,20 @@
   },
   "letterHints": {
     "enabled": true,
-    "hideTextCard": true,
-    "skipTypes": ["eye", "weapon", "fake"],
+    "skipTypes": [
+      "eye",
+      "weapon",
+      "fake"
+    ],
     "showAtSeconds": 1.0,
     "hint1AtSeconds": 3.0,
     "hint2AtSeconds": null,
-    "tileW": 46,
-    "tileH": 56,
-    "gap": 10,
-    "fixedW": 22,
-    "spaceW": 34,
-    "maxWidth": 1380
+    "tileW": 84,
+    "tileH": 122,
+    "gap": 8,
+    "fixedW": 30,
+    "spaceW": 40,
+    "maxWidth": 1440
   },
   "peek": {
     "enabled": true,
@@ -144,12 +164,36 @@
     "flickerSeconds": 0.18,
     "holdUntilReveal": false,
     "bodyParts": {
-      "eye":    { "x": 50, "y": 15, "radius": 46 },
-      "chest":  { "x": 50, "y": 35, "radius": 56 },
-      "hand":   { "x": 30, "y": 55, "radius": 42 },
-      "weapon": { "x": 72, "y": 58, "radius": 50 },
-      "leg":    { "x": 50, "y": 78, "radius": 44 },
-      "head":   { "x": 50, "y": 10, "radius": 50 }
+      "eye": {
+        "x": 50,
+        "y": 15,
+        "radius": 46
+      },
+      "chest": {
+        "x": 50,
+        "y": 35,
+        "radius": 56
+      },
+      "hand": {
+        "x": 30,
+        "y": 55,
+        "radius": 42
+      },
+      "weapon": {
+        "x": 72,
+        "y": 58,
+        "radius": 50
+      },
+      "leg": {
+        "x": 50,
+        "y": 78,
+        "radius": 44
+      },
+      "head": {
+        "x": 50,
+        "y": 10,
+        "radius": 50
+      }
     }
   },
   "depth": {

@@ -4,7 +4,7 @@ import settings from "../settings.json";
 
 const fps = settings.fps;
 const Q = settings.questionSeconds; // question phase ends, reveal starts
-const H = settings.hintAtSeconds; // hint card appears
+const H = settings.hintAtSeconds; // second letter hint, ping + riser start
 const W = Q + settings.revealSeconds; // reveal ends, wipe-out starts
 const D = W + settings.wipeSeconds; // end of the clip
 

@@ -221,7 +221,17 @@ function buildRound(round) {
     }
   }
 
-  // --- hint ping + riser (hint -> reveal) ---
+  // --- first letter hint: a softer, lower ping (uses no random draws, so every other seeded sound in the round is unchanged) ---
+  if (settings.letterHints && settings.letterHints.enabled) {
+    const H1 = settings.letterHints.hint1AtSeconds ?? 3;
+    const b = buf(0.35);
+    tone(b, 784 * Math.pow(2, key / 12), 0, 0.24, "sine", 0.12);
+    normalise(b, 0.3);
+    addMono(pre, b, H1, L.ping * 0.7, 0.1);
+    feedKey(b, H1, 0.6);
+  }
+
+  // --- second letter hint: ping + riser (hint -> reveal) ---
   {
     const b = buf(0.35);
     tone(b, 1046 * ratio(), 0, 0.28, "sine", 0.12);
@@ -533,7 +543,7 @@ const todo = ids ? rounds.filter((r) => ids.includes(r.id)) : rounds;
 const cacheFile = path.join(outDir, ".mixhash.json");
 let cache = {};
 try { cache = JSON.parse(fs.readFileSync(cacheFile, "utf8")); } catch {}
-const codeHash = crypto.createHash("sha1").update(fs.readFileSync(__filename)).update(fs.readFileSync(path.join(__dirname, "..", "src", "variation.js"))).update(JSON.stringify([M, Q, H, W, D, settings.variety || null])).digest("hex");
+const codeHash = crypto.createHash("sha1").update(fs.readFileSync(__filename)).update(fs.readFileSync(path.join(__dirname, "..", "src", "variation.js"))).update(JSON.stringify([M, Q, H, W, D, settings.variety || null, settings.letterHints || null])).digest("hex");
 const force = flag("force", false) === true;
 let built = 0, kept = 0;
 for (const r of todo) {
