@@ -292,6 +292,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   // ---- letter-slot hints (src/letterHints.js, settings.letterHints) ------------------------------------------------------
   // One tile per character of the name. Hint 1 fills in at hint1AtSeconds, hint 2 at hint2AtSeconds (default: hintAtSeconds, where
   // the ping + riser sit). Only those two exact positions fill in. The old text hint card is gone.
+  const nameChars = Array.from(String(round.heroName).toUpperCase()); // moved up: needed by nmHandoff below
   const LH = settings.letterHints || { enabled: false };
   const slotsOn = Boolean(LH.enabled && !(isBonus && (LH.skipTypes || []).includes(btype)));
   const slots = slotsOn ? buildSlots(round.heroName, { maxRatio: LH.maxRatio, positions: round.hintPositions }) : [];
@@ -374,7 +375,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const factOut = isCta ? pr(t, ctaT - 0.2, ctaT) : 0; // on CTA clips the fact card hands its slot to the CTA
 
   // ---- name ---------------------------------------------------------------------
-  const nameChars = Array.from(String(round.heroName).toUpperCase());
+  // nameChars is defined above (needed by the letter-slot hints block)
   const front = ((t - (Q + 1.1)) / 0.8) * (nameChars.length + 3) - 1.5;
   const ns = eo5(pr(t, Q + 0.6, Q + 1.15));
   const realName = fillTemplate(text.realNameTemplate, { realName: String(round.realName).replace(/^\(|\)$/g, "") });

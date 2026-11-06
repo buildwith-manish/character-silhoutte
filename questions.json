@@ -140,7 +140,10 @@
     "imageQuery": "",
     "imageFile": "11.png",
     "seriesColor": "#FFB53D",
-    "level": "easy"
+    "level": "easy",
+    "hintPositions": [
+      3
+    ]
   },
   {
     "id": 12,
