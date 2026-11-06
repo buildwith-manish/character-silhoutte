@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Builds ONE finished, mastered stereo soundtrack per round: public/sounds/rounds/<id>.wav (11 s, 44.1 kHz, 16-bit).
+// Builds ONE finished, mastered stereo soundtrack per round: public/sounds/rounds/<id>.wav (12 s, 44.1 kHz, 16-bit).
 //
 // What the mix does (all tunable in settings.json -> "mix"):
 //   - Pre-reveal duck: everything except the reveal FX drops to near-silence `duckLeadMs` (150 ms) before the reveal, so the impact lands out of a hole.

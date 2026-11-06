@@ -2,11 +2,11 @@
   "fps": 60,
   "questionSeconds": 7,
   "hintAtSeconds": 4.5,
-  "revealSeconds": 3.5,
+  "revealSeconds": 4.5,
   "wipeSeconds": 0.5,
   "text": {
     "promptText": "WHO IS THIS HERO?",
-    "factLabel": "FIRST APPEARED IN",
+    "factLabel": "DID YOU KNOW?",
     "scoreLabel": "YOUR SCORE",
     "secondsLabel": "SECONDS",
     "scoreText": "+1",
@@ -316,7 +316,7 @@
   "cta": {
     "enabled": true,
     "lastN": 0,
-    "startSeconds": 1.9,
+    "startSeconds": 3.0,
     "text": "How many did you get?",
     "sub": "Comment your score",
     "autoLast": false

@@ -5,7 +5,7 @@
     "heroName": "Spider-Man",
     "realName": "Peter Parker",
     "hint": "Your friendly neighborhood hero",
-    "fact": "Amazing Fantasy #15 (1962)",
+    "fact": "Played by Tobey, Andrew AND Tom Holland on the big screen.",
     "imageQuery": "",
     "imageFile": "1.png",
     "seriesColor": "#FFB53D"
@@ -16,7 +16,7 @@
     "heroName": "Iron Man",
     "realName": "Tony Stark",
     "hint": "Genius, billionaire, playboy, philanthropist",
-    "fact": "Tales of Suspense #39 (1963)",
+    "fact": "Stan Lee made him an arms dealer to see if readers would still cheer.",
     "imageQuery": "",
     "imageFile": "2.png",
     "seriesColor": "#FFB53D"
@@ -27,7 +27,7 @@
     "heroName": "Captain America",
     "realName": "Steve Rogers",
     "hint": "The first Avenger",
-    "fact": "Captain America Comics #1 (1941)",
+    "fact": "Punched Hitler on his first comic cover, before the US joined WWII.",
     "imageQuery": "",
     "imageFile": "3.png",
     "seriesColor": "#FFB53D"
@@ -38,7 +38,7 @@
     "heroName": "Thor",
     "realName": "Thor Odinson",
     "hint": "God of Thunder",
-    "fact": "Journey into Mystery #83 (1962)",
+    "fact": "Chris Hemsworth has swung the hammer since 2011.",
     "imageQuery": "",
     "imageFile": "4.png",
     "seriesColor": "#FFB53D"
@@ -49,7 +49,7 @@
     "heroName": "Hulk",
     "realName": "Bruce Banner",
     "hint": "Don't make him angry",
-    "fact": "The Incredible Hulk #1 (1962)",
+    "fact": "He was gray in issue #1. Printing problems made him green.",
     "imageQuery": "",
     "imageFile": "5.png",
     "seriesColor": "#FFB53D"
@@ -60,7 +60,7 @@
     "heroName": "Black Panther",
     "realName": "T'Challa",
     "hint": "King of Wakanda",
-    "fact": "Fantastic Four #52 (1966)",
+    "fact": "Marvel's first Black superhero, debuting back in 1966.",
     "imageQuery": "",
     "imageFile": "6.png",
     "seriesColor": "#FFB53D"
@@ -71,7 +71,7 @@
     "heroName": "Wolverine",
     "realName": "Logan",
     "hint": "Claws, healing and a bad attitude",
-    "fact": "The Incredible Hulk #181 (1974)",
+    "fact": "Hugh Jackman has played him on screen since 2000.",
     "imageQuery": "",
     "imageFile": "7.png",
     "seriesColor": "#FFB53D"
@@ -82,7 +82,7 @@
     "heroName": "Doctor Strange",
     "realName": "Stephen Strange",
     "hint": "Sorcerer Supreme",
-    "fact": "Strange Tales #110 (1963)",
+    "fact": "A brilliant surgeon until a car crash ruined his hands.",
     "imageQuery": "",
     "imageFile": "8.png",
     "seriesColor": "#FFB53D"
@@ -93,7 +93,7 @@
     "heroName": "Black Widow",
     "realName": "Natasha Romanoff",
     "hint": "Super-spy of the Red Room",
-    "fact": "Tales of Suspense #52 (1964)",
+    "fact": "She debuted in 1964 as a Soviet spy and an Iron Man villain.",
     "imageQuery": "",
     "imageFile": "9.png",
     "seriesColor": "#FFB53D"
@@ -104,7 +104,7 @@
     "heroName": "Thanos",
     "realName": "Thanos",
     "hint": "The Mad Titan",
-    "fact": "The Invincible Iron Man #55 (1973)",
+    "fact": "His name comes from Thanatos, the Greek god of death.",
     "imageQuery": "",
     "imageFile": "10.png",
     "seriesColor": "#FFB53D"
@@ -115,7 +115,7 @@
     "heroName": "Loki",
     "realName": "Loki Laufeyson",
     "hint": "God of Mischief",
-    "fact": "Journey into Mystery #85 (1962)",
+    "fact": "Tom Hiddleston first auditioned to play Thor, not Loki.",
     "imageQuery": "",
     "imageFile": "11.png",
     "seriesColor": "#FFB53D"
@@ -126,7 +126,7 @@
     "heroName": "Venom",
     "realName": "Eddie Brock",
     "hint": "We are...",
-    "fact": "The Amazing Spider-Man #300 (1988)",
+    "fact": "The alien suit bonded with Spider-Man before it found Eddie Brock.",
     "imageQuery": "",
     "imageFile": "12.png",
     "seriesColor": "#FFB53D"
@@ -137,7 +137,7 @@
     "heroName": "Groot",
     "realName": "Groot",
     "hint": "Three words, one tree",
-    "fact": "Tales to Astonish #13 (1960)",
+    "fact": "He debuted in 1960 as a villainous monster, not a hero.",
     "imageQuery": "",
     "imageFile": "13.png",
     "seriesColor": "#FFB53D"
@@ -148,7 +148,7 @@
     "heroName": "Captain Marvel",
     "realName": "Carol Danvers",
     "hint": "Higher, further, faster",
-    "fact": "Marvel Super-Heroes #13 (1968)",
+    "fact": "Carol Danvers was a US Air Force pilot before her powers.",
     "imageQuery": "",
     "imageFile": "14.png",
     "seriesColor": "#FFB53D"
@@ -159,7 +159,7 @@
     "heroName": "Hawkeye",
     "realName": "Clint Barton",
     "hint": "Never misses a shot",
-    "fact": "Tales of Suspense #57 (1964)",
+    "fact": "Hawkeye debuted as an Iron Man villain in 1964.",
     "imageQuery": "",
     "imageFile": "15.png",
     "seriesColor": "#FFB53D"
@@ -170,7 +170,7 @@
     "heroName": "Star-Lord",
     "realName": "Peter Quill",
     "hint": "Legendary outlaw with a mixtape",
-    "fact": "Marvel Preview #4 (1976)",
+    "fact": "In the films, aliens abducted him from Earth as a kid in 1988.",
     "imageQuery": "",
     "imageFile": "16.png",
     "seriesColor": "#FFB53D"
@@ -181,7 +181,7 @@
     "heroName": "Rocket",
     "realName": "Rocket Raccoon",
     "hint": "Small, armed and very angry",
-    "fact": "Marvel Preview #7 (1976)",
+    "fact": "Named after the Beatles song \"Rocky Raccoon\".",
     "imageQuery": "",
     "imageFile": "17.png",
     "seriesColor": "#FFB53D"
@@ -192,7 +192,7 @@
     "heroName": "Scarlet Witch",
     "realName": "Wanda Maximoff",
     "hint": "Reality bends to her will",
-    "fact": "The X-Men #4 (1964)",
+    "fact": "She debuted as a villain, recruited by Magneto.",
     "imageQuery": "",
     "imageFile": "18.png",
     "seriesColor": "#FFB53D"
@@ -203,7 +203,7 @@
     "heroName": "Ant-Man",
     "realName": "Scott Lang",
     "hint": "Small hero, big heart",
-    "fact": "Marvel Premiere #47 (1979)",
+    "fact": "Scott Lang was a thief before he ever shrank.",
     "imageQuery": "",
     "imageFile": "19.png",
     "seriesColor": "#FFB53D"
@@ -214,7 +214,7 @@
     "heroName": "Magneto",
     "realName": "Erik Lehnsherr",
     "hint": "Master of magnetism",
-    "fact": "The X-Men #1 (1963)",
+    "fact": "Played by both Ian McKellen and Michael Fassbender.",
     "imageQuery": "",
     "imageFile": "20.png",
     "seriesColor": "#FFB53D"
@@ -225,7 +225,7 @@
     "heroName": "Daredevil",
     "realName": "Matt Murdock",
     "hint": "The Man Without Fear",
-    "fact": "Daredevil #1 (1964)",
+    "fact": "A radioactive accident blinded him but supercharged his other senses.",
     "imageQuery": "",
     "imageFile": "21.png",
     "seriesColor": "#FFB53D"
@@ -236,7 +236,7 @@
     "heroName": "Punisher",
     "realName": "Frank Castle",
     "hint": "A skull on his chest",
-    "fact": "The Amazing Spider-Man #129 (1974)",
+    "fact": "He debuted as a villain in a Spider-Man comic.",
     "imageQuery": "",
     "imageFile": "22.png",
     "seriesColor": "#FFB53D"
@@ -247,7 +247,7 @@
     "heroName": "Ghost Rider",
     "realName": "Johnny Blaze",
     "hint": "Vengeance on two wheels",
-    "fact": "Marvel Spotlight #5 (1972)",
+    "fact": "Johnny Blaze sold his soul to the devil to save his father.",
     "imageQuery": "",
     "imageFile": "23.png",
     "seriesColor": "#FFB53D"
@@ -258,7 +258,7 @@
     "heroName": "Storm",
     "realName": "Ororo Munroe",
     "hint": "Controls the weather",
-    "fact": "Giant-Size X-Men #1 (1975)",
+    "fact": "In the comics, Africa once worshipped her as a weather goddess.",
     "imageQuery": "",
     "imageFile": "24.png",
     "seriesColor": "#FFB53D"
@@ -269,7 +269,7 @@
     "heroName": "Cyclops",
     "realName": "Scott Summers",
     "hint": "His eyes fire optic blasts",
-    "fact": "The X-Men #1 (1963)",
+    "fact": "His eyes fire beams he can't turn off without special glasses.",
     "imageQuery": "",
     "imageFile": "25.png",
     "seriesColor": "#FFB53D"
@@ -280,7 +280,7 @@
     "heroName": "Professor X",
     "realName": "Charles Xavier",
     "hint": "The most powerful mind on Earth",
-    "fact": "The X-Men #1 (1963)",
+    "fact": "Patrick Stewart and James McAvoy both played him.",
     "imageQuery": "",
     "imageFile": "26.png",
     "seriesColor": "#FFB53D"
@@ -291,7 +291,7 @@
     "heroName": "Nightcrawler",
     "realName": "Kurt Wagner",
     "hint": "Teleports in a puff of smoke",
-    "fact": "Giant-Size X-Men #1 (1975)",
+    "fact": "His teleports come with a puff of brimstone and a BAMF!",
     "imageQuery": "",
     "imageFile": "27.png",
     "seriesColor": "#FFB53D"
@@ -302,7 +302,7 @@
     "heroName": "Beast",
     "realName": "Hank McCoy",
     "hint": "Brilliant scientist with blue fur",
-    "fact": "The X-Men #1 (1963)",
+    "fact": "A genius scientist and one of the five original X-Men.",
     "imageQuery": "",
     "imageFile": "28.png",
     "seriesColor": "#FFB53D"
@@ -313,7 +313,7 @@
     "heroName": "Vision",
     "realName": "Vision",
     "hint": "Android born of an Avengers battle",
-    "fact": "The Avengers #57 (1968)",
+    "fact": "Paul Bettany voiced JARVIS before he ever played Vision.",
     "imageQuery": "",
     "imageFile": "29.png",
     "seriesColor": "#FFB53D"
@@ -324,7 +324,7 @@
     "heroName": "Falcon",
     "realName": "Sam Wilson",
     "hint": "Wings and a shield of his own",
-    "fact": "Captain America #117 (1969)",
+    "fact": "Sam Wilson later took up Captain America's shield.",
     "imageQuery": "",
     "imageFile": "30.png",
     "seriesColor": "#FFB53D"
@@ -335,7 +335,7 @@
     "heroName": "War Machine",
     "realName": "James Rhodes",
     "hint": "Iron Man's best friend, heavily armed",
-    "fact": "Iron Man #118 (1979)",
+    "fact": "Don Cheadle replaced Terrence Howard in Iron Man 2.",
     "imageQuery": "",
     "imageFile": "31.png",
     "seriesColor": "#FFB53D"
@@ -346,7 +346,7 @@
     "heroName": "Winter Soldier",
     "realName": "Bucky Barnes",
     "hint": "A metal arm and a missing past",
-    "fact": "Captain America Comics #1 (1941)",
+    "fact": "Bucky stayed dead in the comics for over 40 years.",
     "imageQuery": "",
     "imageFile": "32.png",
     "seriesColor": "#FFB53D"
@@ -357,7 +357,7 @@
     "heroName": "Gamora",
     "realName": "Gamora",
     "hint": "Deadliest woman in the galaxy",
-    "fact": "Strange Tales #180 (1975)",
+    "fact": "She is known as \"the deadliest woman in the galaxy\".",
     "imageQuery": "",
     "imageFile": "33.png",
     "seriesColor": "#FFB53D"
@@ -368,7 +368,7 @@
     "heroName": "Green Goblin",
     "realName": "Norman Osborn",
     "hint": "Pumpkin bombs and a glider",
-    "fact": "The Amazing Spider-Man #14 (1964)",
+    "fact": "Willem Dafoe played him in 2002 and again in No Way Home.",
     "imageQuery": "",
     "imageFile": "34.png",
     "seriesColor": "#FFB53D"
@@ -379,7 +379,7 @@
     "heroName": "Doctor Octopus",
     "realName": "Otto Octavius",
     "hint": "Four mechanical arms",
-    "fact": "The Amazing Spider-Man #3 (1963)",
+    "fact": "Alfred Molina played him in two different Spider-Man movies.",
     "imageQuery": "",
     "imageFile": "35.png",
     "seriesColor": "#FFB53D"
@@ -390,7 +390,7 @@
     "heroName": "Mysterio",
     "realName": "Quentin Beck",
     "hint": "Illusions in a fishbowl helmet",
-    "fact": "The Amazing Spider-Man #13 (1964)",
+    "fact": "Before turning villain, he was a movie special-effects artist.",
     "imageQuery": "",
     "imageFile": "36.png",
     "seriesColor": "#FFB53D"
@@ -401,7 +401,7 @@
     "heroName": "Human Torch",
     "realName": "Johnny Storm",
     "hint": "Flame on!",
-    "fact": "The Fantastic Four #1 (1961)",
+    "fact": "His catchphrase is \"Flame on!\"",
     "imageQuery": "",
     "imageFile": "37.png",
     "seriesColor": "#FFB53D"
@@ -412,7 +412,7 @@
     "heroName": "Mr. Fantastic",
     "realName": "Reed Richards",
     "hint": "The stretchiest genius alive",
-    "fact": "The Fantastic Four #1 (1961)",
+    "fact": "One of the smartest people in the entire Marvel universe.",
     "imageQuery": "",
     "imageFile": "38.png",
     "seriesColor": "#FFB53D"
@@ -423,7 +423,7 @@
     "heroName": "Namor",
     "realName": "Namor McKenzie",
     "hint": "King of Atlantis",
-    "fact": "Marvel Comics #1 (1939)",
+    "fact": "One of Marvel's oldest characters, debuting in 1939.",
     "imageQuery": "",
     "imageFile": "39.png",
     "seriesColor": "#FFB53D"
@@ -434,7 +434,7 @@
     "heroName": "Rogue",
     "realName": "Anna Marie",
     "hint": "Touch her and you lose your powers",
-    "fact": "The Avengers Annual #10 (1981)",
+    "fact": "One touch steals powers and memories.",
     "imageQuery": "",
     "imageFile": "40.png",
     "seriesColor": "#FFB53D"
@@ -445,7 +445,7 @@
     "heroName": "Nick Fury",
     "realName": "Nicholas Fury",
     "hint": "Director of S.H.I.E.L.D.",
-    "fact": "Sgt. Fury and His Howling Commandos #1 (1963)",
+    "fact": "Samuel L. Jackson was the model for the Ultimate Nick Fury.",
     "imageQuery": "",
     "imageFile": "41.png",
     "seriesColor": "#FFB53D"
@@ -456,7 +456,7 @@
     "heroName": "Blade",
     "realName": "Eric Brooks",
     "hint": "Vampire hunter",
-    "fact": "The Tomb of Dracula #10 (1973)",
+    "fact": "Wesley Snipes starred in Blade in 1998, years before the MCU.",
     "imageQuery": "",
     "imageFile": "42.png",
     "seriesColor": "#FFB53D"
@@ -467,7 +467,7 @@
     "heroName": "She-Hulk",
     "realName": "Jennifer Walters",
     "hint": "Lawyer by day, smasher by choice",
-    "fact": "The Savage She-Hulk #1 (1980)",
+    "fact": "She is a lawyer, and she breaks the fourth wall.",
     "imageQuery": "",
     "imageFile": "43.png",
     "seriesColor": "#FFB53D"
@@ -478,7 +478,7 @@
     "heroName": "Nebula",
     "realName": "Nebula",
     "hint": "Daughter of Thanos, cyborg rival",
-    "fact": "The Avengers #257 (1985)",
+    "fact": "Karen Gillan shaved her head to play Nebula.",
     "imageQuery": "",
     "imageFile": "44.png",
     "seriesColor": "#FFB53D"
@@ -489,7 +489,7 @@
     "heroName": "Drax",
     "realName": "Arthur Douglas",
     "hint": "The Destroyer",
-    "fact": "The Invincible Iron Man #55 (1973)",
+    "fact": "Dave Bautista was a WWE champion before playing Drax.",
     "imageQuery": "",
     "imageFile": "45.png",
     "seriesColor": "#FFB53D"
@@ -500,7 +500,7 @@
     "heroName": "Quicksilver",
     "realName": "Pietro Maximoff",
     "hint": "The fastest man in the room",
-    "fact": "The X-Men #4 (1964)",
+    "fact": "Two rival studios made two different movie versions a year apart.",
     "imageQuery": "",
     "imageFile": "46.png",
     "seriesColor": "#FFB53D"
@@ -511,7 +511,7 @@
     "heroName": "Shang-Chi",
     "realName": "Shang-Chi",
     "hint": "Master of kung fu",
-    "fact": "Special Marvel Edition #15 (1973)",
+    "fact": "Simu Liu starred in Marvel's first Asian-led movie, in 2021.",
     "imageQuery": "",
     "imageFile": "47.png",
     "seriesColor": "#FFB53D"
@@ -522,7 +522,7 @@
     "heroName": "Moon Knight",
     "realName": "Marc Spector",
     "hint": "Avatar of the Egyptian moon god",
-    "fact": "Werewolf by Night #32 (1975)",
+    "fact": "Marc Spector has multiple identities.",
     "imageQuery": "",
     "imageFile": "48.png",
     "seriesColor": "#FFB53D"
@@ -533,7 +533,7 @@
     "heroName": "Invisible Woman",
     "realName": "Sue Storm",
     "hint": "Now you see her, now you don't",
-    "fact": "The Fantastic Four #1 (1961)",
+    "fact": "She can also project invisible force fields.",
     "imageQuery": "",
     "imageFile": "49.png",
     "seriesColor": "#FFB53D"
@@ -544,7 +544,7 @@
     "heroName": "Iron Fist",
     "realName": "Danny Rand",
     "hint": "The Immortal Weapon",
-    "fact": "Marvel Premiere #15 (1974)",
+    "fact": "A martial arts master from the hidden city of K'un-Lun.",
     "imageQuery": "",
     "imageFile": "50.png",
     "seriesColor": "#FFB53D"
@@ -555,7 +555,7 @@
     "heroName": "Deadpool",
     "realName": "Wade Wilson",
     "hint": "The merc with a mouth",
-    "fact": "The New Mutants #98 (1991)",
+    "fact": "He knows he's in a comic and talks straight to the reader.",
     "imageQuery": "",
     "imageFile": "501.png",
     "seriesColor": "#FFB53D",
@@ -570,7 +570,7 @@
     "heroName": "Silver Surfer",
     "realName": "Norrin Radd",
     "hint": "Rides the cosmic waves",
-    "fact": "The Fantastic Four #48 (1966)",
+    "fact": "A herald of Galactus who rides a surfboard through space.",
     "imageQuery": "",
     "imageFile": "502.png",
     "seriesColor": "#FFB53D",
@@ -585,7 +585,7 @@
     "heroName": "Doctor Doom",
     "realName": "Victor von Doom",
     "hint": "Latveria's ruler, always masked",
-    "fact": "The Fantastic Four #5 (1962)",
+    "fact": "Victor von Doom is both a scientist and a sorcerer.",
     "imageQuery": "",
     "imageFile": "503.png",
     "seriesColor": "#FFB53D",
@@ -597,7 +597,7 @@
     "heroName": "Ms. Marvel",
     "realName": "Kamala Khan",
     "hint": "Embiggen!",
-    "fact": "Captain Marvel #14 (2013)",
+    "fact": "Kamala Khan is Marvel's first Muslim hero with her own title.",
     "imageQuery": "",
     "imageFile": "504.png",
     "seriesColor": "#FFB53D",
@@ -609,7 +609,7 @@
     "heroName": "The Thing",
     "realName": "Ben Grimm",
     "hint": "It's clobberin' time!",
-    "fact": "The Fantastic Four #1 (1961)",
+    "fact": "Ben Grimm's catchphrase is \"It's clobberin' time!\"",
     "imageQuery": "",
     "imageFile": "505.png",
     "seriesColor": "#FFB53D",

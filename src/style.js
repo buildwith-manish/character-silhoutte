@@ -61,7 +61,7 @@ export const buildCss = (colors, series, TY = { xl: 128, l: 72, m: 44, s: 28 }) 
 #lh .tile .face b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:var(--t-xl);line-height:1;letter-spacing:0;padding-top:4px}
 #lh .fixed{flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:var(--t-xl);color:var(--muted)}
 #fact small{color:var(--mint)}
-#fact{border-color:rgba(61,220,151,.6)}
+#fact{border-color:rgba(61,220,151,.6);left:1060px;width:500px}
 #nm{left:0;top:684px;width:1600px;text-align:center}
 #nmain{display:flex;justify-content:center;font-family:var(--display);font-weight:900;font-size:var(--t-xl);line-height:.95;letter-spacing:.05em;color:#fff}
 #nmain span{display:inline-block;will-change:transform}

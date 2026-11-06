@@ -328,9 +328,9 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const realName = fillTemplate(text.realNameTemplate, { realName: String(round.realName).replace(/^\(|\)$/g, "") });
 
   // ---- auto-fit text (long names / hints shrink instead of overflowing) -------------------------------------
-  // Cards: text area must stay above the ledge (4 lines at 50px = 208px) and no single word may overflow the card.
+  // Cards: text area must stay above the ledge (5 lines at 44px = 230px) and no single word may overflow the card.
   const factRef = useRef(null), nameRef = useRef(null), realRef = useRef(null);
-  const cardFits = (el) => el.scrollHeight <= 208 && el.scrollWidth <= el.clientWidth + 1;
+  const cardFits = (el) => el.scrollHeight <= 232 && el.scrollWidth <= el.clientWidth + 1;
   const factSize = useFit(factRef, fontsReady, round.fact, { max: TY.m, min: TY.s, fits: cardFits });
   // Hero name: one line, at most as wide as the progress bar (1440px).
   const nameSize = useFit(nameRef, fontsReady, round.heroName, {
