@@ -89,3 +89,7 @@ with score tiers LEGEND / HERO / SIDEKICK / CIVILIAN computed from the real numb
 - The text hint card is gone (code and `hint` column are no longer needed; the column is optional now).
 - The question ("WHO IS THIS HERO?") is a card on the right, in the same spot as the fact card, with a small label (`text.promptLabel`, bonus rounds show their own label). It slides out as the fact card slides in.
 - Peek (body-part flash) is still a separate setting: `peek.enabled`.
+
+### Hint ladder (what the viewer gets, in order)
+- 2.0 s flash 1 (body-part peek, `peek.startSeconds`) -> 3.5 s letter 1 (`letterHints.hint1AtSeconds`) -> 4.5 s letter 2 (`hintAtSeconds`, ping + riser) -> 5.4 s flash 2 (`peek.secondFlashAt`), **hard rounds only** (`peek.secondFlashLevels`, levels come from `difficulty.ranges`; remove the setting to flash twice on every round).
+- The seeded pattern-interrupt beats in `src/variation.js` (flicker, glitch, pan, kick) are scheduled around these times so nothing fires on top of a hint. Move a hint and re-check those ranges.

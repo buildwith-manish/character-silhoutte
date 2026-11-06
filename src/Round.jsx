@@ -393,8 +393,9 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   };
 
   // ---- visual hint: body-part detail flashes in colour — a double-flash for premium energy ----------
-  // Auto-assigns a body part per hero (chest/weapon/hand/eye/leg). Two quick flashes: one at ~3.8s,
-  // a second at ~5.2s. Each has a snappy flicker-on then a smooth ease-out fade. Does NOT hold until reveal.
+  // Auto-assigns a body part per hero (chest/weapon/hand/eye/leg). Hint ladder (every hint gets its own beat):
+  //   flash 1 at 2.0s (the hardest hint) -> letter 1 at 3.5s -> letter 2 at 4.5s (ping + riser) -> flash 2 at 5.4s, HARD rounds only
+  // (settings.peek.secondFlashLevels). Each flash has a snappy flicker-on then a smooth ease-out fade. Does NOT hold until reveal.
   const pk = settings.peek || { enabled: false };
   const pkPart = pk.bodyParts ? (round.peekPart || peekPartFor(round.heroName)) : null;
   const pkPartCfg = pkPart && pk.bodyParts ? pk.bodyParts[pkPart] : null;
@@ -404,7 +405,9 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const pkOn = detail || (pk.enabled && !isBonus);
   const pkStart = detail ? 0.3 : (pk.startSeconds ?? H);
   const pkDur = detail ? 999 : (pk.durationSeconds ?? 0.85);
-  const pk2At = detail ? null : (pk.secondFlashAt ?? 5.2);
+  const pk2Levels = pk.secondFlashLevels; // e.g. ["hard"]: the second flash only plays on those difficulty levels (omit = every round)
+  const pk2On = !detail && (!pk2Levels || pk2Levels.includes(diffLevel));
+  const pk2At = pk2On ? (pk.secondFlashAt ?? 5.4) : null;
   const pk2Dur = detail ? 0 : (pk.secondFlashDuration ?? 0.7);
   // Single flash envelope: snappy flicker-on (0.18s), hold, smooth ease-out fade (0.3s)
   const flashEnv = (t0, dur) => {

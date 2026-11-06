@@ -144,7 +144,7 @@
       "fake"
     ],
     "showAtSeconds": 1.0,
-    "hint1AtSeconds": 3.0,
+    "hint1AtSeconds": 3.5,
     "hint2AtSeconds": null,
     "tileW": 84,
     "tileH": 122,
@@ -155,9 +155,9 @@
   },
   "peek": {
     "enabled": true,
-    "startSeconds": 3.8,
+    "startSeconds": 2.0,
     "durationSeconds": 0.85,
-    "secondFlashAt": 5.2,
+    "secondFlashAt": 5.4,
     "secondFlashDuration": 0.7,
     "glowRadius": 3.2,
     "glowColor": "255,214,130",
@@ -194,7 +194,10 @@
         "y": 10,
         "radius": 50
       }
-    }
+    },
+    "secondFlashLevels": [
+      "hard"
+    ]
   },
   "depth": {
     "bg": 0.35,

@@ -57,17 +57,17 @@ function varietyFor(round, settings, total) {
   if (round.wipe === true) wipe = true;
   if (round.wipe === false) wipe = false;
 
-  // ---- seeded pre-reveal beats. Ranges keep every beat clear of the hint (4.5 s) and the anticipation dip (Q - 0.4 s). ----
+  // ---- seeded pre-reveal beats. Ranges keep every beat clear of the hint ladder (flash 2.0-2.85, letter 3.5, letter 4.5, hard-round flash 5.4-6.1) and the anticipation dip (Q - 0.4 s). ----
   let j = { ...LEGACY_JITTER };
   if (!legacy && V.jitter !== false) {
     const R = mulberry32(seedOf(round.id));
     const u = (a, b) => a + (b - a) * R();
     j = {
-      flickA: u(1.8, 2.5),
-      glitch: u(3.3, 4.1),
-      flickC: u(5.7, 6.2),
-      kick: u(5.2, 5.7),
-      panStart: u(2.7, 3.3),
+      flickA: u(1.2, 1.55), // light flicker, done before flash 1 (2.0 s)
+      glitch: u(2.9, 3.05), // in the gap between flash 1 and letter 1 (3.5 s), done by 3.4 s
+      flickC: u(4.9, 5.1), // after letter 2 has landed (4.5 s), done before the hard-round flash (5.4 s)
+      kick: u(6.1, 6.2), // late push into the anticipation dip, after the flashes
+      panStart: u(3.4, 3.8), // slow slide + roll behind letters 1 and 2
       panDir: R() < 0.5 ? -1 : 1,
     };
     if (R() < (V.skipGlitchChance ?? 0.25)) j.glitch = null; // some clips simply have no glitch: the viewer can't count on it
