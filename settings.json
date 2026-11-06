@@ -148,6 +148,7 @@
   },
   "letterHints": {
     "enabled": true,
+    "maxRatio": 0.34,
     "skipTypes": [
       "eye",
       "weapon",

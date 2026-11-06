@@ -15,7 +15,7 @@ const P = {
   settings: path.join(ROOT, "settings.json"),
 };
 
-const COLUMNS = ["id", "universe", "heroName", "realName", "hint", "fact", "imageQuery", "imageFile", "seriesColor", "peekX", "peekY", "peekR", "heroColor", "cta", "total", "type", "decoyFile", "realSide", "half", "level", "role"];
+const COLUMNS = ["id", "universe", "heroName", "realName", "hint", "fact", "imageQuery", "imageFile", "seriesColor", "peekX", "peekY", "peekR", "heroColor", "cta", "total", "type", "decoyFile", "realSide", "half", "level", "role", "hintPositions"];
 
 function parseCsv(text) {
   text = text.replace(/^\uFEFF/, "");
@@ -65,6 +65,9 @@ function readSourceRounds() {
     if (type && type !== "normal" && !BONUS_TYPES.includes(type)) throw new Error(`${source}: row ${idx + 1} has an unknown type "${r.type}" (use ${BONUS_TYPES.join(" | ")} or leave empty)`);
     const role = String(r.role || "").trim().toLowerCase();
     if (role && !ROLES.includes(role)) throw new Error(`${source}: row ${idx + 1} has an unknown role "${r.role}" (use ${ROLES.join(" | ")} or leave empty)`);
+    // optional hint override: 1-based LETTER positions to reveal (max 2). JSON: [3] or [1, 4]. CSV: "3" or "1 4".
+    const hintPositions = (Array.isArray(r.hintPositions) ? r.hintPositions : String(r.hintPositions ?? "").split(/[\s,;|]+/))
+      .map((v) => Number(v)).filter((v) => Number.isInteger(v) && v >= 1).slice(0, 2);
     const side = (v) => (/^(left|right)$/i.test(String(v || "").trim()) ? String(v).trim().toLowerCase() : undefined);
     const imageFile = String(r.imageFile || "").trim() || `${id}.png`;
     return {
@@ -74,6 +77,7 @@ function readSourceRounds() {
       realName: String(r.realName).trim(),
       // who the character is: picks the "WHO IS THIS ...?" prompt (settings.text.promptByRole). Empty = settings.text.promptText.
       ...(role ? { role } : {}),
+      ...(hintPositions.length ? { hintPositions } : {}),
       hint: String(r.hint || "").trim(), // optional and unused: the letter-slot tiles replaced the text hint card
       fact: String(r.fact).trim(),
       imageQuery: String(r.imageQuery || "").trim() || `${String(r.heroName).trim()} ${String(r.universe).trim()}`,

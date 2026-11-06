@@ -294,7 +294,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   // the ping + riser sit). Only those two exact positions fill in. The old text hint card is gone.
   const LH = settings.letterHints || { enabled: false };
   const slotsOn = Boolean(LH.enabled && !(isBonus && (LH.skipTypes || []).includes(btype)));
-  const slots = slotsOn ? buildSlots(round.heroName) : [];
+  const slots = slotsOn ? buildSlots(round.heroName, { maxRatio: LH.maxRatio, positions: round.hintPositions }) : [];
   const slotW = (s) => (s.letter ? LH.tileW : s.ch === " " ? LH.spaceW : LH.fixedW);
   const slotRowW = slots.reduce((a, s) => a + slotW(s), 0) + (LH.gap || 0) * Math.max(0, slots.length - 1);
   const slotScale = slotRowW > 0 ? Math.min(1, LH.maxWidth / slotRowW) : 1; // long names shrink instead of overflowing
