@@ -193,7 +193,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const halfClip = half ? (showLeft ? `inset(-10% ${(50 - 140 * hp).toFixed(1)}% -10% -90%)` : `inset(-10% -90% -10% ${(50 - 140 * hp).toFixed(1)}%)`) : undefined;
   const heroTransform = `translate(${(glitchX + fakeDx).toFixed(2)}px, ${((1 - heroIn) * (lit ? 14 : 50) + br * 4).toFixed(2)}px) scale(${(1.14 * fakeSc * (1 + 0.01 * br - antiSc + pop)).toFixed(4)})`;
   const shadowScale = (preQ ? 1 - 1.2 * antiSc : 1 + 0.4 * Math.exp(-(t - Q) * 6)) + 0.03 * br;
-  const heroFilter = `blur(${((1 - hi) * (HK ? HK.focusBlurPx : lit ? 5 : 12)).toFixed(1)}px) drop-shadow(0 0 ${glow.toFixed(1)}px ${rim})`;
+  const heroFilter = `blur(${((1 - hi) * (HK ? HK.focusBlurPx : lit ? 5 : 12)).toFixed(1)}px) drop-shadow(0 0 ${glow.toFixed(1)}px ${preQ ? "rgba(190,210,255,.35)" : rim})`;
   const capeAng = Math.sin(t * 1.9) * 1.3 + Math.sin(t * 3) * 0.6;
 
   // light band sweeps (1.6-3.0 s and 4.9-6.3 s)
@@ -450,26 +450,16 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
       <div className="hl">
         <Img src={imgSrc} style={{ filter: "brightness(0)" }} />
       </div>
+      <div className="hl" style={{ pointerEvents: "none" }}>
+        {/* Second pass: solid black masked to the hero alpha, guarantees no color bleeds through
+            the first layer's semi-transparent edges. */}
+        <div style={{ position: "absolute", left: -287, top: 0, width: 960, height: 540, background: "#000",
+          WebkitMaskImage: `url(${imgSrc})`, WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat", WebkitMaskPosition: "center",
+          maskImage: `url(${imgSrc})`, maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "center" }} />
+      </div>
       <div style={pngMask}>
-        {/* depth: base stays near-black, the lower body (cape / legs) lifts to the same navy the SVG cape uses */}
-        <div
-          style={{
-            position: "absolute", inset: 0,
-            background: "linear-gradient(180deg, rgba(12,23,64,0) 30%, rgba(12,23,64,.55) 62%, rgba(12,23,64,.9) 100%)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: -40,
-            width: 106,
-            height: 660,
-            background: "linear-gradient(90deg, rgba(188,210,255,0), rgba(207,224,255,.7) 50%, rgba(188,210,255,0))",
-            opacity: sweepE == null ? 0 : 1,
-            transform: `translateX(${bandPngX.toFixed(1)}px) skewX(-16deg)`,
-          }}
-        />
+        {/* Pure-black silhouette: no depth gradient, no light sweep — the user wants
+            solid black during the silhouette phase, with real colour only at the reveal. */}
       </div>
     </div>
   ) : (
@@ -552,7 +542,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
                   <div style={{ position: "absolute", left: 0, top: 0, width: 386, height: 540, transform: round.hasDecoy ? undefined : "scaleX(-1)" }}>
                     {decoySrc ? (
                       <>
-                        <div className="hl"><Img src={decoySrc} style={{ filter: "brightness(0)" }} /></div>
+                        <div className="hl"><div style={{ position: "absolute", left: -287, top: 0, width: 960, height: 540, background: "#000", WebkitMaskImage: `url(${decoySrc})`, WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat", WebkitMaskPosition: "center", maskImage: `url(${decoySrc})`, maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "center" }} /></div>
                         <div className="hl" style={{ opacity: pr(t, Q, Q + 0.4) * 0.85 }}><Img src={decoySrc} /></div>
                       </>
                     ) : (
