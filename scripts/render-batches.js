@@ -64,12 +64,19 @@ batches.forEach((batch, bi) => {
 
 console.log(`\n[render] rendered ${rendered}, skipped ${skipped}, ${((Date.now() - t0) / 1000).toFixed(0)}s`);
 
-// ---- long-video structure cards (settings.json -> structure): Intro, Recap (mid-video), Outro ----
+// ---- long-video structure cards (settings.json -> structure): Teaser, Intro, Recap (mid-video), Outro ----
 const ST = JSON.parse(fs.readFileSync(P.settings, "utf8"));
 const STR = ST.structure || {};
-const cardDefs = [["intro", "Intro", 6], ["recap", "Recap", 4.5], ["outro", "Outro", 8]]
-  .filter(([k]) => !noCards && STR[k] && STR[k].enabled !== false)
-  .map(([k, comp, d]) => ({ key: k, comp, dur: Math.max(1, STR[k].seconds || d), file: path.join("out", `${k}.mp4`) }));
+// Teaser lives under structure.intro.teaserSeconds; enabled whenever intro is enabled.
+const teaserSecs = Math.max(1, (STR.intro && STR.intro.teaserSeconds) || 2);
+const cardDefs = [
+  // Teaser comes first; it derives its "enabled" state from intro being enabled.
+  ...(!noCards && STR.intro && STR.intro.enabled !== false ? [{ key: "teaser", comp: "Teaser", dur: teaserSecs, file: path.join("out", "teaser.mp4") }] : []),
+  // Standard cards
+  ...([["intro", "Intro", 3], ["recap", "Recap", 4.5], ["outro", "Outro", 8]]
+    .filter(([k]) => !noCards && STR[k] && STR[k].enabled !== false)
+    .map(([k, comp, d]) => ({ key: k, comp, dur: Math.max(1, STR[k].seconds || d), file: path.join("out", `${k}.mp4`) }))),
+];
 for (const c of cardDefs) {
   if (fs.existsSync(path.join(P.root, c.file))) { console.log(`[render] ${c.key} card exists, skipping`); continue; }
   const tmp = path.join("out", `.tmp-${c.key}.mp4`);
@@ -78,11 +85,12 @@ for (const c of cardDefs) {
   if (res.status !== 0) { fs.rmSync(path.join(P.root, tmp), { force: true }); console.error(`[render] FAILED on the ${c.key} card.`); process.exit(1); }
   fs.renameSync(path.join(P.root, tmp), path.join(P.root, c.file));
 }
-// final order: intro, every question (recap card right after question `afterQuestion`), outro
+// final order: teaser, intro, every question (recap card right after question `afterQuestion`), outro
 const clipSecR = ST.questionSeconds + ST.revealSeconds + ST.wipeSeconds;
 const sequence = [];
 const card = (k) => cardDefs.find((c) => c.key === k);
-if (card("intro")) sequence.push({ file: card("intro").file, dur: card("intro").dur });
+if (card("teaser")) sequence.push({ file: card("teaser").file, dur: card("teaser").dur });
+if (card("intro"))  sequence.push({ file: card("intro").file,  dur: card("intro").dur  });
 let recapPlaced = !card("recap");
 for (const r of rounds) {
   sequence.push({ file: outFile(r.id), dur: clipSecR });

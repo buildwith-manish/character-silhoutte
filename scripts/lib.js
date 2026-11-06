@@ -15,7 +15,7 @@ const P = {
   settings: path.join(ROOT, "settings.json"),
 };
 
-const COLUMNS = ["id", "universe", "heroName", "realName", "hint", "fact", "imageQuery", "imageFile", "seriesColor", "peekX", "peekY", "peekR", "heroColor", "cta", "total", "type", "decoyFile", "realSide", "half"];
+const COLUMNS = ["id", "universe", "heroName", "realName", "hint", "fact", "imageQuery", "imageFile", "seriesColor", "peekX", "peekY", "peekR", "heroColor", "cta", "total", "type", "decoyFile", "realSide", "half", "level"];
 
 function parseCsv(text) {
   text = text.replace(/^\uFEFF/, "");
@@ -85,6 +85,14 @@ function readSourceRounds() {
       ...(Number.isFinite(Number(r.total)) && String(r.total ?? "").trim() !== "" ? { total: Number(r.total) } : {}),
       // optional visual-hint spot (percent of the hero box: x 0-100 left->right, y 0-100 top->bottom; radius in px). Empty = settings.peek defaults.
       ...Object.fromEntries(["peekX", "peekY", "peekR"].map((k) => [k, r[k] !== undefined && String(r[k]).trim() !== "" && Number.isFinite(Number(r[k])) ? Number(r[k]) : undefined]).filter(([, v]) => v !== undefined)),
+      // optional difficulty level (easy / medium / hard). Defaults: ids 1-15 easy, 16-35 medium, 36-50 hard.
+      ...(["easy", "medium", "hard"].includes(String(r.level || "").trim().toLowerCase()) ? { level: String(r.level).trim().toLowerCase() } : (() => {
+        const nid = Number(r.id);
+        if (nid >= 1 && nid <= 15) return { level: "easy" };
+        if (nid >= 16 && nid <= 35) return { level: "medium" };
+        if (nid >= 36 && nid <= 50) return { level: "hard" };
+        return {};
+      })()),
     };
   });
   // Series order: a bonus round (any row with a type) is slotted in after every `settings.bonus.every` normal questions

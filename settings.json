@@ -29,7 +29,10 @@
     "brandViolet": "#5B2FD6",
     "easy": "#3DDC97",
     "medium": "#FFB53D",
-    "hard": "#FF6B6B"
+    "hard": "#FF6B6B",
+    "diffEasy": "#3DDC97",
+    "diffMedium": "#FFB53D",
+    "diffHard": "#FF6B6B"
   },
   "difficulty": {
     "enabled": true,
@@ -396,7 +399,7 @@
   "structure": {
     "intro": {
       "enabled": true,
-      "seconds": 6,
+      "seconds": 3,
       "title": "GUESS THE HERO",
       "subtitle": "BY THE SILHOUETTE",
       "rules": [
@@ -405,7 +408,14 @@
         "+1 for every hero you get"
       ],
       "footer": "{total} HEROES \u2022 {bonus} BONUS ROUNDS",
-      "go": "READY?"
+      "go": "READY?",
+      "teaserIds": [
+        1,
+        15,
+        36
+      ],
+      "teaserText": "Can you name all 50?",
+      "teaserSeconds": 2
     },
     "recap": {
       "enabled": true,
@@ -435,5 +445,17 @@
   "factCard": {
     "appearSeconds": 1.5,
     "cue": true
+  },
+  "letterSlots": {
+    "enabled": true,
+    "startSeconds": 4.5,
+    "style": {
+      "size": "s",
+      "slotColor": "rgba(255,255,255,0.18)",
+      "revealedColor": "#E8EDFF",
+      "gap": 10,
+      "slotWidth": 32,
+      "slotHeight": 44
+    }
   }
 }

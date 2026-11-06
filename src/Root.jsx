@@ -1,12 +1,12 @@
 import React from "react";
 import { Composition, Series } from "remotion";
 import { Round } from "./Round";
-import { Intro, Recap, Outro, cardFrames } from "./Cards";
+import { Teaser, Intro, Recap, Outro, cardFrames } from "./Cards";
 import { T } from "./timing";
 import settings from "../settings.json";
 import rounds from "./rounds.json";
 
-// 2560x1440 @ 60 fps. "Round" = one quiz clip; Intro / Recap / Outro = the long-video structure cards (settings.json -> structure).
+// 2560x1440 @ 60 fps. "Round" = one quiz clip; Teaser / Intro / Recap / Outro = the long-video structure cards (settings.json -> structure).
 const base = { fps: T.fps, width: 2560, height: 1440 };
 
 // The recap card sits after a specific question (settings.structure.recap.afterQuestion).
@@ -16,11 +16,17 @@ const recapAfter = ((settings.structure || {}).recap || {}).afterQuestion || 25;
 const recapIdx = rounds.findIndex((r) => Number(r.id) === Number(recapAfter) && (!r.type || r.type === "normal"));
 const recapAfterIndex = recapIdx >= 0 ? recapIdx : Math.floor(rounds.length / 2);
 
-// FullVideo: plays the whole video back-to-back (Intro → all rounds → Recap after Q25 → Outro).
+const teaserSecs = Math.max(1, ((settings.structure || {}).intro || {}).teaserSeconds ?? 2);
+const teaserFrames = Math.round(teaserSecs * T.fps);
+
+// FullVideo: plays the whole video back-to-back (Teaser → Intro → all rounds → Recap after Q25 → Outro).
 // Motion blur is OFF so the Studio preview stays smooth. Use this composition to scrub the full timeline.
 const FullVideo = () => (
   <Series>
-    <Series.Sequence durationInFrames={cardFrames("intro", 6)}>
+    <Series.Sequence durationInFrames={teaserFrames}>
+      <Teaser />
+    </Series.Sequence>
+    <Series.Sequence durationInFrames={cardFrames("intro", 3)}>
       <Intro />
     </Series.Sequence>
     {rounds.map((r, i) => (
@@ -41,19 +47,21 @@ const FullVideo = () => (
   </Series>
 );
 
-// Total duration: intro + (rounds × 11s) + recap + outro, all in frames
+// Total duration: teaser + intro + (rounds × clip) + recap + outro, all in frames
 const fullVideoFrames =
-  cardFrames("intro", 6) +
+  teaserFrames +
+  cardFrames("intro", 3) +
   rounds.length * T.totalFrames +
   cardFrames("recap", 4.5) +
   cardFrames("outro", 8);
 
 export const RemotionRoot = () => (
   <>
-    <Composition id="Round" component={Round} durationInFrames={T.totalFrames} {...base} defaultProps={{ roundId: rounds.length ? rounds[0].id : 12 }} />
-    <Composition id="FullVideo" component={FullVideo} durationInFrames={fullVideoFrames} {...base} />
-    <Composition id="Intro" component={Intro} durationInFrames={cardFrames("intro", 6)} {...base} />
-    <Composition id="Recap" component={Recap} durationInFrames={cardFrames("recap", 4.5)} {...base} />
-    <Composition id="Outro" component={Outro} durationInFrames={cardFrames("outro", 8)} {...base} />
+    <Composition id="Round"     component={Round}     durationInFrames={T.totalFrames}            {...base} defaultProps={{ roundId: rounds.length ? rounds[0].id : 12 }} />
+    <Composition id="Teaser"    component={Teaser}    durationInFrames={teaserFrames}             {...base} />
+    <Composition id="FullVideo" component={FullVideo} durationInFrames={fullVideoFrames}          {...base} />
+    <Composition id="Intro"     component={Intro}     durationInFrames={cardFrames("intro", 3)}   {...base} />
+    <Composition id="Recap"     component={Recap}     durationInFrames={cardFrames("recap", 4.5)} {...base} />
+    <Composition id="Outro"     component={Outro}     durationInFrames={cardFrames("outro", 8)}   {...base} />
   </>
 );

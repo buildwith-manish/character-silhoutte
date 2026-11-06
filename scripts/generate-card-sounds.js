@@ -18,17 +18,31 @@ const outDir = path.join(P.root, "public", "sounds", "cards");
 fs.mkdirSync(outDir, { recursive: true });
 
 // cue = [file, startSeconds, volume, pitchRatio]
+const teaserDur = Math.max(1, (ST.intro && ST.intro.teaserSeconds) || 2);
 const CARDS = {
-  intro: {
-    dur: sec("intro", 6),
+  // Teaser: 2 s cold open — three quick impact flashes (one per freeze frame) then a whoosh into the Intro.
+  teaser: {
+    dur: teaserDur,
     cues: [
-      ["impact.wav", 0.1, 0.55, 1], // title slams in
-      ["ping.wav", 0.95, 0.7, 1], ["ping.wav", 1.8, 0.7, 1.122], ["ping.wav", 2.65, 0.7, 1.26], // the three rules
-      ["riser.wav", 1.95, 0.55, 1], // builds into READY?
-      ["impact.wav", 4.5, 0.8, 1], ["chime.wav", 4.5, 0.7, 1], // READY?
-      ["whoosh.wav", 5.5, 0.7, 1], // wipe-out into question 1
+      ["whoosh-in.wav",  0,                          0.6,  1    ], // immediate energy on first frame
+      ["ping.wav",       teaserDur * 0.05,           0.55, 1    ], // first freeze frame
+      ["ping.wav",       teaserDur * 0.37,           0.55, 1.122], // second freeze frame
+      ["ping.wav",       teaserDur * 0.70,           0.55, 1.26 ], // third freeze frame
+      ["whoosh.wav",     teaserDur - 0.5,            0.7,  1    ], // wipe-out into Intro
     ],
-    padFadeIn: 0.3, padFadeOut: 0.45,
+    padFadeIn: 0.1, padFadeOut: 0.3,
+  },
+  // Intro: now 3 s — cues compressed to fit the shorter card.
+  intro: {
+    dur: sec("intro", 3),
+    cues: [
+      ["impact.wav", 0.05, 0.55, 1],                               // title slams in
+      ["ping.wav",   0.42, 0.65, 1    ], ["ping.wav", 0.84, 0.65, 1.122], ["ping.wav", 1.26, 0.65, 1.26], // the three rules
+      ["riser.wav",  0.9,  0.5,  1   ],                             // builds into READY?
+      ["impact.wav", 2.3,  0.8,  1   ], ["chime.wav", 2.3, 0.7, 1], // READY?
+      ["whoosh.wav", 2.6,  0.7,  1   ],                             // wipe-out into question 1
+    ],
+    padFadeIn: 0.2, padFadeOut: 0.3,
   },
   recap: {
     dur: sec("recap", 4.5),

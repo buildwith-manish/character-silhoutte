@@ -8,7 +8,8 @@
     "fact": "Played by Tobey, Andrew and Tom.",
     "imageQuery": "",
     "imageFile": "1.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 2,
@@ -19,7 +20,8 @@
     "fact": "Stan Lee made him an arms dealer.",
     "imageQuery": "",
     "imageFile": "2.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 3,
@@ -30,7 +32,8 @@
     "fact": "Punched Hitler on his first cover.",
     "imageQuery": "",
     "imageFile": "3.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 4,
@@ -41,7 +44,8 @@
     "fact": "Played by Chris Hemsworth since 2011.",
     "imageQuery": "",
     "imageFile": "4.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 5,
@@ -52,7 +56,8 @@
     "fact": "Printing problems made him green, not gray.",
     "imageQuery": "",
     "imageFile": "5.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 6,
@@ -63,7 +68,8 @@
     "fact": "Marvel's first Black superhero (1966).",
     "imageQuery": "",
     "imageFile": "6.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 7,
@@ -74,7 +80,8 @@
     "fact": "Played by Hugh Jackman since 2000.",
     "imageQuery": "",
     "imageFile": "7.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 8,
@@ -85,7 +92,8 @@
     "fact": "Surgeon turned sorcerer after a car crash.",
     "imageQuery": "",
     "imageFile": "8.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 9,
@@ -96,7 +104,8 @@
     "fact": "Debuted as a Soviet spy villain.",
     "imageQuery": "",
     "imageFile": "9.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 10,
@@ -107,7 +116,8 @@
     "fact": "Named after Thanatos, Greek god of death.",
     "imageQuery": "",
     "imageFile": "10.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 11,
@@ -118,7 +128,8 @@
     "fact": "Tom Hiddleston first auditioned for Thor.",
     "imageQuery": "",
     "imageFile": "11.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 12,
@@ -129,7 +140,8 @@
     "fact": "The suit bonded with Spider-Man first.",
     "imageQuery": "",
     "imageFile": "12.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 13,
@@ -140,7 +152,8 @@
     "fact": "Debuted in 1960 as a monster.",
     "imageQuery": "",
     "imageFile": "13.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 14,
@@ -151,7 +164,8 @@
     "fact": "Carol Danvers was an Air Force pilot.",
     "imageQuery": "",
     "imageFile": "14.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 15,
@@ -162,7 +176,8 @@
     "fact": "Debuted as an Iron Man villain.",
     "imageQuery": "",
     "imageFile": "15.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "easy"
   },
   {
     "id": 16,
@@ -173,7 +188,8 @@
     "fact": "Movie version: abducted by aliens in 1988.",
     "imageQuery": "",
     "imageFile": "16.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 17,
@@ -184,7 +200,8 @@
     "fact": "Named after a Beatles song.",
     "imageQuery": "",
     "imageFile": "17.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 18,
@@ -195,7 +212,8 @@
     "fact": "Debuted as a villain under Magneto.",
     "imageQuery": "",
     "imageFile": "18.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 19,
@@ -206,7 +224,8 @@
     "fact": "Scott Lang was a thief first.",
     "imageQuery": "",
     "imageFile": "19.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 20,
@@ -217,7 +236,8 @@
     "fact": "Played by McKellen and Fassbender.",
     "imageQuery": "",
     "imageFile": "20.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 21,
@@ -228,7 +248,8 @@
     "fact": "Blinded by radiation, gained radar sense.",
     "imageQuery": "",
     "imageFile": "21.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 22,
@@ -239,7 +260,8 @@
     "fact": "Debuted as a Spider-Man villain.",
     "imageQuery": "",
     "imageFile": "22.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 23,
@@ -250,7 +272,8 @@
     "fact": "Sold his soul to save his father.",
     "imageQuery": "",
     "imageFile": "23.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 24,
@@ -261,7 +284,8 @@
     "fact": "Once worshipped as a weather goddess.",
     "imageQuery": "",
     "imageFile": "24.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 25,
@@ -272,7 +296,8 @@
     "fact": "His eye beams never turn off.",
     "imageQuery": "",
     "imageFile": "25.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 26,
@@ -283,7 +308,8 @@
     "fact": "Played by Patrick Stewart and James McAvoy.",
     "imageQuery": "",
     "imageFile": "26.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 27,
@@ -294,7 +320,8 @@
     "fact": "Every teleport ends with a BAMF!",
     "imageQuery": "",
     "imageFile": "27.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 28,
@@ -305,7 +332,8 @@
     "fact": "Original X-Man and genius scientist.",
     "imageQuery": "",
     "imageFile": "28.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 29,
@@ -316,7 +344,8 @@
     "fact": "Paul Bettany voiced JARVIS first.",
     "imageQuery": "",
     "imageFile": "29.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 30,
@@ -327,7 +356,8 @@
     "fact": "Later took up Captain America's shield.",
     "imageQuery": "",
     "imageFile": "30.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 31,
@@ -338,7 +368,8 @@
     "fact": "Don Cheadle replaced Terrence Howard.",
     "imageQuery": "",
     "imageFile": "31.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 32,
@@ -349,7 +380,8 @@
     "fact": "Bucky stayed dead for 40 years.",
     "imageQuery": "",
     "imageFile": "32.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 33,
@@ -360,7 +392,8 @@
     "fact": "The deadliest woman in the galaxy.",
     "imageQuery": "",
     "imageFile": "33.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 34,
@@ -371,7 +404,8 @@
     "fact": "Willem Dafoe played him in 2002.",
     "imageQuery": "",
     "imageFile": "34.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 35,
@@ -382,7 +416,8 @@
     "fact": "Alfred Molina played him twice.",
     "imageQuery": "",
     "imageFile": "35.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "medium"
   },
   {
     "id": 36,
@@ -393,7 +428,8 @@
     "fact": "A former movie special-effects artist.",
     "imageQuery": "",
     "imageFile": "36.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 37,
@@ -404,7 +440,8 @@
     "fact": "Catchphrase: \"Flame on!\"",
     "imageQuery": "",
     "imageFile": "37.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 38,
@@ -415,7 +452,8 @@
     "fact": "One of Marvel's smartest minds.",
     "imageQuery": "",
     "imageFile": "38.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 39,
@@ -426,7 +464,8 @@
     "fact": "Debuted in 1939, among Marvel's oldest.",
     "imageQuery": "",
     "imageFile": "39.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 40,
@@ -437,7 +476,8 @@
     "fact": "One touch steals powers and memories.",
     "imageQuery": "",
     "imageFile": "40.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 41,
@@ -448,7 +488,8 @@
     "fact": "Ultimate Fury copied Samuel L. Jackson's look.",
     "imageQuery": "",
     "imageFile": "41.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 42,
@@ -459,7 +500,8 @@
     "fact": "Blade (1998) predates the MCU.",
     "imageQuery": "",
     "imageFile": "42.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 43,
@@ -470,7 +512,8 @@
     "fact": "A lawyer who breaks the fourth wall.",
     "imageQuery": "",
     "imageFile": "43.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 44,
@@ -481,7 +524,8 @@
     "fact": "Karen Gillan shaved her head for Nebula.",
     "imageQuery": "",
     "imageFile": "44.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 45,
@@ -492,7 +536,8 @@
     "fact": "Dave Bautista was a WWE champion.",
     "imageQuery": "",
     "imageFile": "45.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 46,
@@ -503,7 +548,8 @@
     "fact": "Two movie versions, one year apart.",
     "imageQuery": "",
     "imageFile": "46.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 47,
@@ -514,7 +560,8 @@
     "fact": "Marvel's first Asian-led movie, 2021.",
     "imageQuery": "",
     "imageFile": "47.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 48,
@@ -525,7 +572,8 @@
     "fact": "Marc Spector has multiple identities.",
     "imageQuery": "",
     "imageFile": "48.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 49,
@@ -536,7 +584,8 @@
     "fact": "She also makes invisible force fields.",
     "imageQuery": "",
     "imageFile": "49.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 50,
@@ -547,7 +596,8 @@
     "fact": "Martial arts master from K'un-Lun.",
     "imageQuery": "",
     "imageFile": "50.png",
-    "seriesColor": "#FFB53D"
+    "seriesColor": "#FFB53D",
+    "level": "hard"
   },
   {
     "id": 501,
