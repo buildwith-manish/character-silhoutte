@@ -933,7 +933,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
         ) : null}
 
         <div id="nm">
-          <div id="nmain" ref={nameRef} style={{ fontSize: nameSize }}>
+          <div id="nmain" ref={nameRef} style={{ fontSize: nameSize, minHeight: boxesOn ? Math.ceil((LH.tileH * (1 + slotScale)) / 2) : undefined }}>
             {nameChars.map((ch, i) => {
               // When letter boxes are on, the name is shown inside the boxes and this plain text stays hidden.
               const pl = pr(t, Q + 0.15 + i * 0.05, Q + 0.15 + i * 0.05 + 0.45);
