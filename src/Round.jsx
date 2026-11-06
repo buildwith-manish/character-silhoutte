@@ -275,8 +275,10 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   // question card (right side, same spot as the fact card) + fact card timing
   const qIn = lit ? ex(pr(t, 0.05, 0.6)) : ex(pr(t, 0.5, 1.1));
   const qOut = eio(pr(t, Q - 0.15, Q + 0.12));
-  const fn = ex(pr(t, Q + 0.6, Q + 1.2));
-  const fs = spring(pr(t, Q + 0.6, Q + 1.5));
+  // Two-beat reveal: the name stamps in first and gets read, THEN the fact card enters (settings.factCard.appearSeconds after the reveal).
+  const fA = Q + ((settings.factCard && settings.factCard.appearSeconds) ?? 0.6);
+  const fn = ex(pr(t, fA, fA + 0.5));
+  const fs = spring(pr(t, fA, fA + 0.9));
 
   // ---- letter-slot hints (src/letterHints.js, settings.letterHints) ------------------------------------------------------
   // One tile per character of the name. Hint 1 fills in at hint1AtSeconds, hint 2 at hint2AtSeconds (default: hintAtSeconds, where

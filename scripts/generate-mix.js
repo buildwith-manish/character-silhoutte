@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Builds ONE finished, mastered stereo soundtrack per round: public/sounds/rounds/<id>.wav (12 s, 44.1 kHz, 16-bit).
+// Builds ONE finished, mastered stereo soundtrack per round: public/sounds/rounds/<id>.wav (11.8 s, 44.1 kHz, 16-bit).
 //
 // What the mix does (all tunable in settings.json -> "mix"):
 //   - Pre-reveal duck: everything except the reveal FX drops to near-silence `duckLeadMs` (150 ms) before the reveal, so the impact lands out of a hole.
@@ -247,6 +247,15 @@ function buildRound(round) {
     normalise(b, 0.32);
     // widen the riser: the noise sweep slowly drifts across the stereo field as it rises
     addMono(pre, b, H + 0.02, L.riser * lvl(), (t) => Math.sin(t * 2.2) * 0.35);
+  }
+
+  // --- fact card cue: a soft, low pop when the fact arrives, so the eye knows something new is on screen (no random draws) ---
+  if (settings.factCard && settings.factCard.cue) {
+    const tF = Q + (settings.factCard.appearSeconds ?? 0.6);
+    const b = buf(0.3);
+    tone(b, 523 * Math.pow(2, key / 12), 0, 0.16, "sine", 0.1);
+    normalise(b, 0.25);
+    addMono(pre, b, tF, L.ping * 0.5, -0.1);
   }
 
   // --- reveal: impact (+ short reverb send) and chime (+ reverb) ---
@@ -543,7 +552,7 @@ const todo = ids ? rounds.filter((r) => ids.includes(r.id)) : rounds;
 const cacheFile = path.join(outDir, ".mixhash.json");
 let cache = {};
 try { cache = JSON.parse(fs.readFileSync(cacheFile, "utf8")); } catch {}
-const codeHash = crypto.createHash("sha1").update(fs.readFileSync(__filename)).update(fs.readFileSync(path.join(__dirname, "..", "src", "variation.js"))).update(JSON.stringify([M, Q, H, W, D, settings.variety || null, settings.letterHints || null])).digest("hex");
+const codeHash = crypto.createHash("sha1").update(fs.readFileSync(__filename)).update(fs.readFileSync(path.join(__dirname, "..", "src", "variation.js"))).update(JSON.stringify([M, Q, H, W, D, settings.variety || null, settings.letterHints || null, settings.factCard || null])).digest("hex");
 const force = flag("force", false) === true;
 let built = 0, kept = 0;
 for (const r of todo) {

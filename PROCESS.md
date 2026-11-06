@@ -74,7 +74,7 @@ with score tiers LEGEND / HERO / SIDEKICK / CIVILIAN computed from the real numb
 - The outro is 8 s with the last 0.6 s fading to dark; keep the lower third free if you add YouTube end-screen elements.
 
 ## Reveal simplification + 4 s hold (long-video mode)
-- `revealSeconds` is 4.5. Normal clips have no wipe, so the finished reveal (name + fact) stays on screen for 5.0 s (the fact card is readable for about 4.4 s); bonus clips get 4.5 s and then wipe. Clip = 12 s.
+- `revealSeconds` is 4.3. Normal clips have no wipe, so the finished reveal (name + fact) stays on screen for 4.8 s; bonus clips get 4.3 s and then wipe. Clip = 11.8 s.
 - Impact stack trimmed to: hit (flash, 1-3 frame hit-stop, position shake, colour fringe) -> colour circle + one shockwave ring + sparks -> name -> fact.
   Big reveals keep the light rays; lens flare is off (`reveal.flare` false), the second shockwave is off (`reveal.shock2` false) and the impact camera roll is off
   (`reveal.rollShake` 0). Set those back to true / 1 to restore them.
@@ -94,7 +94,8 @@ with score tiers LEGEND / HERO / SIDEKICK / CIVILIAN computed from the real numb
 - 2.0 s flash 1 (body-part peek, `peek.startSeconds`) -> 3.5 s letter 1 (`letterHints.hint1AtSeconds`) -> 4.5 s letter 2 (`hintAtSeconds`, ping + riser) -> 5.4 s flash 2 (`peek.secondFlashAt`), **hard rounds only** (`peek.secondFlashLevels`, levels come from `difficulty.ranges`; remove the setting to flash twice on every round).
 - The seeded pattern-interrupt beats in `src/variation.js` (flicker, glitch, pan, kick) are scheduled around these times so nothing fires on top of a hint. Move a hint and re-check those ranges.
 
-## Reveal fact line ("DID YOU KNOW?")
-- The old "FIRST APPEARED IN <comic>" card is replaced by one punchy line per hero in `questions.json` -> `fact` (actor trivia or a surprising fact), label in `text.factLabel`.
-- Keep lines to about 70 characters (11 words) so the viewer can read them in the ~4.4 s the card is on screen. The card is 500 px wide and fits up to 5 lines at 44 px; longer lines shrink toward 28 px.
-- CTA clips (`cta.startSeconds` 3.0) hand the card slot to the CTA after the fact has had about 2.4 s.
+## Reveal: answer first, then the fact ("DID YOU KNOW?")
+- Two beats. Beat 1: the name stamps in (about 1.2 s) and gets read. Beat 2: the fact card enters at `factCard.appearSeconds` (1.5 s after the reveal) with a soft pop sound (`factCard.cue`, built into the mix).
+- Timeline after the reveal (Q = 7 s): 0.0 impact + name stamping -> 0.6 real name -> 1.5 fact card slides in (readable from about 1.8) -> about 3.8 a 6-word fact has been read -> 4.3 end of `revealSeconds` (bonus clips wipe here) -> 4.8 end of clip. Clip = 11.8 s.
+- Fact lines live in `questions.json` -> `fact`, label in `text.factLabel`. Budget: **6 words, hard cap 7** (about 2 s of reading). If you lengthen a fact, push `revealSeconds` out by the extra reading time (about 0.35 s per extra word).
+- CTA clips (`cta.lastN` is 0, so none by default) hand the card slot to the CTA at `cta.startSeconds` (3.9 s), which leaves the CTA under 1 s; give such a clip its own longer ending.

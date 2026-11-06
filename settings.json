@@ -2,7 +2,7 @@
   "fps": 60,
   "questionSeconds": 7,
   "hintAtSeconds": 4.5,
-  "revealSeconds": 4.5,
+  "revealSeconds": 4.3,
   "wipeSeconds": 0.5,
   "text": {
     "promptText": "WHO IS THIS HERO?",
@@ -316,7 +316,7 @@
   "cta": {
     "enabled": true,
     "lastN": 0,
-    "startSeconds": 3.0,
+    "startSeconds": 3.9,
     "text": "How many did you get?",
     "sub": "Comment your score",
     "autoLast": false
@@ -431,5 +431,9 @@
       ],
       "subscribe": "SUBSCRIBE FOR MORE HERO QUIZZES"
     }
+  },
+  "factCard": {
+    "appearSeconds": 1.5,
+    "cue": true
   }
 }
