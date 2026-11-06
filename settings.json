@@ -5,7 +5,14 @@
   "revealSeconds": 4.3,
   "wipeSeconds": 0.5,
   "text": {
-    "promptText": "WHO IS THIS HERO?",
+    "promptText": "WHO IS THIS SUPERHERO?",
+    "promptByRole": {
+      "hero": "WHO IS THIS HERO?",
+      "superhero": "WHO IS THIS SUPERHERO?",
+      "superheroine": "WHO IS THIS SUPERHEROINE?",
+      "villain": "WHO IS THIS VILLAIN?",
+      "supervillain": "WHO IS THIS SUPERVILLAIN?"
+    },
     "factLabel": "DID YOU KNOW?",
     "scoreLabel": "YOUR SCORE",
     "secondsLabel": "SECONDS",

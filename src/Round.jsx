@@ -236,7 +236,12 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const wmLast = wmParts.length > 1 ? wmParts.pop() : "";
   const wmFirst = wmParts.join(" ") || wmLast;
   const barIn = lit ? ex(pr(t, 0.35, 0.95)) : ex(pr(t, 0.55, 1.3));
-  const words = String(isBonus ? BT.prompt : text.promptText).trim().split(/\s+/);
+  // Normal rounds: the prompt follows the character's role (settings.text.promptByRole), falling back to text.promptText.
+  const rolePrompt = (text.promptByRole && round.role && text.promptByRole[round.role]) || text.promptText;
+  const words = String(isBonus ? BT.prompt : rolePrompt).trim().split(/\s+/);
+  // #pr is 440px wide (376px of text) and each word is nowrap: long words (SUPERHEROINE?) shrink the prompt so they never clip.
+  const longestWord = words.reduce((m, w) => Math.max(m, w.length), 1);
+  const promptFont = Math.min(TY.l, Math.floor(376 / (longestWord * 0.55)));
 
   // ---- countdown ring --------------------------------------------------------
   const ri = lit ? eb(pr(t, 0.55, 1.1)) : eb(pr(t, 0.85, 1.5));
@@ -755,7 +760,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
           }}
         >
           <small>{isBonus ? BT.label : text.promptLabel || "QUESTION"}</small>
-          <div className="ln">
+          <div className="ln" style={{ fontSize: promptFont }}>
             {words.map((w, i) => {
               const ein = lit ? ex(pr(t, 0.15 + i * 0.09, 0.6 + i * 0.09)) : ex(pr(t, 0.65 + i * 0.1, 1.2 + i * 0.1));
               const eout = eio(pr(t, Q - 0.15 + i * 0.04, Q + 0.12 + i * 0.04));
