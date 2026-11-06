@@ -292,7 +292,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   // ---- letter-slot hints (src/letterHints.js, settings.letterHints) ------------------------------------------------------
   // One tile per character of the name. Hint 1 fills in at hint1AtSeconds, hint 2 at hint2AtSeconds (default: hintAtSeconds, where
   // the ping + riser sit). Only those two exact positions fill in. The old text hint card is gone.
-  const nameChars = Array.from(String(round.heroName).toUpperCase()); // moved up: needed by nmHandoff below
+  const nameChars = Array.from(String(round.heroName).toUpperCase()); 
   const LH = settings.letterHints || { enabled: false };
   const slotsOn = Boolean(LH.enabled && !(isBonus && (LH.skipTypes || []).includes(btype)));
   const slots = slotsOn ? buildSlots(round.heroName, { maxRatio: LH.maxRatio, positions: round.hintPositions }) : [];
@@ -302,47 +302,20 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const hintT = [0, LH.hint1AtSeconds ?? 3, LH.hint2AtSeconds ?? H]; // seconds at which hint 1 / hint 2 fill in
   const GLYPH = { W: 0.8, M: 0.745 }; // the only two letters wider than a tile at name size: squeezed a little to fit
 
-  // ---- tile-to-letter morph timing (feature: boxes continue through reveal) ----------------
-  // Instead of fading the whole #lh row out before the name stamps in, each tile individually
-  // morphs into its letter. Three phases, staggered left-to-right:
-  //   Phase A (0 → 0.35 s): box background dissolves, rim expands into a burst ring
-  //   Phase B (0 → 0.55 s): letter lifts off the tile face, scales from tileW up to nameSize, moves up
-  //   Phase C (0 → 0.25 s): once letter is at name position, the #nm character fades in and the
-  //                          floating letter fades out — a seamless handoff at the same position
-  //
-  // The morph wave starts at Q - 0.08 and spreads across the row over 0.4 s so the last letter
-  // lands by Q + 0.5 s — right when the #nm cascade finishes. Each tile's morph start is
-  // staggered by its position fraction in the row.
-  const MORPH_START  = Q - 0.50;     // first tile begins morphing (wave leads into the reveal)
-  const MORPH_SPREAD = 0.25;          // time spread across the full row — entire wave done by Q+0.2
-  const MORPH_A_DUR  = 0.28;          // box face dissolve
-  const MORPH_B_DUR  = 0.40;          // letter lift + scale
-  const MORPH_C_DUR  = 0.18;          // handoff to #nm
-
-  // Per-slot morph progress values (computed below in JSX is wasteful; compute here and pass in)
-  const letterSlots = slots.filter((s) => s.letter);
-  const totalLetters = Math.max(1, letterSlots.length);
-  let morphIdx = 0;
-  const slotMorph = slots.map((s) => {
+  // ---- boxes stay through the reveal ----------------------------------------------------------------------
+  // The tile row never disappears. At the reveal every still-empty tile fills in with its letter (same pop / flash / glint
+  // as a hint), staggered left to right, and stays in its box. Hinted tiles are already filled and keep their look.
+  const FILL_START  = Q + 0.05;  // first empty tile pops in
+  const FILL_SPREAD = 0.45;      // time between the first and the last tile
+  const letterCount = Math.max(1, slots.filter((s) => s.letter).length);
+  let fillIdx = 0;
+  const slotFillT = slots.map((s) => {
     if (!s.letter) return null;
-    const frac = morphIdx / Math.max(1, totalLetters - 1); // 0 → 1 left to right
-    morphIdx++;
-    const t0 = MORPH_START + frac * MORPH_SPREAD;
-    const pA = ex(pr(t, t0,              t0 + MORPH_A_DUR));
-    const pB = ex(pr(t, t0 + 0.05,      t0 + 0.05 + MORPH_B_DUR));
-    const pC = ex(pr(t, t0 + MORPH_B_DUR - 0.1, t0 + MORPH_B_DUR - 0.1 + MORPH_C_DUR));
-    const burstRing = pr(t, t0, t0 + 0.5);
-    return { pA, pB, pC, burstRing, started: t >= t0 };
+    const frac = fillIdx / Math.max(1, letterCount - 1);
+    fillIdx++;
+    return s.hint ? hintT[s.hint] : FILL_START + frac * FILL_SPREAD;
   });
-
-  // The #nm name characters: letters that come from tiles hand off at their morph end.
-  // We suppress the normal #nm stamp-in delay for letter slots so there is no double flash —
-  // the #nm character opacity starts at pC (the morph handoff progress). Non-slot chars (spaces,
-  // hyphens) use the original cascade timing.
-  // We store a parallel array aligned to nameChars (which = slots for normal rounds):
-  const nmHandoff = slotsOn && slots.length === nameChars.length
-    ? slotMorph.map((m) => (m ? m.pC : null))
-    : null;
+  const boxesOn = slotsOn && slots.length > 0; // the name is shown inside the boxes, so the plain #nm text stays hidden
 
   // ---- progress tracker ("12 / 50") and end-card CTA --------------------------------------------------------------------
   const PG = settings.progress || { enabled: false };
@@ -784,8 +757,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
             id="lh"
             style={{
               gap: LH.gap,
-              // No longer fades out — stays visible through the whole morph. The row itself only
-              // disappears once every individual tile has completed its morph (pC >= 1 for all).
+              // The tile row stays on screen through the reveal and to the end of the clip.
               opacity: 1,
               height: LH.tileH,
               transform: `scale(${slotScale.toFixed(4)})`,
@@ -796,24 +768,19 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
               const e    = ex(pr(t, LH.showAtSeconds + i * 0.04, LH.showAtSeconds + 0.5 + i * 0.04));
               const rise = `translateY(${((1 - e) * 34).toFixed(1)}px)`;
 
-              // --- morph progress for letter tiles ---
-              const M = s.letter ? slotMorph[i] : null;
-              const morphing  = M !== null && M.started;
-              const morphDone = M !== null && M.pC >= 0.99;
-
-              // non-letter chars (space, hyphen, etc.)
+              // non-letter chars (space, hyphen, etc.) stay on screen for the whole clip
               if (!s.letter) {
-                if (s.ch === " ") return <div key={i} className="fixed" style={{ width: LH.spaceW, height: LH.tileH, opacity: morphDone ? 0 : Number(e.toFixed(3)), transform: rise }} />;
+                if (s.ch === " ") return <div key={i} className="fixed" style={{ width: LH.spaceW, height: LH.tileH, opacity: Number(e.toFixed(3)), transform: rise }} />;
                 const bar = s.ch === "-" || s.ch === "–" || s.ch === "—";
                 return (
-                  <div key={i} className="fixed" style={{ width: LH.fixedW, height: LH.tileH, opacity: morphDone ? 0 : Number(e.toFixed(3)), transform: rise }}>
+                  <div key={i} className="fixed" style={{ width: LH.fixedW, height: LH.tileH, opacity: Number(e.toFixed(3)), transform: rise }}>
                     {bar ? <i style={{ display: "block", width: 30, height: 8, borderRadius: 4, background: "rgba(255,255,255,.6)" }} /> : s.ch}
                   </div>
                 );
               }
 
-              // ---- letter tile ----
-              const u = s.hint ? t - hintT[s.hint] : -1;
+              // ---- letter tile: empty until its fill time (hint time or reveal cascade), then pops and stays filled ----
+              const u = t - slotFillT[i];
               const on = u >= 0;
               const pop    = on ? spring(pr(u, 0, 0.7)) : 0;
               const settle = on ? 1 - pr(u, 0, 0.9) : 0;
@@ -822,45 +789,6 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
               const glint  = on ? pr(u, 0.08, 0.62) : 0;
               const breathe = 0.5 + 0.5 * Math.sin(t * 2.4 + i * 0.7);
 
-              // ---- Phase A: box face dissolves when morphing starts ----
-              // pA drives box opacity from 1 → 0
-              const boxOpacity = morphing ? Number((1 - M.pA).toFixed(3)) : 1;
-
-              // ---- Phase B: letter lifts off and scales up to nameSize ----
-              // The tile letter (font-size = TY.xl) is tileW×tileH.
-              // The name letter (font-size = nameSize) is at y = 0 within #nm (top:684).
-              // Both #lh and #nm share the same top:684 CSS origin, so the vertical travel is 0.
-              // The floating letter just scales from 1 → nameSize/TY.xl and shifts Y to match the
-              // baseline of #nm. We simulate the y lift as a subtle arc: peaks at pB=0.5, back to 0.
-              const liftY   = morphing ? -(18 * Math.sin(M.pB * Math.PI)).toFixed(1) : 0;
-              const nameScale = nameSize / TY.xl;
-              // Scale from 1 at pB=0 to nameScale at pB=1, with a slight overshoot at 0.7
-              const rawScale  = morphing ? lerp(1, nameScale, ex(cl(M.pB * 1.1, 0, 1))) : 1;
-              const overshoot = morphing ? 1 + 0.08 * Math.exp(-M.pB * 10) * Math.sin(M.pB * Math.PI * 4) : 1;
-              const letterScale = (rawScale * overshoot).toFixed(4);
-              // Floating letter opacity: visible from start of B, hands off at C
-              const floatOpacity = morphing
-                ? Number((ex(cl(M.pB * 2, 0, 1)) * (1 - M.pC)).toFixed(3))
-                : 0;
-              // color: transitions from colors.navy (on tile) → white (in name)
-              const navyRgb = hexToRgb(colors.navy) || [11, 18, 48];
-              const floatColor = morphing
-                ? `rgb(${mixRgb(navyRgb, [255, 255, 255], M.pB).map(Math.round).join(",")})`
-                : "#fff";
-
-              // ---- Phase burst ring: expands outward at morph start ----
-              const burstOp = morphing && M.burstRing < 1
-                ? Number((0.8 * (1 - M.burstRing)).toFixed(3))
-                : 0;
-              const burstScale = morphing ? (1 + 2.2 * eo(M.burstRing)).toFixed(3) : "1";
-
-              // ---- Phase A particle shatter: 6 tiny sparks scatter outward ----
-              // We approximate with 2 extra ghost rings at different speeds/opacities
-              const spark1Op = morphing && M.pA < 0.9 ? Number((0.55 * (1 - M.pA / 0.9)).toFixed(3)) : 0;
-              const spark1Sc = morphing ? (1 + 1.4 * eo(cl(M.pA, 0, 1))).toFixed(3) : "1";
-              const spark2Op = morphing && M.pA < 0.65 ? Number((0.35 * (1 - M.pA / 0.65)).toFixed(3)) : 0;
-              const spark2Sc = morphing ? (1 + 0.8 * eo(cl(M.pA * 1.4, 0, 1))).toFixed(3) : "1";
-
               return (
                 <div
                   key={i}
@@ -868,22 +796,17 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
                   style={{
                     width: LH.tileW,
                     height: LH.tileH,
-                    opacity: morphDone ? 0 : Number(e.toFixed(3)),
-                    transform: `${rise} scale(${(on && !morphing ? 0.55 + 0.45 * pop : 1).toFixed(4)})`,
+                    opacity: Number(e.toFixed(3)),
+                    transform: `${rise} scale(${(on ? 0.55 + 0.45 * pop : 1).toFixed(4)})`,
                     borderRadius: 14,
-                    // Glow fades out as morph starts
-                    boxShadow: morphing
-                      ? `0 0 ${(16 * (1 - M.pA)).toFixed(1)}px color-mix(in srgb, ${series} 75%, transparent), 0 8px 18px rgba(0,0,0,.35)`
-                      : on
-                        ? `0 0 ${(16 + 18 * settle).toFixed(1)}px color-mix(in srgb, ${series} 75%, transparent), 0 8px 18px rgba(0,0,0,.35)`
-                        : "0 8px 18px rgba(0,0,0,.35)",
+                    boxShadow: on
+                      ? `0 0 ${(16 + 18 * settle).toFixed(1)}px color-mix(in srgb, ${series} 75%, transparent), 0 8px 18px rgba(0,0,0,.35)`
+                      : "0 8px 18px rgba(0,0,0,.35)",
                   }}
                 >
-                  {/* Box face — fades out in Phase A */}
                   <div
                     className="face"
                     style={{
-                      opacity: boxOpacity,
                       background: on
                         ? `linear-gradient(180deg, color-mix(in srgb, ${series} 60%, #fff) 0%, ${series} 100%)`
                         : "linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.035))",
@@ -891,7 +814,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
                       boxShadow: on ? "inset 0 1px 0 rgba(255,255,255,.55)" : "inset 0 1px 0 rgba(255,255,255,.18)",
                     }}
                   >
-                    {on && !morphing ? (
+                    {on ? (
                       <>
                         <b style={{ color: colors.navy, transform: GLYPH[s.ch] ? `scaleX(${Math.min(1, (LH.tileW - 14) / (GLYPH[s.ch] * TY.xl)).toFixed(3)})` : undefined }}>{s.ch}</b>
                         <div style={{ position: "absolute", inset: 0, background: "#fff", opacity: Number((0.9 * flash).toFixed(3)) }} />
@@ -903,16 +826,16 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
                           }} />
                         ) : null}
                       </>
-                    ) : !on && !morphing ? (
+                    ) : (
                       <div style={{
                         position: "absolute", left: "18%", bottom: Math.round(LH.tileH * 0.2), width: "64%", height: 6, borderRadius: 3,
                         background: `rgba(255,255,255,${(0.34 + 0.24 * breathe).toFixed(3)})`,
                       }} />
-                    ) : null}
+                    )}
                   </div>
 
-                  {/* Hint reveal ring (pre-morph) */}
-                  {on && !morphing && ring < 1 ? (
+                  {/* pop ring when a tile fills in */}
+                  {on && ring < 1 ? (
                     <div style={{
                       position: "absolute", inset: -3, borderRadius: 17, pointerEvents: "none",
                       border: `3px solid ${series}`,
@@ -921,56 +844,6 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
                     }} />
                   ) : null}
 
-                  {/* Phase A: burst ring — expands outward from tile at morph start */}
-                  {burstOp > 0 ? (
-                    <div style={{
-                      position: "absolute", inset: -3, borderRadius: 17, pointerEvents: "none",
-                      border: `3px solid ${series}`,
-                      opacity: burstOp,
-                      transform: `scale(${burstScale})`,
-                    }} />
-                  ) : null}
-
-                  {/* Phase A: scatter sparks (two ghost rings at offset speeds) */}
-                  {spark1Op > 0 ? (
-                    <div style={{
-                      position: "absolute", inset: -3, borderRadius: 17, pointerEvents: "none",
-                      border: `2px solid rgba(255,255,255,0.7)`,
-                      opacity: spark1Op,
-                      transform: `scale(${spark1Sc})`,
-                    }} />
-                  ) : null}
-                  {spark2Op > 0 ? (
-                    <div style={{
-                      position: "absolute", inset: -3, borderRadius: 20, pointerEvents: "none",
-                      background: `radial-gradient(circle, ${series}44 0%, transparent 65%)`,
-                      opacity: spark2Op,
-                      transform: `scale(${spark2Sc})`,
-                    }} />
-                  ) : null}
-
-                  {/* Phase B/C: floating letter lifts off the tile face, scales to name size, hands off */}
-                  {morphing && floatOpacity > 0 ? (
-                    <div style={{
-                      position: "absolute",
-                      left: "50%",
-                      top: "50%",
-                      transform: `translate(-50%, calc(-50% + ${liftY}px)) scale(${letterScale})`,
-                      transformOrigin: "50% 50%",
-                      opacity: floatOpacity,
-                      fontFamily: "var(--display)",
-                      fontWeight: 900,
-                      fontSize: TY.xl,
-                      lineHeight: 1,
-                      color: floatColor,
-                      pointerEvents: "none",
-                      willChange: "transform, opacity",
-                      // Subtle text shadow that dissolves as it lifts
-                      textShadow: `0 0 ${(28 * (1 - M.pB)).toFixed(0)}px ${series}`,
-                    }}>
-                      {s.ch}
-                    </div>
-                  ) : null}
                 </div>
               );
             })}
@@ -1057,15 +930,11 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
         <div id="nm">
           <div id="nmain" ref={nameRef} style={{ fontSize: nameSize }}>
             {nameChars.map((ch, i) => {
-              // When tile slots are active and this character has a morph handoff, the tile's floating
-              // letter handles the entry — the #nm span starts invisible and fades in precisely when
-              // the floating letter reaches this position (pC). This avoids any double-render flash.
-              const ho = nmHandoff ? nmHandoff[i] : null;
+              // When letter boxes are on, the name is shown inside the boxes and this plain text stays hidden.
               const pl = pr(t, Q + 0.15 + i * 0.05, Q + 0.15 + i * 0.05 + 0.45);
-              const opacity = ho !== null ? Number(eo(cl(ho * 2, 0, 1)).toFixed(3)) : Number(eo(cl(pl * 2, 0, 1)).toFixed(3));
-              // translateY: morphed letters arrive at y=0 from above; non-morphed use the standard cascade drop
-              const e = ho !== null ? ex(cl(ho * 1.4, 0, 1)) : eb(pl);
-              const translateY = ho !== null ? 0 : (1 - e) * 50;
+              const opacity = boxesOn ? 0 : Number(eo(cl(pl * 2, 0, 1)).toFixed(3));
+              const e = eb(pl);
+              const translateY = (1 - e) * 50;
               const shn = Math.max(0, 1 - Math.abs(i - front) / 1.5);
               return (
                 <span
