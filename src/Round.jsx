@@ -238,9 +238,8 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const wmLast = wmParts.length > 1 ? wmParts.pop() : "";
   const wmFirst = wmParts.join(" ") || wmLast;
   const barIn = lit ? ex(pr(t, 0.35, 0.95)) : ex(pr(t, 0.55, 1.3));
-  // Normal rounds: the prompt follows the character's role (settings.text.promptByRole), falling back to text.promptText.
-  const rolePrompt = (text.promptByRole && round.role && text.promptByRole[round.role]) || text.promptText;
-  const words = String(isBonus ? BT.prompt : rolePrompt).trim().split(/\s+/);
+  // Normal rounds: one neutral prompt (settings.text.promptText) so the question never gives away hero / villain.
+  const words = String(isBonus ? BT.prompt : text.promptText).trim().split(/\s+/);
   // #pr is 440px wide (376px of text) and each word is nowrap: long words (SUPERHEROINE?) shrink the prompt so they never clip.
   const longestWord = words.reduce((m, w) => Math.max(m, w.length), 1);
   const promptFont = Math.min(TY.l, Math.floor(376 / (longestWord * 0.55)));
@@ -353,7 +352,10 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   // nameChars is defined above (needed by the letter-slot hints block)
   const front = ((t - (Q + 1.1)) / 0.8) * (nameChars.length + 3) - 1.5;
   const ns = eo5(pr(t, Q + 0.6, Q + 1.15));
-  const realName = fillTemplate(text.realNameTemplate, { realName: String(round.realName).replace(/^\(|\)$/g, "") });
+  const realNameOnly = fillTemplate(text.realNameTemplate, { realName: String(round.realName).replace(/^\(|\)$/g, "") });
+  // Category tag (HERO / HEROINE / VILLAIN / ANTI-HERO) shown with the real name at the reveal, never in the question.
+  const roleTag = (text.roleLabels || {})[round.role] || "";
+  const realName = roleTag ? `${realNameOnly} \u2022 ${roleTag}` : realNameOnly;
 
   // ---- auto-fit text (long names / hints shrink instead of overflowing) -------------------------------------
   // Cards: text area must stay above the ledge (5 lines at 44px = 230px) and no single word may overflow the card.

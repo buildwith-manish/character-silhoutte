@@ -103,10 +103,10 @@ const Shell = ({ id, dur, soundFile, build }) => {
 export const Intro = () => {
   const I = ST.intro || {};
   const dur = cardSeconds("intro", 3);       // now 3 s by default
-  const rules = (I.rules || ["Spot the silhouette", "{seconds} seconds to name it", "+1 for every hero you get"]).map((r) =>
+  const rules = (I.rules || ["Spot the silhouette", "{seconds} seconds to name it", "+1 for every character you get"]).map((r) =>
     fillTemplate(r, { seconds: settings.questionSeconds })
   );
-  const footer = fillTemplate(I.footer || "{total} HEROES • {bonus} BONUS ROUNDS", { total: normalCount, bonus: bonusCount });
+  const footer = fillTemplate(I.footer || "{total} CHARACTERS • {bonus} BONUS ROUNDS", { total: normalCount, bonus: bonusCount });
 
   // Dynamic timing anchors relative to `dur` so they always fit regardless of the value in settings.json.
   // "READY?" lands at 80 % of the card and holds through the wipe-out.
@@ -124,7 +124,7 @@ export const Intro = () => {
         <Frame t={t} dur={dur} wipeIn={false} wipeOut>
           {/* Title */}
           <div style={{ left: 0, top: 100, width: 1600, opacity: 1 - out, fontFamily: "var(--display)", fontWeight: 900, fontSize: "var(--t-xl)", lineHeight: 0.95, letterSpacing: ".05em", textTransform: "uppercase", color: "#fff" }}>
-            <Words text={I.title || "GUESS THE HERO"} t={t} t0={0.05} step={0.08} />
+            <Words text={I.title || "GUESS THE CHARACTER"} t={t} t0={0.05} step={0.08} />
           </div>
           {/* Subtitle */}
           <div style={{ left: 0, top: 248, width: 1600, textAlign: "center", opacity: ex(pr(t, 0.3, 0.6)) * (1 - out), fontFamily: "var(--display)", fontWeight: 700, fontSize: "var(--t-m)", letterSpacing: ".22em", color: colors.series, textTransform: "uppercase" }}>

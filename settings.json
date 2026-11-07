@@ -5,13 +5,14 @@
   "revealSeconds": 4.3,
   "wipeSeconds": 0.5,
   "text": {
-    "promptText": "WHO IS THIS SUPERHERO?",
-    "promptByRole": {
-      "hero": "WHO IS THIS HERO?",
-      "superhero": "WHO IS THIS SUPERHERO?",
-      "superheroine": "WHO IS THIS SUPERHEROINE?",
-      "villain": "WHO IS THIS VILLAIN?",
-      "supervillain": "WHO IS THIS SUPERVILLAIN?"
+    "promptText": "WHO'S IN THE SHADOW?",
+    "roleLabels": {
+      "hero": "HERO",
+      "superhero": "HERO",
+      "superheroine": "HEROINE",
+      "villain": "VILLAIN",
+      "supervillain": "VILLAIN",
+      "antihero": "ANTI-HERO"
     },
     "factLabel": "DID YOU KNOW?",
     "scoreLabel": "YOUR SCORE",
@@ -368,7 +369,7 @@
       },
       "half": {
         "label": "Half Silhouette",
-        "prompt": "Name the hero from half"
+        "prompt": "Name the character from half"
       },
       "fake": {
         "label": "Spot the Fake",
@@ -376,7 +377,7 @@
       },
       "blur": {
         "label": "Out of Focus",
-        "prompt": "Who is this blurry hero?",
+        "prompt": "Who is this blurry character?",
         "blurStart": 46,
         "blurEnd": 8
       }
@@ -408,14 +409,14 @@
     "intro": {
       "enabled": true,
       "seconds": 3,
-      "title": "GUESS THE HERO",
+      "title": "GUESS THE CHARACTER",
       "subtitle": "BY THE SILHOUETTE",
       "rules": [
         "Spot the silhouette",
         "{seconds} seconds to name it",
-        "+1 for every hero you get"
+        "+1 for every character you get"
       ],
-      "footer": "{total} HEROES \u2022 {bonus} BONUS ROUNDS",
+      "footer": "{total} CHARACTERS \u2022 {bonus} BONUS ROUNDS",
       "go": "READY?",
       "teaserIds": [12, 10, 13],
       "teaserText": "Can you name all 50?",
