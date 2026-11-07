@@ -150,21 +150,21 @@ jobs:
       - name: Concatenate all clips
         run: |
           ORDER="1 2 3 4 5 6 7 8 9 10 501 11 12 13 14 15 16 17 18 19 20 502 21 22 23 24 25 26 27 28 29 30 503 31 32 33 34 35 36 37 38 39 40 504 41 42 43 44 45 46 47 48 49 50 505"
-          > out/concat.txt
-          echo "file 'out/clips/teaser.mp4'" >> out/concat.txt
-          echo "file 'out/clips/intro.mp4'" >> out/concat.txt
+          > concat.txt
+          echo "file 'out/clips/teaser.mp4'" >> concat.txt
+          echo "file 'out/clips/intro.mp4'" >> concat.txt
           nc=0; rd=0
           for rid in $ORDER; do
-            echo "file 'out/clips/round-${rid}.mp4'" >> out/concat.txt
+            echo "file 'out/clips/round-${rid}.mp4'" >> concat.txt
             if [ "$rid" -lt 500 ]; then nc=$((nc+1)); fi
             if [ "$nc" -eq 25 ] && [ "$rd" -eq 0 ] && [ "$rid" -lt 500 ]; then
-              echo "file 'out/clips/recap.mp4'" >> out/concat.txt
+              echo "file 'out/clips/recap.mp4'" >> concat.txt
               rd=1
             fi
           done
-          echo "file 'out/clips/outro.mp4'" >> out/concat.txt
+          echo "file 'out/clips/outro.mp4'" >> concat.txt
           echo "Concatenating..."
-          ffmpeg -y -v error -f concat -safe 0 -i out/concat.txt -c copy final_video.mp4
+          ffmpeg -y -v error -f concat -safe 0 -i concat.txt -c copy final_video.mp4
           ls -la final_video.mp4
           ffprobe -v error -show_entries format=duration -of csv=p=0 final_video.mp4
 
