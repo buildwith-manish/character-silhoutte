@@ -139,9 +139,13 @@ jobs:
       - name: Move clips to out/clips
         run: |
           mkdir -p out/clips
-          find all-clips -name "*.mp4" -exec cp {} out/clips/ \;
-          echo "Clips found:"
-          ls -la out/clips/
+          echo "=== all-clips structure ==="
+          find all-clips -type f -name "*.mp4" | head -10
+          echo "=== copying ==="
+          find all-clips -type f -name "*.mp4" -exec cp {} out/clips/ \;
+          echo "=== clips in out/clips ==="
+          ls out/clips/ | wc -l
+          ls -la out/clips/ | head -10
 
       - name: Concatenate all clips
         run: |
