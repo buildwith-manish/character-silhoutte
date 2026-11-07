@@ -6,7 +6,7 @@ previous voiceover mix). This script reads clips_wav/*.wav and mixes each
 voiceover clip into the corresponding round/card soundtrack at the correct
 timestamp:
 
-  - Rounds:  question clip at 0.0s, reveal clip at 7.0s (round-relative)
+  - Rounds:  question clip at 0.5s, reveal clip at 7.3s (round-relative)
   - Intro:   intro_1 at 0.0s, intro_2 at 1.5s
   - Recap:   recap clip at 0.0s
   - Outro:   outro clip at 0.0s
@@ -26,7 +26,9 @@ CLIPS_DIR = os.path.join(ROOT, 'clips_wav')
 ROUNDS_DIR = os.path.join(ROOT, 'public', 'sounds', 'rounds')
 CARDS_DIR = os.path.join(ROOT, 'public', 'sounds', 'cards')
 SR = 44100
-Q = 7.0  # reveal moment within each round (seconds)
+Q = 7.0  # reveal moment (impact) within each round (seconds)
+Q_DELAY = 0.5  # question clip starts 0.5 s into the round (after the wipe-in)
+R_DELAY = 7.3  # reveal clip starts 0.3 s after the impact so the name lands out of the hit
 
 # Round order: bonus rounds interleaved every 10 questions (matching the script)
 SCRIPT_ORDER = [
@@ -115,8 +117,8 @@ def main():
             print(f"  ✗ Round {rid}: missing soundtrack {round_audio}")
             continue
 
-        # Question at 0ms, reveal at 7000ms
-        ok = mix(round_audio, [(q_clip, 0), (r_clip, int(Q * 1000))])
+        # Question at 500ms, reveal at 7300ms
+        ok = mix(round_audio, [(q_clip, int(Q_DELAY * 1000)), (r_clip, int(R_DELAY * 1000))])
         if ok:
             success += 1
 

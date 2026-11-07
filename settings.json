@@ -433,7 +433,7 @@
     },
     "outro": {
       "enabled": true,
-      "seconds": 8,
+      "seconds": 10,
       "titleLines": [
         "HOW MANY",
         "DID YOU GET?"
