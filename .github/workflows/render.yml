@@ -126,6 +126,9 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
       - name: Download all clip artifacts
         uses: actions/download-artifact@v4
         with:
@@ -136,7 +139,8 @@ jobs:
       - name: Move clips to out/clips
         run: |
           mkdir -p out/clips
-          cp all-clips/*.mp4 out/clips/ 2>/dev/null || true
+          find all-clips -name "*.mp4" -exec cp {} out/clips/ \;
+          echo "Clips found:"
           ls -la out/clips/
 
       - name: Concatenate all clips
