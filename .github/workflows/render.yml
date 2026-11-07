@@ -168,7 +168,6 @@ jobs:
           retention-days: 7
 
       - name: Upload to YouTube
-        if: ${{ secrets.YOUTUBE_CLIENT_SECRET != '' }}
         env:
           CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
