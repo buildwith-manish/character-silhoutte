@@ -7,7 +7,8 @@ voiceover clip into the corresponding round/card soundtrack at the correct
 timestamp:
 
   - Rounds:  question clip at 0.5s, reveal clip at 7.3s (round-relative)
-  - Intro:   intro_1 at 0.0s, intro_2 at 1.5s
+  - Teaser:  intro_1 at 0.05s (cold open, no overlap with the intro line)
+  - Intro:   intro_2 at 0.1s
   - Recap:   recap clip at 0.0s
   - Outro:   outro clip at 0.0s
 
@@ -127,13 +128,21 @@ def main():
     # --- Mix cards ---
     print("\n=== MIXING CARDS ===")
 
-    # Intro: intro_1 at 0ms, intro_2 at 1500ms
+    # Teaser (cold open): intro_1 at 50ms
+    teaser_path = os.path.join(CARDS_DIR, 'teaser.wav')
+    if clips.get('intro_1'):
+        ok = mix(teaser_path, [(clips['intro_1'], 50)])
+        print(f"  {'✓' if ok else '✗'} Teaser")
+    else:
+        print("  ✗ Teaser: missing clip intro_1")
+
+    # Intro: intro_2 at 100ms (no longer overlaps intro_1)
     intro_path = os.path.join(CARDS_DIR, 'intro.wav')
-    if clips.get('intro_1') and clips.get('intro_2'):
-        ok = mix(intro_path, [(clips['intro_1'], 0), (clips['intro_2'], 1500)])
+    if clips.get('intro_2'):
+        ok = mix(intro_path, [(clips['intro_2'], 100)])
         print(f"  {'✓' if ok else '✗'} Intro")
     else:
-        print("  ✗ Intro: missing clips")
+        print("  ✗ Intro: missing clip intro_2")
 
     # Recap: recap clip at 0ms
     recap_path = os.path.join(CARDS_DIR, 'recap.wav')

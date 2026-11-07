@@ -408,7 +408,7 @@
   "structure": {
     "intro": {
       "enabled": true,
-      "seconds": 3,
+      "seconds": 3.3,
       "title": "GUESS THE CHARACTER",
       "subtitle": "BY THE SILHOUETTE",
       "rules": [
@@ -420,7 +420,7 @@
       "go": "READY?",
       "teaserIds": [12, 10, 13],
       "teaserText": "Can you name all 50?",
-      "teaserSeconds": 2
+      "teaserSeconds": 2.3
     },
     "recap": {
       "enabled": true,
