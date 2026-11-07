@@ -95,7 +95,7 @@ jobs:
               with open(pp, "w") as f: json.dump(props, f)
               cmd = ["npx", "remotion", "render", "src/index.js", comp, p,
                      f"--props={pp}", "--codec=h264", "--crf=18",
-                     "--x264-preset=ultrafast", "--concurrency=4",
+                     "--x264-preset=fast", "--concurrency=4",
                      "--log=error"]
               if scale_flag: cmd.append(scale_flag)
               print(f"  [{i+1}/{len(clips)}] {name}...", end=" ", flush=True)
@@ -164,7 +164,7 @@ jobs:
           done
           echo "file 'out/clips/outro.mp4'" >> concat.txt
           echo "Concatenating..."
-          ffmpeg -y -v error -f concat -safe 0 -i concat.txt -c copy final_video.mp4
+          ffmpeg -y -v error -f concat -safe 0 -i concat.txt -c copy -movflags +faststart final_video.mp4
           ls -la final_video.mp4
           ffprobe -v error -show_entries format=duration -of csv=p=0 final_video.mp4
 

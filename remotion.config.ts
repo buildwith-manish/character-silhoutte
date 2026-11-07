@@ -4,7 +4,7 @@ import { Config } from "@remotion/cli/config";
 Config.setVideoImageFormat("png");
 Config.setCodec("h264");
 Config.setPixelFormat("yuv420p");
-Config.setCrf(16);
+Config.setCrf(18); // matches --crf=18 in CI workflow
 Config.setOverwriteOutput(true);
 
 // Optional overrides (only needed on locked-down networks / small machines):
