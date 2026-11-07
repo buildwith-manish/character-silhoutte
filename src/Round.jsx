@@ -119,10 +119,12 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const HK = HK0 ? { ...HK0, ...((hookVariant && HK0.variants && HK0.variants[hookVariant]) || {}) } : null; // A/B/C hook variants: npm run render:batch -- --hook B
   const lit = Boolean(HK0 || detail); // fast intro (lit stage on frame 0, UI inside the first second); detail rounds are already a tight crop
   const spring = (p) => (p <= 0 ? 0 : p >= 1 ? 1 : 1 - Math.exp(-7 * p) * Math.cos(15 * p)); // damped overshoot, 0 -> 1
-  const stutter = (t0, dur, depth) => { // light flicker inside [t0, t0 + dur]
+  const stutter = (t0, dur, depth) => { // smooth light flicker inside [t0, t0 + dur] — no hard on/off
     const x = t - t0;
     if (x < 0 || x > dur) return 1;
-    return Math.sin(x * 140) + Math.sin(x * 91 + 1) > 0.1 ? 1 : 1 - depth * (1 - x / dur);
+    // Smooth sine-based flicker (no binary threshold = no per-frame strobing)
+    const wave = 0.5 + 0.5 * Math.sin(x * 30) * Math.sin(x * 19 + 1);
+    return 1 - depth * (1 - x / dur) * (1 - wave * 0.6);
   };
 
   // ---- camera, stage lights ------------------------------------------------
@@ -440,7 +442,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
     if (t < t0 || t >= t0 + dur) return 0;
     const pt = t - t0;
     const open = ex(pr(t, t0, t0 + 0.18));               // fast expo-in open
-    const flick = pt < (pk.flickerSeconds ?? 0.18) ? (Math.sin(pt * 73) + Math.sin(pt * 41 + 1) > -0.15 ? 1 : 0.25) : 1;
+    const flick = pt < (pk.flickerSeconds ?? 0.18) ? (0.5 + 0.5 * Math.sin(pt * 25) * Math.sin(pt * 17 + 1)) : 1;
     const pulse = 0.85 + 0.15 * Math.sin(pt * 9);         // gentle breathing pulse
     const fadeOut = 1 - ex(pr(t, t0 + dur - 0.3, t0 + dur)); // smooth expo-out fade
     return open * flick * pulse * cl(fadeOut, 0, 1);
@@ -451,7 +453,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
       // Eye/weapon bonus: hold until reveal (the colour spot IS the puzzle)
       const open = eo(pr(t, pkStart, pkStart + 0.35));
       const pt = t - pkStart;
-      const flick = pt < 0.3 ? (Math.sin(pt * 61) + Math.sin(pt * 37 + 1) > -0.2 ? 1 : 0.2) : 1;
+      const flick = pt < 0.3 ? (0.5 + 0.5 * Math.sin(pt * 20) * Math.sin(pt * 13 + 1)) : 1;
       const pulse = pt < 0.3 ? 1 : 0.82 + 0.18 * Math.sin(pt * (6 + pt * 2.4));
       const fadeOut = t < Q ? 1 : 1 - pr(t, Q + 0.2, Q + 0.5);
       pkVis = open * flick * pulse * cl(fadeOut, 0, 1);
