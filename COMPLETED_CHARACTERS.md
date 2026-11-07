@@ -1,0 +1,323 @@
+# Quiz Matrix — Completed Characters Tracker
+
+> **Purpose:** Track which characters have already been used in quiz videos.
+> Check this file before creating a new video to avoid repeating characters.
+
+## How to use
+- When you create a new video, add the characters to the "Used" list below
+- Before starting a new video, check this list and pick characters NOT listed
+- Format: `✅ Character Name | Video Title | Date`
+
+---
+
+## ✅ USED CHARACTERS
+
+### Video 1: "Guess the Hero by Silhouette | 50 Marvel Heroes"
+**Date:** November 7, 2026
+**URL:** https://www.youtube.com/watch?v=KGj9L-dS7Ec
+**Characters (55 total: 50 main + 5 bonus):**
+
+| # | Character | Type | Level | Image File |
+|---|---|---|---|---|
+| 1 | Spider-Man | normal | easy | 1.png |
+| 2 | Iron Man | normal | easy | 2.png |
+| 3 | Captain America | normal | easy | 3.png |
+| 4 | Thor | normal | easy | 4.png |
+| 5 | Hulk | normal | easy | 5.png |
+| 6 | Black Panther | normal | easy | 6.png |
+| 7 | Wolverine | normal | easy | 7.png |
+| 8 | Doctor Strange | normal | easy | 8.png |
+| 9 | Black Widow | normal | easy | 9.png |
+| 10 | Thanos | normal | easy | 10.png |
+| 11 | Loki | normal | easy | 11.png |
+| 12 | Venom | normal | easy | 12.png |
+| 13 | Groot | normal | easy | 13.png |
+| 14 | Captain Marvel | normal | easy | 14.png |
+| 15 | Hawkeye | normal | easy | 15.png |
+| 16 | Star-Lord | normal | medium | 16.png |
+| 17 | Rocket | normal | medium | 17.png |
+| 18 | Scarlet Witch | normal | medium | 18.png |
+| 19 | Ant-Man | normal | medium | 19.png |
+| 20 | Magneto | normal | medium | 20.png |
+| 21 | Daredevil | normal | medium | 21.png |
+| 22 | Punisher | normal | medium | 22.png |
+| 23 | Ghost Rider | normal | medium | 23.png |
+| 24 | Storm | normal | medium | 24.png |
+| 25 | Cyclops | normal | medium | 25.png |
+| 26 | Professor X | normal | medium | 26.png |
+| 27 | Nightcrawler | normal | medium | 27.png |
+| 28 | Beast | normal | medium | 28.png |
+| 29 | Vision | normal | medium | 29.png |
+| 30 | Falcon | normal | medium | 30.png |
+| 31 | War Machine | normal | medium | 31.png |
+| 32 | Winter Soldier | normal | medium | 32.png |
+| 33 | Gamora | normal | medium | 33.png |
+| 34 | Green Goblin | normal | medium | 34.png |
+| 35 | Doctor Octopus | normal | medium | 35.png |
+| 36 | Mysterio | normal | hard | 36.png |
+| 37 | Human Torch | normal | hard | 37.png |
+| 38 | Mr. Fantastic | normal | hard | 38.png |
+| 39 | Namor | normal | hard | 39.png |
+| 40 | Rogue | normal | hard | 40.png |
+| 41 | Nick Fury | normal | hard | 41.png |
+| 42 | Blade | normal | hard | 42.png |
+| 43 | She-Hulk | normal | hard | 43.png |
+| 44 | Nebula | normal | hard | 44.png |
+| 45 | Drax | normal | hard | 45.png |
+| 46 | Quicksilver | normal | hard | 46.png |
+| 47 | Shang-Chi | normal | hard | 47.png |
+| 48 | Moon Knight | normal | hard | 48.png |
+| 49 | Invisible Woman | normal | hard | 49.png |
+| 50 | Iron Fist | normal | hard | 50.png |
+| 501 | Deadpool | bonus (eye) | — | 501.png |
+| 502 | Silver Surfer | bonus (weapon) | — | 502.png |
+| 503 | Doctor Doom | bonus (half) | — | 503.png |
+| 504 | Ms. Marvel | bonus (fake) | — | 504.png |
+| 505 | The Thing | bonus (blur) | — | 505.png |
+
+---
+
+## 🆕 AVAILABLE CHARACTERS (NOT YET USED)
+
+### Marvel (still available for future videos)
+- Adam Warlock
+- Angela
+- Ares
+- Baron Zemo
+- Betty Ross
+- Bishop
+- Black Bolt
+- Black Cat
+- Blade ✅ (used in V1)
+- Broo
+- Bullseye
+- Cable
+- Carnage
+- Cloak
+- Colossus
+- Crossbones
+- Crystal
+- Dagger
+- Dazzler
+- Dead Girl
+- Daken
+- Echo
+- Electro
+- Emma Frost
+- Enchantress
+- Executioner
+- Firestar
+- Forge
+- Gambit
+- Ghost
+- Gladiator
+- Gwenpool
+- Hammerhead
+- Havok
+- Hercules
+- Hope Summers
+- Howard the Duck
+- Hulking
+- Iceman
+- Ironheart
+- Jackpot
+- J. Jonah Jameson
+- Jane Foster (Thor)
+- Jessica Jones
+- Jubilee
+- Julia Carpenter
+- Kang the Conqueror
+- Ka-Zar
+- Kazar
+- Korg
+- Kraven the Hunter
+- Lady Sif
+- Leader
+- Lizard
+- Living Laser
+- Luke Cage
+- Madame Web
+- Man-Thing
+- Mary Jane Watson
+- Medusa
+- Miles Morales
+- Mockingbird
+- Molecule Man
+- Mojo
+- Morbius
+- Morgan le Fay
+- Ms. Marvel ✅ (used in V1)
+- multiple Man
+- Mysterio ✅ (used in V1)
+- Nova
+- Odin
+- Okoye
+- Omega Red
+- Onslaught
+- Patriot
+- Peggy Carter
+- Pepper Potts
+- Phyla-Vell
+- Polaris
+- Power Man
+- Punisher ✅ (used in V1)
+- Pyro
+- Quake
+- Rage
+- Red Hulk
+- Red Skull
+- Rescue
+- Rhino
+- Rick Jones
+- Sabretooth
+- Sandman
+- Sentry
+- Shatterstar
+- Shocker
+- Silk
+- Silver Samurai
+- Snowbird
+- Songbird
+- Spectrum
+- Spider-Gwen
+- Spider-Woman
+- Squirrel Girl
+- Stature
+- Stingray
+- Stone
+- Sunspot
+- Super-Skrull
+- Taskmaster
+- Thane
+- Thing ✅ (used in V1)
+- Tiger Shark
+- Tigra
+- Toad
+- Trickshot
+- Triton
+- Ultron
+- Valkyrie
+- Vulture
+- Warpath
+- Wasp
+- White Tiger
+- Wiccan
+- Wong
+- X-23
+- Yondu
+- Yellowjacket
+- Yelena Belova
+- Zzzax
+
+### DC (for a future DC video)
+- Aquaman
+- Atom
+- Batgirl
+- Batman
+- Beast Boy
+- Black Canary
+- Black Manta
+- Blue Beetle
+- Booster Gold
+- Brainiac
+- Captain Atom
+- Captain Cold
+- Catwoman
+- Cheetah
+- Cyborg
+- Darkseid
+- Deadshot
+- Deathstroke
+- Doomsday
+- Elongated Man
+- Firestorm
+- Flash (Barry Allen)
+- Flash (Wally West)
+- Green Arrow
+- Green Lantern (Hal Jordan)
+- Green Lantern (John Stewart)
+- Harley Quinn
+- Hawk
+- Hawkgirl
+- Hawkman
+- Joker
+- Kid Flash
+- Killer Frost
+- Lex Luthor
+- Lobo
+- Martian Manhunter
+- Nightwing
+- Orion
+- Penguin
+- Power Girl
+- Question
+- Raven
+- Red Hood
+- Robin
+- Shazam
+- Sinestro
+- Solomon Grundy
+- Starfire
+- Stargirl
+- Steppenwolf
+- Supergirl
+- Superman
+- Swamp Thing
+- Terra
+- Two-Face
+- Vixen
+- Vandal Savage
+- Wally West
+- Wonder Girl
+- Wonder Woman
+- Zatanna
+
+### Anime (for a future anime video)
+- All Might (My Hero Academia)
+- Eren Yeager (Attack on Titan)
+- Goku (Dragon Ball)
+- Ichigo (Bleach)
+- Jotaro Kujo (JoJo's)
+- Kakashi (Naruto)
+- Levi (Attack on Titan)
+- Luffy (One Piece)
+- L (Death Note)
+- Light Yagami (Death Note)
+- Midoriya (My Hero Academia)
+- Naruto
+- Sasuke (Naruto)
+- Saitama (One Punch Man)
+- Tanjiro (Demon Slayer)
+- Vegeta (Dragon Ball)
+- Zoro (One Piece)
+- Add more...
+
+---
+
+## 📝 NEXT VIDEO IDEAS
+
+### Video 2: "Guess the Marvel Villain" (30 characters)
+Pick from: Carnage, Red Skull, Ultron, Kang, Electro, Vulture, Scorpion, Rhino, Sandman, Lizard, Kraven, Mysterio (used), Crossbones, Baron Zemo, Taskmaster, Sabretooth, Omega Red, Apocalypse, Mister Sinister, Sauron, Brood, Leader, MODOK, Fin Fang Foom, Mandarin, Whiplash, Justin Hammer, Aldrich Killian, Abomination, Absorbing Man
+
+### Video 3: "Guess the DC Hero" (50 characters)
+Pick from the DC list above
+
+### Video 4: "Guess the Anime Hero" (30 characters)
+Pick from the Anime list above
+
+### Video 5: "Guess the Marvel Anti-Hero" (25 characters)
+Pick from: Deadpool (used), Punisher (used), Venom (used), Ghost Rider (used), Elektra, Moon Knight (used), Morbius, Man-Thing, Daken, Black Cat, Silver Sable, Scarlet Spider, Kaine, Howard the Duck, Elsa Bloodstone, Werewolf by Night, Blade (used), Iron Fist (used), Shang-Chi (used), White Tiger, Darkhawk, Sleepwalker, Terror Inc, Hit-Monkey, Gorilla-Man
+
+---
+
+## 📊 STATISTICS
+- **Total characters used:** 55
+- **Videos completed:** 1
+- **Characters remaining (Marvel):** ~100+
+- **Characters remaining (DC):** ~60+
+- **Characters remaining (Anime):** ~30+
+
+---
+
+*Last updated: November 7, 2026*
+*After completing a new video, add the characters to the "USED" section above and mark them off from the "AVAILABLE" list.*
