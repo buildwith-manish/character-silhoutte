@@ -56,7 +56,7 @@ jobs:
           queue = [("teaser","Teaser","teaser.mp4",{}), ("intro","Intro","intro.mp4",{})]
           nc=0; rd=False
           for rid in ORDER:
-              queue.append((f"round-{rid}","Round",f"round-{rid}.mp4",{"roundId":rid,"motionBlur":${{ inputs.motion_blur == 'true' }}}))
+              queue.append((f"round-{rid}","Round",f"round-{rid}.mp4",{"roundId":rid,"motionBlur":"${{ inputs.motion_blur }}"=="true"}))
               if rid<500: nc+=1
               if not rd and nc==25 and rid<500: queue.append(("recap","Recap","recap.mp4",{})); rd=True
           queue.append(("outro","Outro","outro.mp4",{}))
