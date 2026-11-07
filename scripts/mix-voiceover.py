@@ -29,6 +29,7 @@ CARDS_DIR = os.path.join(ROOT, 'public', 'sounds', 'cards')
 SR = 44100
 Q = 7.0  # reveal moment (impact) within each round (seconds)
 Q_DELAY = 0.5  # question clip starts 0.5 s into the round (after the wipe-in)
+TEASER_BED_GAIN = 0.316  # about -10 dB on the SFX/music bed under the whispered cold open
 R_DELAY = 7.3  # reveal clip starts 0.3 s after the impact so the name lands out of the hit
 
 # Round order: bonus rounds interleaved every 10 questions (matching the script)
@@ -56,11 +57,12 @@ def load_clips():
     return clips
 
 
-def mix(existing_path, clips_with_delays):
+def mix(existing_path, clips_with_delays, bed_gain=1.0):
     """Mix the existing soundtrack with voiceover clips (each delayed by N ms).
 
     existing_path:     path to the SFX/music soundtrack (will be overwritten)
     clips_with_delays: [(clip_path, delay_ms), ...]
+    bed_gain:          linear gain on the SFX/music bed (1.0 = unchanged; <1 ducks it under the voice)
     """
     if not os.path.exists(existing_path):
         print(f"  ✗ {existing_path} not found")
@@ -79,7 +81,12 @@ def mix(existing_path, clips_with_delays):
             fc.append(f'[{idx}:a]aformat=sample_fmts=fltp:channel_layouts=stereo[v{i}]')
         else:
             fc.append(f'[{idx}:a]aformat=sample_fmts=fltp:channel_layouts=stereo,adelay={delay_ms}:all=1[v{i}]')
-    mix_inputs = '[0:a]' + ''.join(f'[v{i}]' for i in range(len(clips_with_delays)))
+    if bed_gain != 1.0:
+        fc.append(f'[0:a]volume={bed_gain}[bed]')
+        bed = '[bed]'
+    else:
+        bed = '[0:a]'
+    mix_inputs = bed + ''.join(f'[v{i}]' for i in range(len(clips_with_delays)))
     n_inputs = len(clips_with_delays) + 1
     fc.append(f'{mix_inputs}amix=inputs={n_inputs}:duration=first:dropout_transition=0[a]')
 
@@ -131,7 +138,8 @@ def main():
     # Teaser (cold open): intro_1 at 50ms
     teaser_path = os.path.join(CARDS_DIR, 'teaser.wav')
     if clips.get('intro_1'):
-        ok = mix(teaser_path, [(clips['intro_1'], 50)])
+        # The cold-open line is whispered: keep the SFX/music bed about 10 dB lower for the whole teaser.
+        ok = mix(teaser_path, [(clips['intro_1'], 50)], bed_gain=TEASER_BED_GAIN)
         print(f"  {'✓' if ok else '✗'} Teaser")
     else:
         print("  ✗ Teaser: missing clip intro_1")
