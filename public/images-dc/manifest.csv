@@ -1,0 +1,51 @@
+file,original_file,character_guess,confidence,size,source_clipping,white_rim_ratio,components
+dc-01.png,gemini-2.5-flash-image_redraw_this_character_in_flat_cel-shading_comic_book_style_clean_bold_ink_outlin-0 (1).jpg,Supergirl,high,791x1180,,0.09,2
+dc-02.png,gemini-2.5-flash-image_redraw_this_character_in_flat_cel-shading_comic_book_style_clean_bold_ink_outlin-0 (2).jpg,Two-Face,high,796x1147,,0.10,1
+dc-03.png,gemini-2.5-flash-image_redraw_this_character_in_flat_cel-shading_comic_book_style_clean_bold_ink_outlin-0 (3).jpg,Booster Gold,high,820x1231,,0.05,1
+dc-04.png,gemini-2.5-flash-image_redraw_this_character_in_flat_cel-shading_comic_book_style_clean_bold_ink_outlin-0 (4).jpg,Bizarro,high,832x1096,,0.01,1
+dc-05.png,gemini-2.5-flash-image_redraw_this_character_in_flat_cel-shading_comic_book_style_clean_bold_ink_outlin-0 (5).jpg,Robin (Damian Wayne),high,735x1166,,0.00,1
+dc-06.png,gemini-2.5-flash-image_redraw_this_character_in_flat_cel-shading_comic_book_style_clean_bold_ink_outlin-0.jpg,Darkseid,high,800x1220,,0.07,1
+dc-07.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (1).jpg,Superman,high,764x1148,,0.00,1
+dc-08.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (10).jpg,Joker,high,783x1136,,0.01,1
+dc-09.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (11).jpg,Green Arrow,high,546x1237,,0.00,2
+dc-10.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (12).jpg,Martian Manhunter,high,672x1118,,0.00,1
+dc-11.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (13).jpg,Nightwing,high,786x741,,0.00,1
+dc-12.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (14).jpg,Poison Ivy,high,713x1247,,0.00,6
+dc-13.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (15).jpg,Deathstroke,medium,742x1219,,0.01,2
+dc-14.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (16).jpg,Ra's al Ghul,medium,691x1248,bottom edge CLIPPED IN SOURCE,0.00,1
+dc-15.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (17).jpg,Riddler,high,584x1172,,0.00,1
+dc-16.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (18).jpg,Scarecrow,high,832x1239,top/left edge CLIPPED IN SOURCE,0.01,3
+dc-17.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (19).jpg,Black Canary,high,594x1163,,0.02,1
+dc-18.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (2).jpg,The Flash,high,624x1126,,0.00,11
+dc-19.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (20).jpg,Hawkman,high,832x1218,top/left/right edge (wings) CLIPPED IN SOURCE,0.01,1
+dc-20.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (21).jpg,John Constantine,high,666x1248,,0.00,1
+dc-21.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (22).jpg,Starfire,medium,770x1071,,0.01,11
+dc-22.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (23).jpg,Raven,high,818x1080,,0.01,4
+dc-23.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (24).jpg,"UNSURE (green brute, maybe Beast Boy)",low,702x1183,,0.00,1
+dc-24.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (25).jpg,Blue Beetle,medium,767x1007,,0.00,1
+dc-25.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (26).jpg,Swamp Thing,high,813x1224,,0.01,2
+dc-26.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (27).jpg,Lobo,high,732x1241,,0.02,1
+dc-27.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (28).jpg,Kid Flash,medium,829x1099,,0.00,1
+dc-28.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (29).jpg,Doctor Fate,medium,830x1152,,0.00,12
+dc-29.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (3).jpg,Aquaman,high,579x1235,,0.00,1
+dc-30.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (30).jpg,UNSURE (Flash-emblem hero in cape),low,669x1248,,0.00,1
+dc-31.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (31).jpg,Mr. Freeze,medium,803x1226,,0.03,1
+dc-32.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (32).jpg,Killer Croc,high,793x823,,0.00,1
+dc-33.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (33).jpg,Doomsday,high,800x1163,,0.02,1
+dc-34.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (34).jpg,"UNSURE (muscular Batman variant, maybe Bane)",low,832x1063,,0.00,1
+dc-35.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (35).jpg,Etrigan,high,748x1116,,0.00,4
+dc-36.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (36).jpg,UNSURE (chained Captain Marvel/Shazam variant),low,775x1091,,0.05,1
+dc-37.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (37).jpg,Brainiac,low,503x1202,,0.10,1
+dc-38.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (4).jpg,Green Lantern,high,597x1230,,0.02,1
+dc-39.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (5).jpg,Harley Quinn,high,629x1230,,0.01,1
+dc-40.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (6).jpg,UNSURE (blue hero with gun and C emblem),low,633x1195,,0.02,1
+dc-41.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (7).jpg,Catwoman,high,568x1197,,0.00,1
+dc-42.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (8).jpg,Lex Luthor (power suit),medium,766x1221,,0.00,1
+dc-43.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0 (9).jpg,Shazam,high,727x1216,,0.10,1
+dc-44.png,lucid-origin_A_stunning_and_vibrant_cinematic_photo_of_DC_Comics_official_house_art_style_fla-0.jpg,Wonder Woman,high,764x1248,top/bottom edge CLIPPED IN SOURCE,0.00,1
+dc-45.png,lucid-origin_DC_Comics_official_house_art_style_flat_cel-shading_with_no_gradients_clean_bold-0 (1).jpg,Black Adam,medium,738x1049,,0.00,1
+dc-46.png,lucid-origin_DC_Comics_official_house_art_style_flat_cel-shading_with_no_gradients_clean_bold-0 (2).jpg,Zatanna,high,575x1213,,0.01,1
+dc-47.png,lucid-origin_DC_Comics_official_house_art_style_flat_cel-shading_with_no_gradients_clean_bold-0 (3).jpg,The Spectre,medium,739x1190,,0.02,1
+dc-48.png,lucid-origin_DC_Comics_official_house_art_style_flat_cel-shading_with_no_gradients_clean_bold-0 (4).jpg,Red Hood,medium,627x1248,,0.01,1
+dc-49.png,lucid-origin_DC_Comics_official_house_art_style_flat_cel-shading_with_no_gradients_clean_bold-0.jpg,Batman,high,736x1162,,0.00,1
+dc-50.png,metallo.jpg,Cyborg Superman,medium,473x1245,,0.02,1
