@@ -75,6 +75,68 @@
 | 504 | Ms. Marvel | bonus (fake) | — | 504.png |
 | 505 | The Thing | bonus (blur) | — | 505.png |
 
+### Video 2: "Guess the Hero by Silhouette | 50 DC Heroes"
+**Date:** November 8, 2026 (in production, not yet published)
+**Characters (55 total: 50 main + 5 bonus):**
+
+| # | Character | Type | Level | Image File |
+|---|---|---|---|---|
+| 101 | Batman | normal | easy | 101.png |
+| 102 | Superman | normal | easy | 102.png |
+| 103 | Wonder Woman | normal | easy | 103.png |
+| 104 | The Flash | normal | easy | 104.png |
+| 105 | Aquaman | normal | easy | 105.png |
+| 106 | Green Lantern | normal | easy | 106.png |
+| 107 | Joker | normal | easy | 107.png |
+| 108 | Harley Quinn | normal | easy | 108.png |
+| 109 | Cyborg | normal | easy | 109.png |
+| 110 | Green Arrow | normal | easy | 110.png |
+| 111 | Catwoman | normal | easy | 111.png |
+| 112 | Lex Luthor | normal | easy | 112.png |
+| 113 | Robin | normal | easy | 113.png |
+| 114 | Black Adam | normal | medium | 114.png |
+| 115 | Shazam | normal | easy | 115.png |
+| 116 | Martian Manhunter | normal | medium | 116.png |
+| 117 | Darkseid | normal | medium | 117.png |
+| 118 | Nightwing | normal | medium | 118.png |
+| 119 | Supergirl | normal | medium | 119.png |
+| 120 | Poison Ivy | normal | medium | 120.png |
+| 121 | Deathstroke | normal | medium | 121.png |
+| 122 | Ra's al Ghul | normal | medium | 122.png |
+| 123 | Two-Face | normal | medium | 123.png |
+| 124 | The Riddler | normal | medium | 124.png |
+| 125 | Scarecrow | normal | medium | 125.png |
+| 126 | Zatanna | normal | medium | 126.png |
+| 127 | Black Canary | normal | medium | 127.png |
+| 128 | Hawkman | normal | medium | 128.png |
+| 129 | Booster Gold | normal | hard | 129.png |
+| 130 | Deadshot | normal | medium | 130.png |
+| 131 | Constantine | normal | hard | 131.png |
+| 132 | Starfire | normal | hard | 132.png |
+| 133 | Raven | normal | medium | 133.png |
+| 134 | Beast Boy | normal | hard | 134.png |
+| 135 | Blue Beetle | normal | hard | 135.png |
+| 136 | Swamp Thing | normal | hard | 136.png |
+| 137 | Lobo | normal | hard | 137.png |
+| 138 | Plastic Man | normal | hard | 138.png |
+| 139 | Doctor Fate | normal | hard | 139.png |
+| 140 | The Atom | normal | hard | 140.png |
+| 141 | Mister Freeze | normal | hard | 141.png |
+| 142 | Killer Croc | normal | hard | 142.png |
+| 143 | Bane | normal | hard | 143.png |
+| 144 | Doomsday | normal | hard | 144.png |
+| 145 | Etrigan | normal | hard | 145.png |
+| 146 | Bizarro | normal | hard | 146.png |
+| 147 | Metallo | normal | hard | 147.png |
+| 148 | Mister Miracle | normal | hard | 148.png |
+| 149 | Brainiac | normal | hard | 149.png |
+| 150 | The Spectre | normal | hard | 150.png |
+| 601 | Killer Frost | bonus (eye) | — | 601.png |
+| 602 | Red Hood | bonus (weapon) | — | 602.png |
+| 603 | Firestorm | bonus (half) | — | 603.png |
+| 604 | Sinestro | bonus (fake) | — | 604.png |
+| 605 | Kid Flash | bonus (blur) | — | 605.png |
+
 ---
 
 ## 🆕 AVAILABLE CHARACTERS (NOT YET USED)
@@ -210,67 +272,83 @@
 - Zzzax
 
 ### DC (for a future DC video)
-- Aquaman
-- Atom
+- Aquaman ✅ (used in V2)
+- Atom ✅ (used in V2)
+- Bane ✅ (used in V2)
 - Batgirl
-- Batman
-- Beast Boy
-- Black Canary
+- Batman ✅ (used in V2)
+- Beast Boy ✅ (used in V2)
+- Bizarro ✅ (used in V2)
+- Black Adam ✅ (used in V2)
+- Black Canary ✅ (used in V2)
 - Black Manta
-- Blue Beetle
-- Booster Gold
-- Brainiac
+- Blue Beetle ✅ (used in V2)
+- Booster Gold ✅ (used in V2)
+- Brainiac ✅ (used in V2)
 - Captain Atom
 - Captain Cold
-- Catwoman
+- Catwoman ✅ (used in V2)
 - Cheetah
-- Cyborg
-- Darkseid
-- Deadshot
-- Deathstroke
-- Doomsday
+- Constantine ✅ (used in V2)
+- Cyborg ✅ (used in V2)
+- Darkseid ✅ (used in V2)
+- Deadshot ✅ (used in V2)
+- Deathstroke ✅ (used in V2)
+- Doctor Fate ✅ (used in V2)
+- Doomsday ✅ (used in V2)
 - Elongated Man
-- Firestorm
-- Flash (Barry Allen)
+- Etrigan ✅ (used in V2)
+- Firestorm ✅ (used in V2)
+- Flash (Barry Allen) ✅ (used in V2)
 - Flash (Wally West)
-- Green Arrow
-- Green Lantern (Hal Jordan)
+- Green Arrow ✅ (used in V2)
+- Green Lantern (Hal Jordan) ✅ (used in V2)
 - Green Lantern (John Stewart)
-- Harley Quinn
+- Harley Quinn ✅ (used in V2)
 - Hawk
 - Hawkgirl
-- Hawkman
-- Joker
-- Kid Flash
-- Killer Frost
-- Lex Luthor
-- Lobo
-- Martian Manhunter
-- Nightwing
+- Hawkman ✅ (used in V2)
+- Joker ✅ (used in V2)
+- Kid Flash ✅ (used in V2)
+- Killer Croc ✅ (used in V2)
+- Killer Frost ✅ (used in V2)
+- Lex Luthor ✅ (used in V2)
+- Lobo ✅ (used in V2)
+- Martian Manhunter ✅ (used in V2)
+- Metallo ✅ (used in V2)
+- Mister Freeze ✅ (used in V2)
+- Mister Miracle ✅ (used in V2)
+- Nightwing ✅ (used in V2)
 - Orion
 - Penguin
+- Plastic Man ✅ (used in V2)
+- Poison Ivy ✅ (used in V2)
 - Power Girl
 - Question
-- Raven
-- Red Hood
-- Robin
-- Shazam
-- Sinestro
+- Ra's al Ghul ✅ (used in V2)
+- Raven ✅ (used in V2)
+- Red Hood ✅ (used in V2)
+- Robin ✅ (used in V2)
+- Scarecrow ✅ (used in V2)
+- Shazam ✅ (used in V2)
+- Sinestro ✅ (used in V2)
 - Solomon Grundy
-- Starfire
+- Starfire ✅ (used in V2)
 - Stargirl
 - Steppenwolf
-- Supergirl
-- Superman
-- Swamp Thing
+- Supergirl ✅ (used in V2)
+- Superman ✅ (used in V2)
+- Swamp Thing ✅ (used in V2)
 - Terra
-- Two-Face
-- Vixen
+- The Riddler ✅ (used in V2)
+- The Spectre ✅ (used in V2)
+- Two-Face ✅ (used in V2)
 - Vandal Savage
+- Vixen
 - Wally West
 - Wonder Girl
-- Wonder Woman
-- Zatanna
+- Wonder Woman ✅ (used in V2)
+- Zatanna ✅ (used in V2)
 
 ### Anime (for a future anime video)
 - All Might (My Hero Academia)
@@ -297,68 +375,6 @@
 ## 📝 NEXT VIDEO IDEAS
 
 
-### Video 2: "Guess the Hero by Silhouette | 50 DC Heroes"
-**Date:** *(upcoming)*
-**Characters (55 total: 50 main + 5 bonus):**
-
-| # | Character | Type | Level | Image File |
-|---|---|---|---|---|
-| 101 | Batman | normal | easy | 101.png |
-| 102 | Superman | normal | easy | 102.png |
-| 103 | Wonder Woman | normal | easy | 103.png |
-| 104 | The Flash | normal | easy | 104.png |
-| 105 | Aquaman | normal | easy | 105.png |
-| 106 | Green Lantern | normal | easy | 106.png |
-| 107 | Joker | normal | easy | 107.png |
-| 108 | Harley Quinn | normal | easy | 108.png |
-| 109 | Cyborg | normal | easy | 109.png |
-| 110 | Green Arrow | normal | easy | 110.png |
-| 111 | Catwoman | normal | easy | 111.png |
-| 112 | Lex Luthor | normal | easy | 112.png |
-| 113 | Robin | normal | easy | 113.png |
-| 114 | Black Adam | normal | medium | 114.png |
-| 115 | Shazam | normal | easy | 115.png |
-| 116 | Martian Manhunter | normal | medium | 116.png |
-| 117 | Darkseid | normal | medium | 117.png |
-| 118 | Nightwing | normal | medium | 118.png |
-| 119 | Supergirl | normal | medium | 119.png |
-| 120 | Poison Ivy | normal | medium | 120.png |
-| 121 | Deathstroke | normal | medium | 121.png |
-| 122 | Ra's al Ghul | normal | medium | 122.png |
-| 123 | Two-Face | normal | medium | 123.png |
-| 124 | The Riddler | normal | medium | 124.png |
-| 125 | Scarecrow | normal | medium | 125.png |
-| 126 | Zatanna | normal | medium | 126.png |
-| 127 | Black Canary | normal | medium | 127.png |
-| 128 | Hawkman | normal | medium | 128.png |
-| 129 | Booster Gold | normal | hard | 129.png |
-| 130 | Deadshot | normal | medium | 130.png |
-| 131 | Constantine | normal | hard | 131.png |
-| 132 | Starfire | normal | hard | 132.png |
-| 133 | Raven | normal | medium | 133.png |
-| 134 | Beast Boy | normal | hard | 134.png |
-| 135 | Blue Beetle | normal | hard | 135.png |
-| 136 | Swamp Thing | normal | hard | 136.png |
-| 137 | Lobo | normal | hard | 137.png |
-| 138 | Plastic Man | normal | hard | 138.png |
-| 139 | Doctor Fate | normal | hard | 139.png |
-| 140 | The Atom | normal | hard | 140.png |
-| 141 | Mister Freeze | normal | hard | 141.png |
-| 142 | Killer Croc | normal | hard | 142.png |
-| 143 | Bane | normal | hard | 143.png |
-| 144 | Doomsday | normal | hard | 144.png |
-| 145 | Etrigan | normal | hard | 145.png |
-| 146 | Bizarro | normal | hard | 146.png |
-| 147 | Metallo | normal | hard | 147.png |
-| 148 | Mister Miracle | normal | hard | 148.png |
-| 149 | Brainiac | normal | hard | 149.png |
-| 150 | The Spectre | normal | hard | 150.png |
-| 601 | Batman | eye | easy | 601.png |
-| 602 | Aquaman | weapon | easy | 602.png |
-| 603 | Two-Face | half | easy | 603.png |
-| 604 | Superman | fake | easy | 604.png |
-| 605 | The Flash | blur | easy | 605.png |
-
 ### Video 3: "Guess the Marvel Villain" (30 characters)
 Pick from: Carnage, Red Skull, Ultron, Kang, Electro, Vulture, Scorpion, Rhino, Sandman, Lizard, Kraven, Mysterio (used), Crossbones, Baron Zemo, Taskmaster, Sabretooth, Omega Red, Apocalypse, Mister Sinister, Sauron, Brood, Leader, MODOK, Fin Fang Foom, Mandarin, Whiplash, Justin Hammer, Aldrich Killian, Abomination, Absorbing Man
 
@@ -375,9 +391,9 @@ Pick from: Deadpool (used), Punisher (used), Venom (used), Ghost Rider (used), E
 
 ## 📊 STATISTICS
 - **Total characters used:** 110
-- **Videos completed:** 1 (Video 2 in progress)
+- **Videos completed:** 1 published (Video 1, Marvel); Video 2 (DC) in production
 - **Characters remaining (Marvel):** ~100+
-- **Characters remaining (DC):** ~15+
+- **Characters remaining (DC):** 22 on the roster above (e.g. Batgirl, Black Manta, Captain Atom, Captain Cold, Cheetah, Elongated Man)
 - **Characters remaining (Anime):** ~30+
 
 ---
