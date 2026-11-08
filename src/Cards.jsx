@@ -159,21 +159,26 @@ export const Intro = () => {
 };
 
 // ------------------------------------------------------------------------------------------------------------------------
-// TEASER: 2-second cold-open before the Intro. Three freeze-frames from hand-picked reveal moments (settings.structure.intro.teaserIds),
-// each shown for ~0.6 s with a "Can you name all 50?" overlay. No audio file — it uses the whoosh panel wipe only.
-// Frame-locked to the reveal pop (Q + 0.1 s) of each chosen round so the colour hero is visible but no name text yet.
+// TEASER: cold open before the Intro (settings.structure.intro.teaserSeconds). One quick shot per entry of the chosen set
+// (settings.structure.intro.teaserSets.A / .B, picked with the teaserSet prop or teaserDefault; npm run render:batch -- --teaser B).
+// A shot is { id, at }: round `id` plays live from `at` seconds into that round (silhouette, ticking timer, flashes), or pass
+// at: "reveal" for a frozen frame of the colour reveal. Falls back to structure.intro.teaserIds (reveal freeze frames).
+// Sound: public/sounds/cards/teaser.wav (SFX bed + the whispered intro_1 line); the rounds' own soundtracks are muted here.
 // ------------------------------------------------------------------------------------------------------------------------
-export const Teaser = () => {
+export const Teaser = ({ teaserSet } = {}) => {
   const I      = ST.intro || {};
   const dur    = Math.max(1, (I.teaserSeconds ?? 2));
-  const ids    = I.teaserIds || [1, 15, 36];
+  const setKey = teaserSet || I.teaserDefault || "A";
+  const rawShots = (I.teaserSets && I.teaserSets[setKey]) || (I.teaserIds || [1, 15, 36]).map((id) => ({ id, at: "reveal" }));
+  const shots  = rawShots.map((s) => (typeof s === "object" ? s : { id: s, at: "reveal" }));
+  const ids    = shots.map((s) => s.id);
   const label  = I.teaserText || "Can you name all 50?";
   const FPS_   = settings.fps;
   const Q_     = settings.questionSeconds;
-  // The freeze frame we want: a fraction of a second into the colour reveal (before the name overlay appears)
-  const revealFrame = Math.round((Q_ + 0.1) * FPS_);
+  // "reveal" = a fraction of a second into the colour reveal (before the name overlay appears)
+  const startFrameOf = (s) => Math.round((s.at === "reveal" || s.at == null ? Q_ + 0.1 : Number(s.at)) * FPS_);
 
-  // Each panel occupies dur/3 seconds; they cross-fade.
+  // Each panel occupies dur/shots seconds; they cross-fade.
   const slotDur   = dur / ids.length;
   const xfadeDur  = Math.min(0.18, slotDur * 0.28);
 
@@ -204,14 +209,22 @@ export const Teaser = () => {
 
     return (
       <AbsoluteFill style={{ background: "#070b1e" }}>
+        <Audio src={staticFile("sounds/cards/teaser.wav")} volume={settings.mix.volume} />
         <style>{buildCss(colors, colors.series, TY)}</style>
         <div id="stage" style={{ transform: `scale(${width / 1600})`, opacity: fontsReady ? 1 : 0 }}>
-          {/* Stack the freeze-frame panels; each is a full-frame Round at its reveal moment */}
-          {ids.map((roundId, i) => (
-            <div key={roundId} style={{ position: "absolute", left: 0, top: 0, width: 1600, height: 900, opacity: panelOp[i], pointerEvents: "none" }}>
-              <Freeze frame={revealFrame}>
-                <Round roundId={roundId} motionBlur={false} />
-              </Freeze>
+          {/* Stack the shot panels; each is a full-frame Round, live from `at` seconds or frozen at the reveal */}
+          {shots.map((s, i) => (
+            <div key={`${s.id}-${i}`} style={{ position: "absolute", left: 0, top: 0, width: 1600, height: 900, opacity: panelOp[i], pointerEvents: "none" }}>
+              {s.at === "reveal" || s.at == null ? (
+                <Freeze frame={startFrameOf(s)}>
+                  <Round roundId={s.id} motionBlur={false} mute />
+                </Freeze>
+              ) : (
+                // live: the round's own clock reads `at` seconds exactly when this panel's slot starts
+                <Sequence from={Math.round(i * slotDur * FPS_) - startFrameOf(s)} layout="none">
+                  <Round roundId={s.id} motionBlur={false} mute />
+                </Sequence>
+              )}
             </div>
           ))}
 

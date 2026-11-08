@@ -990,7 +990,7 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
 
 // Audio lives outside the motion-blur wrapper (the blur renders its children several times; the soundtrack must play once).
 // The scene is only wrapped in <CameraMotionBlur> inside the fast-move windows (see timing.js); pass motionBlur={false} to skip it entirely.
-export const Round = ({ roundId, motionBlur, hookVariant, animatic }) => {
+export const Round = ({ roundId, motionBlur, hookVariant, animatic, mute }) => {
   const frame = useCurrentFrame();
   const t = frame / T.fps;
   const mb = settings.motionBlur || { mode: "off" };
@@ -1007,7 +1007,7 @@ export const Round = ({ roundId, motionBlur, hookVariant, animatic }) => {
   return (
     <AbsoluteFill style={{ background: "#070b1e" }}>
       {/* One finished, mastered stereo soundtrack per round (scripts/generate-mix.js -> public/sounds/rounds/<id>.wav) */}
-      <Audio src={staticFile(`sounds/rounds/${round ? round.id : roundId}.wav`)} volume={settings.mix.volume} />
+      {!mute && <Audio src={staticFile(`sounds/rounds/${round ? round.id : roundId}.wav`)} volume={settings.mix.volume} />}
       {blur ? (
         <CameraMotionBlur shutterAngle={mb.shutterAngle} samples={mb.samples}>
           {scene}

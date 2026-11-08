@@ -3,6 +3,8 @@
 //   node scripts/render-batches.js --size 5 [--concat] [--only 12,13] [--allow-broken] [--no-blur] [--hook B]
 //   --cards-only renders just the intro / recap / outro cards (out/intro.mp4, recap.mp4, outro.mp4); --no-cards leaves them out of a full run.
 //   A full run (no --only) renders the cards too and --concat joins: intro, questions (recap after settings.structure.recap.afterQuestion), outro.
+//   --teaser A|B renders that teaser set (settings.json -> structure.intro.teaserSets) to out/teaser-<set>.mp4; --concat then writes out/final[-<hook>]-T<set>.mp4.
+//     Rounds are reused, so an A/B teaser test only re-renders the 2-3 s teaser plus the concat.
 //   --hook A|B|C renders that hook variant (settings.json -> hook.variants) to out/<id>-<variant>.mp4 / out/final-<variant>.mp4, for A/B testing the first second.
 const fs = require("fs");
 const path = require("path");
@@ -19,6 +21,8 @@ const cardsOnly = flag("cards-only", false) === true;
 const noCards = flag("no-cards", false) === true || (onlyIds && !cardsOnly); // a partial run (--only) never includes the cards
 const hookArg = flag("hook", null);
 const variant = hookArg && hookArg !== true ? String(hookArg) : null;
+const teaserArg = flag("teaser", null);
+const teaserSet = teaserArg && teaserArg !== true ? String(teaserArg) : null;
 
 const { rounds: all } = refreshRounds();
 const rounds = cardsOnly ? [] : onlyIds ? all.filter((r) => onlyIds.includes(r.id)) : all;
@@ -71,7 +75,7 @@ const STR = ST.structure || {};
 const teaserSecs = Math.max(1, (STR.intro && STR.intro.teaserSeconds) || 2);
 const cardDefs = [
   // Teaser comes first; it derives its "enabled" state from intro being enabled.
-  ...(!noCards && STR.intro && STR.intro.enabled !== false ? [{ key: "teaser", comp: "Teaser", dur: teaserSecs, file: path.join("out", "teaser.mp4") }] : []),
+  ...(!noCards && STR.intro && STR.intro.enabled !== false ? [{ key: "teaser", comp: "Teaser", dur: teaserSecs, file: path.join("out", teaserSet ? `teaser-${teaserSet}.mp4` : "teaser.mp4"), ...(teaserSet ? { props: { teaserSet } } : {}) }] : []),
   // Standard cards
   ...([["intro", "Intro", 3], ["recap", "Recap", 4.5], ["outro", "Outro", 8]]
     .filter(([k]) => !noCards && STR[k] && STR[k].enabled !== false)
@@ -81,7 +85,13 @@ for (const c of cardDefs) {
   if (fs.existsSync(path.join(P.root, c.file))) { console.log(`[render] ${c.key} card exists, skipping`); continue; }
   const tmp = path.join("out", `.tmp-${c.key}.mp4`);
   console.log(`[render] ${c.key} card ...`);
-  const res = spawnSync(bin("npx"), ["remotion", "render", "src/index.js", c.comp, tmp], { cwd: P.root, stdio: "inherit", shell: useShell });
+  const cardArgs = [];
+  if (c.props) {
+    const cp = path.join("out", ".props", `${c.key}-${teaserSet}.json`);
+    fs.writeFileSync(path.join(P.root, cp), JSON.stringify(c.props));
+    cardArgs.push(`--props=${cp}`);
+  }
+  const res = spawnSync(bin("npx"), ["remotion", "render", "src/index.js", c.comp, tmp, ...cardArgs], { cwd: P.root, stdio: "inherit", shell: useShell });
   if (res.status !== 0) { fs.rmSync(path.join(P.root, tmp), { force: true }); console.error(`[render] FAILED on the ${c.key} card.`); process.exit(1); }
   fs.renameSync(path.join(P.root, tmp), path.join(P.root, c.file));
 }
@@ -106,16 +116,17 @@ if (concat) {
   // leaves a small gap/offset at each join and the audio drifts ~7 ms per clip against the video (visible over many clips).
   // Instead each clip's audio is decoded, trimmed to the exact clip length, joined sample-accurately and encoded once.
   const clips = sequence.map((s) => path.resolve(P.root, s.file));
-  const list = path.join(P.out, `.concat${sfx}.txt`);
+  const fsfx = sfx + (teaserSet ? `-T${teaserSet}` : "");
+  const list = path.join(P.out, `.concat${fsfx}.txt`);
   fs.writeFileSync(list, clips.map((c) => `file '${c.replace(/\\/g, "/").replace(/'/g, "'\\''")}'`).join("\n") + "\n");
   const fg = clips.map((_, i) => `[${i + 1}:a]atrim=duration=${sequence[i].dur},asetpts=PTS-STARTPTS[a${i}]`).join(";") + ";" +
     clips.map((_, i) => `[a${i}]`).join("") + `concat=n=${clips.length}:v=0:a=1[aout]`;
-  const fgFile = path.join(P.out, `.concat-filter${sfx}.txt`);
+  const fgFile = path.join(P.out, `.concat-filter${fsfx}.txt`);
   fs.writeFileSync(fgFile, fg);
   const args = ["-y", "-f", "concat", "-safe", "0", "-i", list];
   clips.forEach((c) => args.push("-i", c));
-  args.push("-filter_complex_script", fgFile, "-map", "0:v", "-map", "[aout]", "-c:v", "copy", "-c:a", "aac", "-b:a", "320k", "-movflags", "+faststart", path.join(P.out, `final${sfx}.mp4`));
+  args.push("-filter_complex_script", fgFile, "-map", "0:v", "-map", "[aout]", "-c:v", "copy", "-c:a", "aac", "-b:a", "320k", "-movflags", "+faststart", path.join(P.out, `final${fsfx}.mp4`));
   const res = spawnSync(bin("ffmpeg"), args, { cwd: P.root, stdio: "inherit" });
   if (res.status !== 0) { console.error("[render] concat failed."); process.exit(1); }
-  console.log(`[render] wrote out/final${sfx}.mp4`);
+  console.log(`[render] wrote out/final${fsfx}.mp4`);
 }

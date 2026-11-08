@@ -418,7 +418,24 @@
       ],
       "footer": "{total} CHARACTERS \u2022 {bonus} BONUS ROUNDS",
       "go": "READY?",
-      "teaserIds": [12, 10, 13],
+      "teaserIds": [
+        7,
+        501,
+        45
+      ],
+      "teaserDefault": "A",
+      "teaserSets": {
+        "A": [
+          { "id": 7,   "at": 1.6 },
+          { "id": 501, "at": 2.5 },
+          { "id": 45,  "at": 5.0 }
+        ],
+        "B": [
+          { "id": 2,   "at": 1.6 },
+          { "id": 502, "at": 2.5 },
+          { "id": 50,  "at": 5.0 }
+        ]
+      },
       "teaserText": "Can you name all 50?",
       "teaserSeconds": 2.3
     },

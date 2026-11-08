@@ -22,6 +22,12 @@ Treat everything here as informed craft, not guaranteed results. Only your own r
   Output is `out/<id>-<variant>.mp4`, concat gives `out/final-<variant>.mp4`.
 - Publish a few, compare the first-seconds retention graph, keep the winner (copy its values into `hook`).
 
+## 5. Opening: teaser shots + A/B teaser sets
+- The cold open (`settings.json -> structure.intro.teaserSets`) is three quick shots: an iconic silhouette (live, ticking timer), an eye-only / weapon-only bonus crop (shows the format has variety) and a hard round that looks impossible. A shot is `{ "id": 7, "at": 1.6 }` (round `id` plays live from `at` seconds); `"at": "reveal"` freezes the colour reveal instead.
+- Set A: Joker, Killer Frost (eyes only), Etrigan. Set B: Superman, Red Hood (weapon only), The Spectre. `teaserDefault` picks the one used when no flag is given.
+- Test: `npm run render:batch -- --teaser B --concat` re-renders only the teaser and writes `out/final-TB.mp4` (rounds are reused). Publish both, compare the first-30-seconds retention, keep the winner by setting `teaserDefault`.
+- Sound: the teaser plays `public/sounds/cards/teaser.wav`; the voiceover mix puts the whispered `intro_1` line (suggested text: "Can you name all 50?", under about 1.6 s) at 0.05 s. Keep the first thumbnail frame consistent with shot 1 (a silhouette of the first teaser hero).
+
 ## What the template does per clip
 - Universe look: `settings.universes` (match on the Universe text): accent, background colours, colour grade, motif
   (halftone = Marvel, comic-panel slashes = DC, speed lines = Anime). A round's own `seriesColor` still wins if you changed it.
