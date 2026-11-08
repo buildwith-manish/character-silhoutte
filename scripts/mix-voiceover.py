@@ -46,9 +46,9 @@ def load_clips():
     """Build a lookup: clip_id -> file path."""
     clips = {}
     if not os.path.isdir(CLIPS_DIR):
-        print(f"ERROR: {CLIPS_DIR} not found. Extract clips_wav.7z first:")
-        print("  7z x clips_wav.7z")
-        sys.exit(1)
+        print(f"WARNING: {CLIPS_DIR} not found, skipping voiceover mix (video renders without voiceover).")
+        print("  Add the new clips_wav.7z (extract with: 7z x clips_wav.7z) to enable it.")
+        sys.exit(0)
     for f in sorted(os.listdir(CLIPS_DIR)):
         if f.endswith('.wav'):
             parts = f.replace('.wav', '').split('_', 1)
