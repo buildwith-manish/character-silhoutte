@@ -329,10 +329,12 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const cs = spring(pr(t, ctaT, ctaT + 0.8));
 
   // ---- difficulty badge (EASY / MEDIUM / HARD) ---------------------------------
-  // Derived from the round id using settings.difficulty.ranges. Bonus rounds do NOT show a difficulty badge.
+  // From the round's own `level` (easy / medium / hard); falls back to the id ranges in settings.difficulty.ranges. Bonus rounds do NOT show a difficulty badge.
   const DF = settings.difficulty || { enabled: false };
   const diffLevel = (() => {
     if (!DF.enabled || isBonus) return null;
+    // the round's own level (questions.json -> level) wins, so the badge stays right when easy / hard rounds are interleaved
+    if (["easy", "medium", "hard"].includes(round.level)) return round.level;
     const id = Number(round.id);
     const R = DF.ranges || {};
     for (const k of ["easy", "medium", "hard"]) {

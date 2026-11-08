@@ -266,19 +266,20 @@ export const Teaser = ({ teaserSet } = {}) => {
 };
 
 // ------------------------------------------------------------------------------------------------------------------------
-// RECAP / SCORE CHECK: shown once, mid-video (after question settings.structure.recap.afterQuestion)
+// RECAP / SCORE CHECK: shown mid-video after question settings.structure.recap.afterQuestion (25) and again, as "recap2",
+// after settings.structure.recap2.afterQuestion (40): "beat your score so far".
 // ------------------------------------------------------------------------------------------------------------------------
-export const Recap = () => {
-  const R = ST.recap || {};
-  const dur = cardSeconds("recap", 4.5);
-  const after = R.afterQuestion ?? 25;
+export const Recap = ({ which = "recap" } = {}) => {
+  const R = ST[which] || {};
+  const dur = cardSeconds(which, 4.5);
+  const after = R.afterQuestion ?? (which === "recap2" ? 40 : 25);
   const idx = rounds.findIndex((r) => Number(r.id) === Number(after) && (!r.type || r.type === "normal"));
   const done = idx >= 0 ? idx + 1 : Math.round(rounds.length / 2); // clips played so far
   const left = rounds.length - done;
   const frac = rounds.length ? done / rounds.length : 0.5;
   const BAR = 1000;
   return (
-    <Shell id="Recap" dur={dur} soundFile="recap" build={(t) => {
+    <Shell id="Recap" dur={dur} soundFile={which} build={(t) => {
       const fill = ex(pr(t, 0.75, 1.7));
       const pulse = 1 + 0.015 * Math.sin(t * 8);
       return (

@@ -105,3 +105,8 @@ with score tiers LEGEND / HERO / SIDEKICK / CIVILIAN computed from the real numb
 - Timeline after the reveal (Q = 7 s): 0.0 impact + name stamping -> 0.6 real name -> 1.5 fact card slides in (readable from about 1.8) -> about 3.8 a 6-word fact has been read -> 4.3 end of `revealSeconds` (bonus clips wipe here) -> 4.8 end of clip. Clip = 11.8 s.
 - Fact lines live in `questions.json` -> `fact`, label in `text.factLabel`. Budget: **6 words, hard cap 7** (about 2 s of reading). If you lengthen a fact, push `revealSeconds` out by the extra reading time (about 0.35 s per extra word).
 - CTA clips (`cta.lastN` is 0, so none by default) hand the card slot to the CTA at `cta.startSeconds` (3.9 s), which leaves the CTA under 1 s; give such a clip its own longer ending.
+
+## 6. Pacing and score checks
+- Round ids are play positions (the "N / 50" counter, the voiceover clips `qNN`, the images `N.png` and the CI order all follow the id). The DC series is ordered as: six easy rounds first, then a mix, with hard rounds in runs of at most two and an easy or medium round after each run, and The Spectre as the closing round. To change the order, reorder the rounds and renumber ids and images together.
+- The EASY / MEDIUM / HARD badge now comes from each round's own `level` in `questions.json` (the id ranges in `settings.difficulty.ranges` are only a fallback).
+- Two score checks: `structure.recap` (after question 25, "How many did you get?") and `structure.recap2` (after question 40, "Beat your score so far!"). Set `structure.recap2.enabled` to `false` to drop the second one. It renders as `out/recap2.mp4`, has its own composition `Recap2`, and its sound is `public/sounds/cards/recap2.wav`. Optional voiceover: a `recap_2` clip in `clips_wav`.

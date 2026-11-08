@@ -77,7 +77,7 @@
 
 ### Video 2: "Guess the Hero by Silhouette | 50 DC Heroes"
 **Date:** November 8, 2026 (in production, not yet published)
-**Characters (55 total: 50 main + 5 bonus):**
+**Characters (55 total: 50 main + 5 bonus), in play order; ids = position. Pacing: easy opening, then hard rounds in runs of at most two with an easy or medium breather after each, score checks after 25 and 40:**
 
 | # | Character | Type | Level | Image File |
 |---|---|---|---|---|
@@ -87,49 +87,49 @@
 | 4 | The Flash | normal | easy | 4.png |
 | 5 | Aquaman | normal | easy | 5.png |
 | 6 | Green Lantern | normal | easy | 6.png |
-| 7 | Joker | normal | easy | 7.png |
-| 8 | Harley Quinn | normal | easy | 8.png |
-| 9 | Cyborg | normal | easy | 9.png |
-| 10 | Green Arrow | normal | easy | 10.png |
-| 11 | Catwoman | normal | easy | 11.png |
-| 12 | Lex Luthor | normal | easy | 12.png |
-| 13 | Robin | normal | easy | 13.png |
-| 14 | Black Adam | normal | medium | 14.png |
-| 15 | Shazam | normal | easy | 15.png |
-| 16 | Martian Manhunter | normal | medium | 16.png |
-| 17 | Darkseid | normal | medium | 17.png |
-| 18 | Nightwing | normal | medium | 18.png |
-| 19 | Supergirl | normal | medium | 19.png |
-| 20 | Poison Ivy | normal | medium | 20.png |
-| 21 | Deathstroke | normal | medium | 21.png |
-| 22 | Ra's al Ghul | normal | medium | 22.png |
-| 23 | Two-Face | normal | medium | 23.png |
-| 24 | The Riddler | normal | medium | 24.png |
-| 25 | Scarecrow | normal | medium | 25.png |
-| 26 | Zatanna | normal | medium | 26.png |
-| 27 | Black Canary | normal | medium | 27.png |
-| 28 | Hawkman | normal | medium | 28.png |
-| 29 | Booster Gold | normal | hard | 29.png |
-| 30 | Deadshot | normal | medium | 30.png |
-| 31 | Constantine | normal | hard | 31.png |
-| 32 | Starfire | normal | hard | 32.png |
-| 33 | Raven | normal | medium | 33.png |
-| 34 | Beast Boy | normal | hard | 34.png |
-| 35 | Blue Beetle | normal | hard | 35.png |
-| 36 | Swamp Thing | normal | hard | 36.png |
-| 37 | Lobo | normal | hard | 37.png |
-| 38 | Plastic Man | normal | hard | 38.png |
-| 39 | Doctor Fate | normal | hard | 39.png |
-| 40 | The Atom | normal | hard | 40.png |
-| 41 | Mister Freeze | normal | hard | 41.png |
-| 42 | Killer Croc | normal | hard | 42.png |
-| 43 | Bane | normal | hard | 43.png |
-| 44 | Doomsday | normal | hard | 44.png |
-| 45 | Etrigan | normal | hard | 45.png |
-| 46 | Bizarro | normal | hard | 46.png |
-| 47 | Metallo | normal | hard | 47.png |
-| 48 | Mister Miracle | normal | hard | 48.png |
-| 49 | Brainiac | normal | hard | 49.png |
+| 7 | Black Adam | normal | medium | 7.png |
+| 8 | Joker | normal | easy | 8.png |
+| 9 | Martian Manhunter | normal | medium | 9.png |
+| 10 | Darkseid | normal | medium | 10.png |
+| 11 | Nightwing | normal | medium | 11.png |
+| 12 | Booster Gold | normal | hard | 12.png |
+| 13 | Supergirl | normal | medium | 13.png |
+| 14 | Poison Ivy | normal | medium | 14.png |
+| 15 | Constantine | normal | hard | 15.png |
+| 16 | Harley Quinn | normal | easy | 16.png |
+| 17 | Deathstroke | normal | medium | 17.png |
+| 18 | Starfire | normal | hard | 18.png |
+| 19 | Beast Boy | normal | hard | 19.png |
+| 20 | Cyborg | normal | easy | 20.png |
+| 21 | Ra's al Ghul | normal | medium | 21.png |
+| 22 | Blue Beetle | normal | hard | 22.png |
+| 23 | Swamp Thing | normal | hard | 23.png |
+| 24 | Green Arrow | normal | easy | 24.png |
+| 25 | Two-Face | normal | medium | 25.png |
+| 26 | Lobo | normal | hard | 26.png |
+| 27 | Plastic Man | normal | hard | 27.png |
+| 28 | Catwoman | normal | easy | 28.png |
+| 29 | The Riddler | normal | medium | 29.png |
+| 30 | Doctor Fate | normal | hard | 30.png |
+| 31 | The Atom | normal | hard | 31.png |
+| 32 | Lex Luthor | normal | easy | 32.png |
+| 33 | Mister Freeze | normal | hard | 33.png |
+| 34 | Killer Croc | normal | hard | 34.png |
+| 35 | Scarecrow | normal | medium | 35.png |
+| 36 | Bane | normal | hard | 36.png |
+| 37 | Doomsday | normal | hard | 37.png |
+| 38 | Robin | normal | easy | 38.png |
+| 39 | Etrigan | normal | hard | 39.png |
+| 40 | Bizarro | normal | hard | 40.png |
+| 41 | Zatanna | normal | medium | 41.png |
+| 42 | Metallo | normal | hard | 42.png |
+| 43 | Mister Miracle | normal | hard | 43.png |
+| 44 | Shazam | normal | easy | 44.png |
+| 45 | Black Canary | normal | medium | 45.png |
+| 46 | Brainiac | normal | hard | 46.png |
+| 47 | Hawkman | normal | medium | 47.png |
+| 48 | Deadshot | normal | medium | 48.png |
+| 49 | Raven | normal | medium | 49.png |
 | 50 | The Spectre | normal | hard | 50.png |
 | 501 | Killer Frost | bonus (eye) | — | 501.png |
 | 502 | Red Hood | bonus (weapon) | — | 502.png |

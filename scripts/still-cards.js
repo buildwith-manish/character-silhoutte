@@ -11,7 +11,7 @@ const { P, flag, refreshRounds } = require("./lib");
   const { renderStill, selectComposition } = require("@remotion/renderer");
   const scale = Number(flag("scale", 1)) || 1;
   const browserExecutable = process.env.REMOTION_BROWSER_EXECUTABLE || undefined;
-  const plan = { Teaser: [0.1, 0.65, 1.3, 1.8], Intro: [0.1, 0.5, 1.4, 2.0, 2.6], Recap: [0.3, 1.2, 2.4, 3.6], Outro: [0.4, 1.3, 3.2, 5.4, 7.7] };
+  const plan = { Teaser: [0.1, 0.65, 1.3, 1.8], Intro: [0.1, 0.5, 1.4, 2.0, 2.6], Recap: [0.3, 1.2, 2.4, 3.6], Recap2: [0.3, 1.2, 2.4, 3.6], Outro: [0.4, 1.3, 3.2, 5.4, 7.7] };
   const serveUrl = await bundle({ entryPoint: path.join(P.root, "src", "index.js") });
   const dir = path.join(P.out, "stills");
   fs.mkdirSync(dir, { recursive: true });

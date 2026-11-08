@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Renders rounds with `npx remotion render`, in batches. Resume-safe: rounds whose out/<id>.mp4 exists are skipped.
 //   node scripts/render-batches.js --size 5 [--concat] [--only 12,13] [--allow-broken] [--no-blur] [--hook B]
-//   --cards-only renders just the intro / recap / outro cards (out/intro.mp4, recap.mp4, outro.mp4); --no-cards leaves them out of a full run.
-//   A full run (no --only) renders the cards too and --concat joins: intro, questions (recap after settings.structure.recap.afterQuestion), outro.
+//   --cards-only renders just the intro / recap / recap2 / outro cards (out/intro.mp4, recap.mp4, recap2.mp4, outro.mp4); --no-cards leaves them out of a full run.
+//   A full run (no --only) renders the cards too and --concat joins: intro, questions (score checks after settings.structure.recap.afterQuestion and recap2.afterQuestion), outro.
 //   --teaser A|B renders that teaser set (settings.json -> structure.intro.teaserSets) to out/teaser-<set>.mp4; --concat then writes out/final[-<hook>]-T<set>.mp4.
 //     Rounds are reused, so an A/B teaser test only re-renders the 2-3 s teaser plus the concat.
 //   --hook A|B|C renders that hook variant (settings.json -> hook.variants) to out/<id>-<variant>.mp4 / out/final-<variant>.mp4, for A/B testing the first second.
@@ -77,7 +77,7 @@ const cardDefs = [
   // Teaser comes first; it derives its "enabled" state from intro being enabled.
   ...(!noCards && STR.intro && STR.intro.enabled !== false ? [{ key: "teaser", comp: "Teaser", dur: teaserSecs, file: path.join("out", teaserSet ? `teaser-${teaserSet}.mp4` : "teaser.mp4"), ...(teaserSet ? { props: { teaserSet } } : {}) }] : []),
   // Standard cards
-  ...([["intro", "Intro", 3], ["recap", "Recap", 4.5], ["outro", "Outro", 8]]
+  ...([["intro", "Intro", 3], ["recap", "Recap", 4.5], ["recap2", "Recap2", 4.5], ["outro", "Outro", 8]]
     .filter(([k]) => !noCards && STR[k] && STR[k].enabled !== false)
     .map(([k, comp, d]) => ({ key: k, comp, dur: Math.max(1, STR[k].seconds || d), file: path.join("out", `${k}.mp4`) }))),
 ];
@@ -102,11 +102,14 @@ const card = (k) => cardDefs.find((c) => c.key === k);
 if (card("teaser")) sequence.push({ file: card("teaser").file, dur: card("teaser").dur });
 if (card("intro"))  sequence.push({ file: card("intro").file,  dur: card("intro").dur  });
 let recapPlaced = !card("recap");
+let recap2Placed = !card("recap2");
 for (const r of rounds) {
   sequence.push({ file: outFile(r.id), dur: clipSecR });
   if (!recapPlaced && !r.type && Number(r.id) === Number(STR.recap.afterQuestion ?? 25)) { sequence.push({ file: card("recap").file, dur: card("recap").dur }); recapPlaced = true; }
+  if (!recap2Placed && !r.type && Number(r.id) === Number(STR.recap2.afterQuestion ?? 40)) { sequence.push({ file: card("recap2").file, dur: card("recap2").dur }); recap2Placed = true; }
 }
 if (!recapPlaced) console.log(`[render] note: no question ${STR.recap.afterQuestion ?? 25} in this series, so the score-check card is not placed (it is still rendered as out/recap.mp4).`);
+if (!recap2Placed) console.log(`[render] note: no question ${STR.recap2.afterQuestion ?? 40} in this series, so the second score-check card is not placed (it is still rendered as out/recap2.mp4).`);
 if (card("outro")) sequence.push({ file: card("outro").file, dur: card("outro").dur });
 
 if (concat && !sequence.length) { console.error("[render] nothing to concat."); process.exit(1); }

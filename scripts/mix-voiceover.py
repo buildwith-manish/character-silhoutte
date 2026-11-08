@@ -9,7 +9,7 @@ timestamp:
   - Rounds:  question clip at 0.5s, reveal clip at 7.3s (round-relative)
   - Teaser:  intro_1 at 0.05s (cold open, no overlap with the intro line)
   - Intro:   intro_2 at 0.1s
-  - Recap:   recap clip at 0.0s
+  - Recap:   recap clip at 0.0s (recap_2 clip at 0.0s on the second score check, optional)
   - Outro:   outro clip at 0.0s
 
 Prerequisites:
@@ -159,6 +159,14 @@ def main():
         print(f"  {'✓' if ok else '✗'} Recap")
     else:
         print("  ✗ Recap: missing clip")
+
+    # Second score check (after question 40): optional recap_2 clip ("Beat your score so far!"); SFX only if absent
+    recap2_path = os.path.join(CARDS_DIR, 'recap2.wav')
+    if clips.get('recap_2'):
+        ok = mix(recap2_path, [(clips['recap_2'], 0)])
+        print(f"  {'✓' if ok else '✗'} Recap 2")
+    else:
+        print("  - Recap 2: no recap_2 clip, keeping the SFX-only soundtrack")
 
     # Outro: outro clip at 0ms
     outro_path = os.path.join(CARDS_DIR, 'outro.wav')

@@ -419,16 +419,16 @@
       "footer": "{total} CHARACTERS \u2022 {bonus} BONUS ROUNDS",
       "go": "READY?",
       "teaserIds": [
-        7,
+        8,
         501,
-        45
+        39
       ],
       "teaserDefault": "A",
       "teaserSets": {
         "A": [
-          { "id": 7,   "at": 1.6 },
+          { "id": 8,   "at": 1.6 },
           { "id": 501, "at": 2.5 },
-          { "id": 45,  "at": 5.0 }
+          { "id": 39,  "at": 5.0 }
         ],
         "B": [
           { "id": 2,   "at": 1.6 },
@@ -447,6 +447,15 @@
       "progress": "{done} DONE \u2022 {left} TO GO",
       "ask": "HOW MANY DID YOU GET?",
       "sub": "COMMENT YOUR SCORE SO FAR"
+    },
+    "recap2": {
+      "enabled": true,
+      "afterQuestion": 40,
+      "seconds": 4.5,
+      "title": "SCORE CHECK",
+      "progress": "{done} DONE \u2022 {left} TO GO",
+      "ask": "BEAT YOUR SCORE SO FAR!",
+      "sub": "FINAL STRETCH \u2022 COMMENT YOUR SCORE"
     },
     "outro": {
       "enabled": true,

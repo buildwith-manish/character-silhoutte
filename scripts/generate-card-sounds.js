@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Soundtracks for the long-video cards (intro / recap / outro) -> public/sounds/cards/<name>.wav
+// Soundtracks for the long-video cards (intro / recap / recap2 / outro) -> public/sounds/cards/<name>.wav
 // Built with ffmpeg from the same one-shot sounds as the quiz clips (public/sounds/*.wav) plus a soft detuned-sine pad bed,
 // then loudness-matched with a two-pass loudnorm to the same target as the rounds (settings.mix.targetLufs / truePeakDb).
 //   node scripts/generate-card-sounds.js
@@ -51,6 +51,18 @@ const CARDS = {
       ["impact.wav", 0.5, 0.4, 1], ["chime.wav", 0.55, 0.65, 1], // SCORE CHECK
       ["ping.wav", 0.95, 0.6, 1.122], // bar fills
       ["ping.wav", 1.55, 0.7, 1.26], // the ask
+      ["whoosh.wav", 4.0, 0.7, 1],
+    ],
+    padFadeIn: 0.3, padFadeOut: 0.45,
+  },
+  // Second score check (recap2): same shape as the first, with an extra rising ping for the "beat your score" ask.
+  recap2: {
+    dur: sec("recap2", 4.5),
+    cues: [
+      ["whoosh-in.wav", 0, 0.6, 1],
+      ["impact.wav", 0.5, 0.45, 1], ["chime.wav", 0.55, 0.65, 1.122], // SCORE CHECK
+      ["ping.wav", 0.95, 0.6, 1.26], // bar fills
+      ["ping.wav", 1.55, 0.7, 1.414], ["ping.wav", 1.8, 0.6, 1.682], // the ask (rising)
       ["whoosh.wav", 4.0, 0.7, 1],
     ],
     padFadeIn: 0.3, padFadeOut: 0.45,

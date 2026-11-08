@@ -15,6 +15,11 @@ const base = { fps: T.fps, width: 2560, height: 1440 };
 const recapAfter = ((settings.structure || {}).recap || {}).afterQuestion || 25;
 const recapIdx = rounds.findIndex((r) => Number(r.id) === Number(recapAfter) && (!r.type || r.type === "normal"));
 const recapAfterIndex = recapIdx >= 0 ? recapIdx : Math.floor(rounds.length / 2);
+// second score check (settings.structure.recap2): -1 = off
+const recap2Cfg = (settings.structure || {}).recap2 || {};
+const recap2On = recap2Cfg.enabled !== false && Boolean(recap2Cfg.afterQuestion);
+const recap2Idx = recap2On ? rounds.findIndex((r) => Number(r.id) === Number(recap2Cfg.afterQuestion) && (!r.type || r.type === "normal")) : -1;
+const Recap2 = () => <Recap which="recap2" />;
 
 const teaserSecs = Math.max(1, ((settings.structure || {}).intro || {}).teaserSeconds ?? 2);
 const teaserFrames = Math.round(teaserSecs * T.fps);
@@ -39,6 +44,11 @@ const FullVideo = () => (
             <Recap />
           </Series.Sequence>
         ) : null}
+        {i === recap2Idx ? (
+          <Series.Sequence durationInFrames={cardFrames("recap2", 4.5)}>
+            <Recap2 />
+          </Series.Sequence>
+        ) : null}
       </React.Fragment>
     ))}
     <Series.Sequence durationInFrames={cardFrames("outro", 8)}>
@@ -53,6 +63,7 @@ const fullVideoFrames =
   cardFrames("intro", 3) +
   rounds.length * T.totalFrames +
   cardFrames("recap", 4.5) +
+  (recap2Idx >= 0 ? cardFrames("recap2", 4.5) : 0) +
   cardFrames("outro", 8);
 
 export const RemotionRoot = () => (
@@ -62,6 +73,7 @@ export const RemotionRoot = () => (
     <Composition id="FullVideo" component={FullVideo} durationInFrames={fullVideoFrames}          {...base} />
     <Composition id="Intro"     component={Intro}     durationInFrames={cardFrames("intro", 3)}   {...base} />
     <Composition id="Recap"     component={Recap}     durationInFrames={cardFrames("recap", 4.5)} {...base} />
+    <Composition id="Recap2"    component={Recap2}    durationInFrames={cardFrames("recap2", 4.5)} {...base} />
     <Composition id="Outro"     component={Outro}     durationInFrames={cardFrames("outro", 8)}   {...base} />
   </>
 );
