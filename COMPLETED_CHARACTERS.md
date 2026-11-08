@@ -81,61 +81,61 @@
 
 | # | Character | Type | Level | Image File |
 |---|---|---|---|---|
-| 101 | Batman | normal | easy | 101.png |
-| 102 | Superman | normal | easy | 102.png |
-| 103 | Wonder Woman | normal | easy | 103.png |
-| 104 | The Flash | normal | easy | 104.png |
-| 105 | Aquaman | normal | easy | 105.png |
-| 106 | Green Lantern | normal | easy | 106.png |
-| 107 | Joker | normal | easy | 107.png |
-| 108 | Harley Quinn | normal | easy | 108.png |
-| 109 | Cyborg | normal | easy | 109.png |
-| 110 | Green Arrow | normal | easy | 110.png |
-| 111 | Catwoman | normal | easy | 111.png |
-| 112 | Lex Luthor | normal | easy | 112.png |
-| 113 | Robin | normal | easy | 113.png |
-| 114 | Black Adam | normal | medium | 114.png |
-| 115 | Shazam | normal | easy | 115.png |
-| 116 | Martian Manhunter | normal | medium | 116.png |
-| 117 | Darkseid | normal | medium | 117.png |
-| 118 | Nightwing | normal | medium | 118.png |
-| 119 | Supergirl | normal | medium | 119.png |
-| 120 | Poison Ivy | normal | medium | 120.png |
-| 121 | Deathstroke | normal | medium | 121.png |
-| 122 | Ra's al Ghul | normal | medium | 122.png |
-| 123 | Two-Face | normal | medium | 123.png |
-| 124 | The Riddler | normal | medium | 124.png |
-| 125 | Scarecrow | normal | medium | 125.png |
-| 126 | Zatanna | normal | medium | 126.png |
-| 127 | Black Canary | normal | medium | 127.png |
-| 128 | Hawkman | normal | medium | 128.png |
-| 129 | Booster Gold | normal | hard | 129.png |
-| 130 | Deadshot | normal | medium | 130.png |
-| 131 | Constantine | normal | hard | 131.png |
-| 132 | Starfire | normal | hard | 132.png |
-| 133 | Raven | normal | medium | 133.png |
-| 134 | Beast Boy | normal | hard | 134.png |
-| 135 | Blue Beetle | normal | hard | 135.png |
-| 136 | Swamp Thing | normal | hard | 136.png |
-| 137 | Lobo | normal | hard | 137.png |
-| 138 | Plastic Man | normal | hard | 138.png |
-| 139 | Doctor Fate | normal | hard | 139.png |
-| 140 | The Atom | normal | hard | 140.png |
-| 141 | Mister Freeze | normal | hard | 141.png |
-| 142 | Killer Croc | normal | hard | 142.png |
-| 143 | Bane | normal | hard | 143.png |
-| 144 | Doomsday | normal | hard | 144.png |
-| 145 | Etrigan | normal | hard | 145.png |
-| 146 | Bizarro | normal | hard | 146.png |
-| 147 | Metallo | normal | hard | 147.png |
-| 148 | Mister Miracle | normal | hard | 148.png |
-| 149 | Brainiac | normal | hard | 149.png |
-| 150 | The Spectre | normal | hard | 150.png |
-| 601 | Killer Frost | bonus (eye) | — | 601.png |
-| 602 | Red Hood | bonus (weapon) | — | 602.png |
-| 603 | Firestorm | bonus (half) | — | 603.png |
-| 604 | Sinestro | bonus (fake) | — | 604.png |
-| 605 | Kid Flash | bonus (blur) | — | 605.png |
+| 1 | Batman | normal | easy | 1.png |
+| 2 | Superman | normal | easy | 2.png |
+| 3 | Wonder Woman | normal | easy | 3.png |
+| 4 | The Flash | normal | easy | 4.png |
+| 5 | Aquaman | normal | easy | 5.png |
+| 6 | Green Lantern | normal | easy | 6.png |
+| 7 | Joker | normal | easy | 7.png |
+| 8 | Harley Quinn | normal | easy | 8.png |
+| 9 | Cyborg | normal | easy | 9.png |
+| 10 | Green Arrow | normal | easy | 10.png |
+| 11 | Catwoman | normal | easy | 11.png |
+| 12 | Lex Luthor | normal | easy | 12.png |
+| 13 | Robin | normal | easy | 13.png |
+| 14 | Black Adam | normal | medium | 14.png |
+| 15 | Shazam | normal | easy | 15.png |
+| 16 | Martian Manhunter | normal | medium | 16.png |
+| 17 | Darkseid | normal | medium | 17.png |
+| 18 | Nightwing | normal | medium | 18.png |
+| 19 | Supergirl | normal | medium | 19.png |
+| 20 | Poison Ivy | normal | medium | 20.png |
+| 21 | Deathstroke | normal | medium | 21.png |
+| 22 | Ra's al Ghul | normal | medium | 22.png |
+| 23 | Two-Face | normal | medium | 23.png |
+| 24 | The Riddler | normal | medium | 24.png |
+| 25 | Scarecrow | normal | medium | 25.png |
+| 26 | Zatanna | normal | medium | 26.png |
+| 27 | Black Canary | normal | medium | 27.png |
+| 28 | Hawkman | normal | medium | 28.png |
+| 29 | Booster Gold | normal | hard | 29.png |
+| 30 | Deadshot | normal | medium | 30.png |
+| 31 | Constantine | normal | hard | 31.png |
+| 32 | Starfire | normal | hard | 32.png |
+| 33 | Raven | normal | medium | 33.png |
+| 34 | Beast Boy | normal | hard | 34.png |
+| 35 | Blue Beetle | normal | hard | 35.png |
+| 36 | Swamp Thing | normal | hard | 36.png |
+| 37 | Lobo | normal | hard | 37.png |
+| 38 | Plastic Man | normal | hard | 38.png |
+| 39 | Doctor Fate | normal | hard | 39.png |
+| 40 | The Atom | normal | hard | 40.png |
+| 41 | Mister Freeze | normal | hard | 41.png |
+| 42 | Killer Croc | normal | hard | 42.png |
+| 43 | Bane | normal | hard | 43.png |
+| 44 | Doomsday | normal | hard | 44.png |
+| 45 | Etrigan | normal | hard | 45.png |
+| 46 | Bizarro | normal | hard | 46.png |
+| 47 | Metallo | normal | hard | 47.png |
+| 48 | Mister Miracle | normal | hard | 48.png |
+| 49 | Brainiac | normal | hard | 49.png |
+| 50 | The Spectre | normal | hard | 50.png |
+| 501 | Killer Frost | bonus (eye) | — | 501.png |
+| 502 | Red Hood | bonus (weapon) | — | 502.png |
+| 503 | Firestorm | bonus (half) | — | 503.png |
+| 504 | Sinestro | bonus (fake) | — | 504.png |
+| 505 | Kid Flash | bonus (blur) | — | 505.png |
 
 ---
 

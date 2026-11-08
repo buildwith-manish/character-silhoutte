@@ -1,6 +1,6 @@
 [
   {
-    "id": 101,
+    "id": 1,
     "universe": "DC Universe",
     "heroName": "Batman",
     "role": "superhero",
@@ -8,12 +8,12 @@
     "hint": "The Dark Knight of Gotham",
     "fact": "He trained for years on every continent.",
     "imageQuery": "",
-    "imageFile": "101.png",
+    "imageFile": "1.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 102,
+    "id": 2,
     "universe": "DC Universe",
     "heroName": "Superman",
     "role": "superhero",
@@ -21,12 +21,12 @@
     "hint": "Faster than a speeding bullet",
     "fact": "Conceived in 1932, sold for $130.",
     "imageQuery": "",
-    "imageFile": "102.png",
+    "imageFile": "2.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 103,
+    "id": 3,
     "universe": "DC Universe",
     "heroName": "Wonder Woman",
     "role": "superheroine",
@@ -34,12 +34,12 @@
     "hint": "Amazon warrior princess",
     "fact": "First superhero comic by a psychologist.",
     "imageQuery": "",
-    "imageFile": "103.png",
+    "imageFile": "3.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 104,
+    "id": 4,
     "universe": "DC Universe",
     "heroName": "The Flash",
     "role": "superhero",
@@ -47,12 +47,12 @@
     "hint": "The Fastest Man Alive",
     "fact": "He can run at nearly light speed.",
     "imageQuery": "",
-    "imageFile": "104.png",
+    "imageFile": "4.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 105,
+    "id": 5,
     "universe": "DC Universe",
     "heroName": "Aquaman",
     "role": "superhero",
@@ -60,12 +60,12 @@
     "hint": "King of Atlantis",
     "fact": "Talks to sea life telepathically.",
     "imageQuery": "",
-    "imageFile": "105.png",
+    "imageFile": "5.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 106,
+    "id": 6,
     "universe": "DC Universe",
     "heroName": "Green Lantern",
     "role": "superhero",
@@ -73,12 +73,12 @@
     "hint": "Willpower forged into light",
     "fact": "His ring works on will alone.",
     "imageQuery": "",
-    "imageFile": "106.png",
+    "imageFile": "6.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 107,
+    "id": 7,
     "universe": "DC Universe",
     "heroName": "Joker",
     "role": "supervillain",
@@ -86,12 +86,12 @@
     "hint": "Why so serious?",
     "fact": "His origin changes in every retelling.",
     "imageQuery": "",
-    "imageFile": "107.png",
+    "imageFile": "7.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 108,
+    "id": 8,
     "universe": "DC Universe",
     "heroName": "Harley Quinn",
     "role": "supervillain",
@@ -99,12 +99,12 @@
     "hint": "Mister J's most devoted fan",
     "fact": "Created for the 1992 animated series.",
     "imageQuery": "",
-    "imageFile": "108.png",
+    "imageFile": "8.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 109,
+    "id": 9,
     "universe": "DC Universe",
     "heroName": "Cyborg",
     "role": "superhero",
@@ -112,12 +112,12 @@
     "hint": "Half man, half machine",
     "fact": "His father built his new body overnight.",
     "imageQuery": "",
-    "imageFile": "109.png",
+    "imageFile": "9.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 110,
+    "id": 10,
     "universe": "DC Universe",
     "heroName": "Green Arrow",
     "role": "superhero",
@@ -125,12 +125,12 @@
     "hint": "The Emerald Archer",
     "fact": "Trick arrows include net and boxing glove.",
     "imageQuery": "",
-    "imageFile": "110.png",
+    "imageFile": "10.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 111,
+    "id": 11,
     "universe": "DC Universe",
     "heroName": "Catwoman",
     "role": "antihero",
@@ -138,12 +138,12 @@
     "hint": "Thief with a conscience",
     "fact": "Created to give Batman a romance.",
     "imageQuery": "",
-    "imageFile": "111.png",
+    "imageFile": "11.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 112,
+    "id": 12,
     "universe": "DC Universe",
     "heroName": "Lex Luthor",
     "role": "supervillain",
@@ -151,12 +151,12 @@
     "hint": "The world's most dangerous intellect",
     "fact": "Once served as President of the USA.",
     "imageQuery": "",
-    "imageFile": "112.png",
+    "imageFile": "12.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 113,
+    "id": 13,
     "universe": "DC Universe",
     "heroName": "Robin",
     "role": "superhero",
@@ -164,12 +164,12 @@
     "hint": "The son of Batman",
     "fact": "Five different people have worn the suit.",
     "imageQuery": "",
-    "imageFile": "113.png",
+    "imageFile": "13.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 114,
+    "id": 14,
     "universe": "DC Universe",
     "heroName": "Black Adam",
     "role": "antihero",
@@ -177,12 +177,12 @@
     "hint": "Ancient power, modern fury",
     "fact": "Champion of Kahndaq for 5,000 years.",
     "imageQuery": "",
-    "imageFile": "114.png",
+    "imageFile": "14.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 115,
+    "id": 15,
     "universe": "DC Universe",
     "heroName": "Shazam",
     "role": "superhero",
@@ -190,12 +190,12 @@
     "hint": "One magic word unleashes the thunder",
     "fact": "A child becomes the world's mightiest mortal.",
     "imageQuery": "",
-    "imageFile": "115.png",
+    "imageFile": "15.png",
     "seriesColor": "#6FA8FF",
     "level": "easy"
   },
   {
-    "id": 116,
+    "id": 16,
     "universe": "DC Universe",
     "heroName": "Martian Manhunter",
     "role": "superhero",
@@ -203,12 +203,12 @@
     "hint": "The last son of Mars",
     "fact": "He fears fire but reads minds.",
     "imageQuery": "",
-    "imageFile": "116.png",
+    "imageFile": "16.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 117,
+    "id": 17,
     "universe": "DC Universe",
     "heroName": "Darkseid",
     "role": "supervillain",
@@ -216,12 +216,12 @@
     "hint": "Destroyer of worlds, seeker of the Anti-Life",
     "fact": "His Omega Beams never miss their target.",
     "imageQuery": "",
-    "imageFile": "117.png",
+    "imageFile": "17.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 118,
+    "id": 18,
     "universe": "DC Universe",
     "heroName": "Nightwing",
     "role": "superhero",
@@ -229,12 +229,12 @@
     "hint": "The original Boy Wonder, all grown up",
     "fact": "The first Robin, now Gotham's defender.",
     "imageQuery": "",
-    "imageFile": "118.png",
+    "imageFile": "18.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 119,
+    "id": 19,
     "universe": "DC Universe",
     "heroName": "Supergirl",
     "role": "superheroine",
@@ -242,12 +242,12 @@
     "hint": "Superman's cousin from Krypton",
     "fact": "She remembers Krypton; Clark does not.",
     "imageQuery": "",
-    "imageFile": "119.png",
+    "imageFile": "19.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 120,
+    "id": 20,
     "universe": "DC Universe",
     "heroName": "Poison Ivy",
     "role": "supervillain",
@@ -255,12 +255,12 @@
     "hint": "Nature's most dangerous botanist",
     "fact": "Her kiss releases lethal toxins.",
     "imageQuery": "",
-    "imageFile": "120.png",
+    "imageFile": "20.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 121,
+    "id": 21,
     "universe": "DC Universe",
     "heroName": "Deathstroke",
     "role": "antihero",
@@ -268,12 +268,12 @@
     "hint": "The world's greatest assassin",
     "fact": "A serum boosted his brain to 90% use.",
     "imageQuery": "",
-    "imageFile": "121.png",
+    "imageFile": "21.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 122,
+    "id": 22,
     "universe": "DC Universe",
     "heroName": "Ra's al Ghul",
     "role": "supervillain",
@@ -281,12 +281,12 @@
     "hint": "The Demon's Head, immortal eco-terrorist",
     "fact": "The Lazarus Pit grants him eternal life.",
     "imageQuery": "",
-    "imageFile": "122.png",
+    "imageFile": "22.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 123,
+    "id": 23,
     "universe": "DC Universe",
     "heroName": "Two-Face",
     "role": "supervillain",
@@ -294,12 +294,12 @@
     "hint": "Every decision ruled by a coin flip",
     "fact": "Gotham's DA before acid scarred him.",
     "imageQuery": "",
-    "imageFile": "123.png",
+    "imageFile": "23.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 124,
+    "id": 24,
     "universe": "DC Universe",
     "heroName": "The Riddler",
     "role": "supervillain",
@@ -307,12 +307,12 @@
     "hint": "A criminal who can't resist leaving clues",
     "fact": "A compulsive need to prove his genius.",
     "imageQuery": "",
-    "imageFile": "124.png",
+    "imageFile": "24.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 125,
+    "id": 25,
     "universe": "DC Universe",
     "heroName": "Scarecrow",
     "role": "supervillain",
@@ -320,12 +320,12 @@
     "hint": "Fear is his only weapon",
     "fact": "A fear-toxin psychologist turned villain.",
     "imageQuery": "",
-    "imageFile": "125.png",
+    "imageFile": "25.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 126,
+    "id": 26,
     "universe": "DC Universe",
     "heroName": "Zatanna",
     "role": "superheroine",
@@ -333,12 +333,12 @@
     "hint": "Magic cast by speaking backwards",
     "fact": "She says spells in reverse to cast them.",
     "imageQuery": "",
-    "imageFile": "126.png",
+    "imageFile": "26.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 127,
+    "id": 27,
     "universe": "DC Universe",
     "heroName": "Black Canary",
     "role": "superheroine",
@@ -346,12 +346,12 @@
     "hint": "Her sonic scream shatters steel",
     "fact": "Her Canary Cry is classified ultrasonic.",
     "imageQuery": "",
-    "imageFile": "127.png",
+    "imageFile": "27.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 128,
+    "id": 28,
     "universe": "DC Universe",
     "heroName": "Hawkman",
     "role": "superhero",
@@ -359,12 +359,12 @@
     "hint": "Ancient soul reborn with wings of fury",
     "fact": "Reincarnated over centuries as a warrior.",
     "imageQuery": "",
-    "imageFile": "128.png",
+    "imageFile": "28.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 129,
+    "id": 29,
     "universe": "DC Universe",
     "heroName": "Booster Gold",
     "role": "superhero",
@@ -372,12 +372,12 @@
     "hint": "A time-traveller from the future seeking fame",
     "fact": "He stole his suit from a museum.",
     "imageQuery": "",
-    "imageFile": "129.png",
+    "imageFile": "29.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 130,
+    "id": 30,
     "universe": "DC Universe",
     "heroName": "Deadshot",
     "role": "supervillain",
@@ -385,12 +385,12 @@
     "hint": "Never misses — not once",
     "fact": "He never misses any target.",
     "imageQuery": "",
-    "imageFile": "130.png",
+    "imageFile": "30.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 131,
+    "id": 31,
     "universe": "DC Universe",
     "heroName": "Constantine",
     "role": "antihero",
@@ -398,12 +398,12 @@
     "hint": "A chain-smoking occult detective",
     "fact": "His cunning beat the Devil three times.",
     "imageQuery": "",
-    "imageFile": "131.png",
+    "imageFile": "31.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 132,
+    "id": 32,
     "universe": "DC Universe",
     "heroName": "Starfire",
     "role": "superheroine",
@@ -411,12 +411,12 @@
     "hint": "Solar-powered alien princess",
     "fact": "She absorbs sunlight and fires starbolts.",
     "imageQuery": "",
-    "imageFile": "132.png",
+    "imageFile": "32.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 133,
+    "id": 33,
     "universe": "DC Universe",
     "heroName": "Raven",
     "role": "superheroine",
@@ -424,12 +424,12 @@
     "hint": "Daughter of a demon, master of soul-self",
     "fact": "Half-demon who fights with soul energy.",
     "imageQuery": "",
-    "imageFile": "133.png",
+    "imageFile": "33.png",
     "seriesColor": "#6FA8FF",
     "level": "medium"
   },
   {
-    "id": 134,
+    "id": 34,
     "universe": "DC Universe",
     "heroName": "Beast Boy",
     "role": "superhero",
@@ -437,12 +437,12 @@
     "hint": "Every animal on Earth in one body",
     "fact": "A green serum lets him shapeshift.",
     "imageQuery": "",
-    "imageFile": "134.png",
+    "imageFile": "34.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 135,
+    "id": 35,
     "universe": "DC Universe",
     "heroName": "Blue Beetle",
     "role": "superhero",
@@ -450,12 +450,12 @@
     "hint": "An alien scarab fused to his spine",
     "fact": "The scarab gives him an armour AI.",
     "imageQuery": "",
-    "imageFile": "135.png",
+    "imageFile": "35.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 136,
+    "id": 36,
     "universe": "DC Universe",
     "heroName": "Swamp Thing",
     "role": "superhero",
@@ -463,12 +463,12 @@
     "hint": "Guardian of the Green",
     "fact": "Plant elemental, not the man it remembers.",
     "imageQuery": "",
-    "imageFile": "136.png",
+    "imageFile": "36.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 137,
+    "id": 37,
     "universe": "DC Universe",
     "heroName": "Lobo",
     "role": "antihero",
@@ -476,12 +476,12 @@
     "hint": "The Main Man — last Czarnian alive",
     "fact": "He killed his entire species for fun.",
     "imageQuery": "",
-    "imageFile": "137.png",
+    "imageFile": "37.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 138,
+    "id": 38,
     "universe": "DC Universe",
     "heroName": "Plastic Man",
     "role": "superhero",
@@ -489,12 +489,12 @@
     "hint": "Stretchy thief turned stretchy hero",
     "fact": "A criminal reformed by a hero's kindness.",
     "imageQuery": "",
-    "imageFile": "138.png",
+    "imageFile": "38.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 139,
+    "id": 39,
     "universe": "DC Universe",
     "heroName": "Doctor Fate",
     "role": "superhero",
@@ -502,12 +502,12 @@
     "hint": "Helmet of Nabu, champion of Order",
     "fact": "The Helm of Nabu holds an ancient lord.",
     "imageQuery": "",
-    "imageFile": "139.png",
+    "imageFile": "39.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 140,
+    "id": 40,
     "universe": "DC Universe",
     "heroName": "The Atom",
     "role": "superhero",
@@ -515,12 +515,12 @@
     "hint": "Scientist who shrinks to subatomic scale",
     "fact": "He uses white-dwarf star matter to shrink.",
     "imageQuery": "",
-    "imageFile": "140.png",
+    "imageFile": "40.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 141,
+    "id": 41,
     "universe": "DC Universe",
     "heroName": "Mister Freeze",
     "role": "supervillain",
@@ -528,12 +528,12 @@
     "hint": "Cryogenic grief made into a weapon",
     "fact": "His suit keeps him alive at -100°C.",
     "imageQuery": "",
-    "imageFile": "141.png",
+    "imageFile": "41.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 142,
+    "id": 42,
     "universe": "DC Universe",
     "heroName": "Killer Croc",
     "role": "supervillain",
@@ -541,12 +541,12 @@
     "hint": "Gotham's sewer-dwelling predator",
     "fact": "A skin condition gave him reptile scales.",
     "imageQuery": "",
-    "imageFile": "142.png",
+    "imageFile": "42.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 143,
+    "id": 43,
     "universe": "DC Universe",
     "heroName": "Bane",
     "role": "supervillain",
@@ -554,12 +554,12 @@
     "hint": "He broke the Bat",
     "fact": "He read every book in his prison.",
     "imageQuery": "",
-    "imageFile": "143.png",
+    "imageFile": "43.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 144,
+    "id": 44,
     "universe": "DC Universe",
     "heroName": "Doomsday",
     "role": "supervillain",
@@ -567,12 +567,12 @@
     "hint": "The monster that killed Superman",
     "fact": "Each death makes him immune to the cause.",
     "imageQuery": "",
-    "imageFile": "144.png",
+    "imageFile": "44.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 145,
+    "id": 45,
     "universe": "DC Universe",
     "heroName": "Etrigan",
     "role": "antihero",
@@ -580,12 +580,12 @@
     "hint": "A rhyming demon bound to a knight",
     "fact": "Merlin bound him to Jason Blood in 536 AD.",
     "imageQuery": "",
-    "imageFile": "145.png",
+    "imageFile": "45.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 146,
+    "id": 46,
     "universe": "DC Universe",
     "heroName": "Bizarro",
     "role": "supervillain",
@@ -593,12 +593,12 @@
     "hint": "Me am not Superman!",
     "fact": "Speaks in perfect opposites.",
     "imageQuery": "",
-    "imageFile": "146.png",
+    "imageFile": "46.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 147,
+    "id": 47,
     "universe": "DC Universe",
     "heroName": "Metallo",
     "role": "supervillain",
@@ -606,12 +606,12 @@
     "hint": "Kryptonite heart, Superman's weakness",
     "fact": "His chest houses a kryptonite power core.",
     "imageQuery": "",
-    "imageFile": "147.png",
+    "imageFile": "47.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 148,
+    "id": 48,
     "universe": "DC Universe",
     "heroName": "Mister Miracle",
     "role": "superhero",
@@ -619,12 +619,12 @@
     "hint": "The greatest escape artist alive",
     "fact": "Born on Apokolips, raised to be free.",
     "imageQuery": "",
-    "imageFile": "148.png",
+    "imageFile": "48.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 149,
+    "id": 49,
     "universe": "DC Universe",
     "heroName": "Brainiac",
     "role": "supervillain",
@@ -632,12 +632,12 @@
     "hint": "Collector of worlds — shrunken and bottled",
     "fact": "He bottled Kandor, the Kryptonian capital.",
     "imageQuery": "",
-    "imageFile": "149.png",
+    "imageFile": "49.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 150,
+    "id": 50,
     "universe": "DC Universe",
     "heroName": "The Spectre",
     "role": "supervillain",
@@ -645,12 +645,12 @@
     "hint": "The Wrath of God made manifest",
     "fact": "An angel fused to a murdered detective.",
     "imageQuery": "",
-    "imageFile": "150.png",
+    "imageFile": "50.png",
     "seriesColor": "#6FA8FF",
     "level": "hard"
   },
   {
-    "id": 601,
+    "id": 501,
     "universe": "DC Universe",
     "heroName": "Killer Frost",
     "role": "supervillain",
@@ -658,7 +658,7 @@
     "hint": "Ice-cold eyes",
     "fact": "Her touch can freeze almost anything solid.",
     "imageQuery": "",
-    "imageFile": "601.png",
+    "imageFile": "501.png",
     "seriesColor": "#6FA8FF",
     "level": "easy",
     "type": "eye",
@@ -667,7 +667,7 @@
     "peekR": 8
   },
   {
-    "id": 602,
+    "id": 502,
     "universe": "DC Universe",
     "heroName": "Red Hood",
     "role": "antihero",
@@ -675,7 +675,7 @@
     "hint": "Two guns, one red helmet",
     "fact": "He was the second Robin before he came back from the dead.",
     "imageQuery": "",
-    "imageFile": "602.png",
+    "imageFile": "502.png",
     "seriesColor": "#6FA8FF",
     "level": "easy",
     "type": "weapon",
@@ -684,7 +684,7 @@
     "peekR": 16
   },
   {
-    "id": 603,
+    "id": 503,
     "universe": "DC Universe",
     "heroName": "Firestorm",
     "role": "superhero",
@@ -692,14 +692,14 @@
     "hint": "Two minds, one body",
     "fact": "Two people fuse together to become him.",
     "imageQuery": "",
-    "imageFile": "603.png",
+    "imageFile": "503.png",
     "seriesColor": "#6FA8FF",
     "level": "easy",
     "type": "half",
     "half": "left"
   },
   {
-    "id": 604,
+    "id": 504,
     "universe": "DC Universe",
     "heroName": "Sinestro",
     "role": "supervillain",
@@ -707,14 +707,14 @@
     "hint": "Fear has a color too",
     "fact": "His yellow power ring runs on fear.",
     "imageQuery": "",
-    "imageFile": "604.png",
+    "imageFile": "504.png",
     "seriesColor": "#6FA8FF",
     "level": "easy",
     "type": "fake",
     "realSide": "left"
   },
   {
-    "id": 605,
+    "id": 505,
     "universe": "DC Universe",
     "heroName": "Kid Flash",
     "role": "superhero",
@@ -722,7 +722,7 @@
     "hint": "Too fast to focus on",
     "fact": "He got his speed from the same kind of accident as his mentor.",
     "imageQuery": "",
-    "imageFile": "605.png",
+    "imageFile": "505.png",
     "seriesColor": "#6FA8FF",
     "level": "easy",
     "type": "blur"
