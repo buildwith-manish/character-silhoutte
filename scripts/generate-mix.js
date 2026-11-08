@@ -16,7 +16,7 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const { P, readSourceRounds, flag } = require("./lib");
+const { P, readSourceRounds, flag, loadVoiceoverDurations, voTimesFor, warnVoiceoverTiming } = require("./lib");
 const { varietyFor } = require("../src/variation"); // shared with the picture: which clips wipe, which reveals are calm
 let roundsCount = 0;
 const varOf = (r) => varietyFor(r, settings, r.total ?? (settings.progress && settings.progress.total) ?? roundsCount);
@@ -29,6 +29,20 @@ const W = Q + settings.revealSeconds, D = W + settings.wipeSeconds;
 const N = Math.round(D * SR);
 const outDir = path.join(P.root, "public", "sounds", "rounds");
 fs.mkdirSync(outDir, { recursive: true });
+
+// Voiceover-aware tick shift: same math as src/Round.jsx's voDelay. When a question clip exists in
+// clips_wav/, the per-second ticks start at voDelay (= voQuestionEnd + 0.15 s, clamped to 3 s) instead
+// of at 0 s, so the ticks do not play under the spoken question. The heartbeat, the hint ping, the
+// reveal impact and the wipe stay exactly where they were. Round.jsx and this script read the same
+// durations from src/rounds.json (written by refreshRounds), so picture and sound stay in sync.
+const VO_ENTRANCE_PAD = 0.15;
+const VO_MAX_DELAY = 3;
+const voClips = loadVoiceoverDurations(); // {} when clips_wav/ is missing -> voDelay = 0 -> today's behaviour
+const voDelayFor = (roundId) => {
+  const { voQuestionEnd } = voTimesFor(roundId, voClips);
+  if (voQuestionEnd == null) return 0;
+  return Math.min(VO_MAX_DELAY, Math.max(0, voQuestionEnd + VO_ENTRANCE_PAD));
+};
 
 // ---------- tiny deterministic RNGs ----------
 function lcg(seed) { let s = (seed >>> 0) || 1; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
@@ -179,13 +193,17 @@ function buildRound(round) {
   };
 
   // --- plain ticks for the first seconds (replaced by the heartbeat in the last `heartbeatSeconds`) ---
+  // Voiceover-aware: the ticks start at voDelay (the same delay Round.jsx applies to the countdown ring),
+  // so they do not play under the spoken question. The heartbeat still starts at hbStart = Q - heartbeatSeconds
+  // and the two only overlap if voDelay pushes a tick past hbStart (the heartbeat is louder, so it wins).
+  const voDelay = voDelayFor(round.id);
   const hbStart = Q - M.heartbeatSeconds;
-  const nTicks = Math.round(hbStart);
+  const nTicks = Math.max(0, Math.round(hbStart - voDelay));
   for (let k = 0; k < nTicks; k++) {
     const b = buf(0.1);
     tone(b, 1500 * ratio(), 0, 0.05, "square", 0.05);
     normalise(b, 0.3);
-    addMono(pre, b, k + (k ? tj() : 0), L.tick * lvl(), rs(0.12));
+    addMono(pre, b, voDelay + k + (k ? tj() : 0), L.tick * lvl(), rs(0.12));
   }
 
   // --- heartbeat: lub-dub that accelerates until the duck ---
@@ -546,6 +564,8 @@ function writeWav(file, L, R) {
 // ---------- main ----------
 const { rounds } = readSourceRounds();
 roundsCount = rounds.length;
+// Voiceover timing warnings (question clip past 3 s, reveal clip past the wipe). Same source as src/rounds.json.
+if (Object.keys(voClips).length) warnVoiceoverTiming(rounds, voClips);
 const only = flag("only", null);
 const ids = only && only !== true ? String(only).split(",").map(Number) : null;
 const todo = ids ? rounds.filter((r) => ids.includes(r.id)) : rounds;
@@ -557,7 +577,8 @@ const force = flag("force", false) === true;
 let built = 0, kept = 0;
 for (const r of todo) {
   const file = path.join(outDir, `${r.id}.wav`);
-  const h = crypto.createHash("sha1").update(codeHash).update(String(r.id)).update(JSON.stringify([varOf(r).fx.impact, varOf(r).wipeIn, varOf(r).wipeOut])).digest("hex");
+  // voDelay is part of the hash so adding / changing / removing a question clip rebuilds that round's mix.
+  const h = crypto.createHash("sha1").update(codeHash).update(String(r.id)).update(JSON.stringify([varOf(r).fx.impact, varOf(r).wipeIn, varOf(r).wipeOut, voDelayFor(r.id)])).digest("hex");
   if (!force && cache[r.id] === h && fs.existsSync(file)) { kept++; continue; }
   const t0 = Date.now();
   const mix = buildRound(r);

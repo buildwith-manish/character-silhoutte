@@ -77,6 +77,19 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const round = findRound(rounds, roundId);
   if (!round) throw new Error(`Round ${roundId} not found in src/rounds.json. Run "npm run csv".`);
 
+  // Voiceover-aware entrance delay: when a question clip exists in clips_wav/, src/rounds.json carries
+  // voQuestionEnd (= 0.5 s start + clip length). The countdown ring, the timer bar, the progress tracker
+  // and the difficulty badge then wait until the question has finished being spoken (plus a 0.15 s breath)
+  // before they animate in, so nothing competes with the voiceover. Clamped to 3 s so a runaway clip
+  // never starves the countdown; rounds without a voQuestionEnd keep today's default timing (voDelay = 0).
+  // The countdown still ends at the reveal (Q), so on long-question rounds the visible countdown just
+  // starts later instead of running past the reveal.
+  const VO_ENTRANCE_PAD = 0.15;
+  const VO_MAX_DELAY = 3;
+  const voDelay = round.voQuestionEnd != null
+    ? Math.min(VO_MAX_DELAY, Math.max(0, round.voQuestionEnd + VO_ENTRANCE_PAD))
+    : 0;
+
   const VR = varietyOf(round);
   const J = VR.j; // seeded timing of the pre-reveal beats
   const { text, colors } = settings;
@@ -237,7 +250,9 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const wmParts = String(text.watermark || "QUIZ MATRIX").trim().split(/\s+/);
   const wmLast = wmParts.length > 1 ? wmParts.pop() : "";
   const wmFirst = wmParts.join(" ") || wmLast;
-  const barIn = lit ? ex(pr(t, 0.35, 0.95)) : ex(pr(t, 0.55, 1.3));
+  // Countdown timer bar (the depleting bar at the bottom). Delayed by voDelay so it does not start
+  // shrinking until the question has finished being spoken; rounds without a voQuestionEnd use 0.
+  const barIn = lit ? ex(pr(t, 0.35 + voDelay, 0.95 + voDelay)) : ex(pr(t, 0.55 + voDelay, 1.3 + voDelay));
   // Normal rounds: one neutral prompt (settings.text.promptText) so the question never gives away hero / villain.
   const words = String(isBonus ? BT.prompt : text.promptText).trim().split(/\s+/);
   // #pr is 440px wide (376px of text) and each word is nowrap: long words (SUPERHEROINE?) shrink the prompt so they never clip.
@@ -245,7 +260,9 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   const promptFont = Math.min(TY.l, Math.floor(376 / (longestWord * 0.55)));
 
   // ---- countdown ring --------------------------------------------------------
-  const ri = lit ? eb(pr(t, 0.55, 1.1)) : eb(pr(t, 0.85, 1.5));
+  // Countdown ring entrance. Delayed by voDelay so it does not appear until the question line finishes;
+  // the ring still reaches zero at the reveal (Q), so on long-question rounds it just animates in faster.
+  const ri = lit ? eb(pr(t, 0.55 + voDelay, 1.1 + voDelay)) : eb(pr(t, 0.85 + voDelay, 1.5 + voDelay));
   // Ring fades out at the reveal moment — the "+1 / YOUR SCORE" post-reveal display is removed per request.
   // The countdown (7,6,5...) stays fully visible during the question phase, then disappears with the flash.
   const ringFade = preQ ? 1 : cl(1 - pr(t, Q, Q + 0.3), 0, 1);
@@ -321,7 +338,9 @@ const Scene = ({ roundId, hookVariant, animatic }) => {
   // ---- progress tracker ("12 / 50") and end-card CTA --------------------------------------------------------------------
   const PG = settings.progress || { enabled: false };
   const total = round.total ?? PG.total ?? rounds.length;
-  const trkE = lit ? ex(pr(t, 0.4, 0.9)) : ex(pr(t, 0.7, 1.3));
+  // Progress tracker ("12 / 50") entrance, delayed by voDelay. The difficulty badge (diffE) shares this
+  // entrance, so it is delayed automatically. Rounds without a voQuestionEnd keep today's 0.4-0.9 s timing.
+  const trkE = lit ? ex(pr(t, 0.4 + voDelay, 0.9 + voDelay)) : ex(pr(t, 0.7 + voDelay, 1.3 + voDelay));
   const CT = settings.cta || { enabled: false };
   const isCta = Boolean(CT.enabled && (round.cta === true || (CT.lastN > 0 && !isBonus && round.id > total - CT.lastN)));
   const ctaT = Q + (CT.startSeconds ?? 1.9);
