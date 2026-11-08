@@ -296,28 +296,91 @@
 
 ## 📝 NEXT VIDEO IDEAS
 
-### Video 2: "Guess the Marvel Villain" (30 characters)
+
+### Video 2: "Guess the Hero by Silhouette | 50 DC Heroes"
+**Date:** *(upcoming)*
+**Characters (55 total: 50 main + 5 bonus):**
+
+| # | Character | Type | Level | Image File |
+|---|---|---|---|---|
+| 101 | Batman | normal | easy | 101.png |
+| 102 | Superman | normal | easy | 102.png |
+| 103 | Wonder Woman | normal | easy | 103.png |
+| 104 | The Flash | normal | easy | 104.png |
+| 105 | Aquaman | normal | easy | 105.png |
+| 106 | Green Lantern | normal | easy | 106.png |
+| 107 | Joker | normal | easy | 107.png |
+| 108 | Harley Quinn | normal | easy | 108.png |
+| 109 | Cyborg | normal | easy | 109.png |
+| 110 | Green Arrow | normal | easy | 110.png |
+| 111 | Catwoman | normal | easy | 111.png |
+| 112 | Lex Luthor | normal | easy | 112.png |
+| 113 | Robin | normal | easy | 113.png |
+| 114 | Black Adam | normal | medium | 114.png |
+| 115 | Shazam | normal | easy | 115.png |
+| 116 | Martian Manhunter | normal | medium | 116.png |
+| 117 | Darkseid | normal | medium | 117.png |
+| 118 | Nightwing | normal | medium | 118.png |
+| 119 | Supergirl | normal | medium | 119.png |
+| 120 | Poison Ivy | normal | medium | 120.png |
+| 121 | Deathstroke | normal | medium | 121.png |
+| 122 | Ra's al Ghul | normal | medium | 122.png |
+| 123 | Two-Face | normal | medium | 123.png |
+| 124 | The Riddler | normal | medium | 124.png |
+| 125 | Scarecrow | normal | medium | 125.png |
+| 126 | Zatanna | normal | medium | 126.png |
+| 127 | Black Canary | normal | medium | 127.png |
+| 128 | Hawkman | normal | medium | 128.png |
+| 129 | Booster Gold | normal | hard | 129.png |
+| 130 | Deadshot | normal | medium | 130.png |
+| 131 | Constantine | normal | hard | 131.png |
+| 132 | Starfire | normal | hard | 132.png |
+| 133 | Raven | normal | medium | 133.png |
+| 134 | Beast Boy | normal | hard | 134.png |
+| 135 | Blue Beetle | normal | hard | 135.png |
+| 136 | Swamp Thing | normal | hard | 136.png |
+| 137 | Lobo | normal | hard | 137.png |
+| 138 | Plastic Man | normal | hard | 138.png |
+| 139 | Doctor Fate | normal | hard | 139.png |
+| 140 | The Atom | normal | hard | 140.png |
+| 141 | Mister Freeze | normal | hard | 141.png |
+| 142 | Killer Croc | normal | hard | 142.png |
+| 143 | Bane | normal | hard | 143.png |
+| 144 | Doomsday | normal | hard | 144.png |
+| 145 | Etrigan | normal | hard | 145.png |
+| 146 | Bizarro | normal | hard | 146.png |
+| 147 | Metallo | normal | hard | 147.png |
+| 148 | Mister Miracle | normal | hard | 148.png |
+| 149 | Brainiac | normal | hard | 149.png |
+| 150 | The Spectre | normal | hard | 150.png |
+| 601 | Batman | eye | easy | 601.png |
+| 602 | Aquaman | weapon | easy | 602.png |
+| 603 | Two-Face | half | easy | 603.png |
+| 604 | Superman | fake | easy | 604.png |
+| 605 | The Flash | blur | easy | 605.png |
+
+### Video 3: "Guess the Marvel Villain" (30 characters)
 Pick from: Carnage, Red Skull, Ultron, Kang, Electro, Vulture, Scorpion, Rhino, Sandman, Lizard, Kraven, Mysterio (used), Crossbones, Baron Zemo, Taskmaster, Sabretooth, Omega Red, Apocalypse, Mister Sinister, Sauron, Brood, Leader, MODOK, Fin Fang Foom, Mandarin, Whiplash, Justin Hammer, Aldrich Killian, Abomination, Absorbing Man
 
-### Video 3: "Guess the DC Hero" (50 characters)
+### Video 4: "Guess the DC Hero" *(COMPLETED — see above)* (50 characters)
 Pick from the DC list above
 
-### Video 4: "Guess the Anime Hero" (30 characters)
+### Video 5: "Guess the Anime Hero" (30 characters)
 Pick from the Anime list above
 
-### Video 5: "Guess the Marvel Anti-Hero" (25 characters)
+### Video 6: "Guess the Marvel Anti-Hero" (25 characters)
 Pick from: Deadpool (used), Punisher (used), Venom (used), Ghost Rider (used), Elektra, Moon Knight (used), Morbius, Man-Thing, Daken, Black Cat, Silver Sable, Scarlet Spider, Kaine, Howard the Duck, Elsa Bloodstone, Werewolf by Night, Blade (used), Iron Fist (used), Shang-Chi (used), White Tiger, Darkhawk, Sleepwalker, Terror Inc, Hit-Monkey, Gorilla-Man
 
 ---
 
 ## 📊 STATISTICS
-- **Total characters used:** 55
-- **Videos completed:** 1
+- **Total characters used:** 110
+- **Videos completed:** 1 (Video 2 in progress)
 - **Characters remaining (Marvel):** ~100+
-- **Characters remaining (DC):** ~60+
+- **Characters remaining (DC):** ~15+
 - **Characters remaining (Anime):** ~30+
 
 ---
 
-*Last updated: November 7, 2026*
+*Last updated: November 8, 2026*
 *After completing a new video, add the characters to the "USED" section above and mark them off from the "AVAILABLE" list.*
