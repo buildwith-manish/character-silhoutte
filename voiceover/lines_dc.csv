@@ -1,0 +1,116 @@
+id,type,text
+intro_1,intro,Fifty DC legends. Can you name them?
+intro_2,intro,Seven seconds. Name the shadow. Let's go.
+q01_question,question,The Dark Knight of Gotham. No powers. Just will. Who is he?
+q01_reveal,reveal,BATMAN! Bruce Wayne. The world's greatest detective.
+q02_question,question,Faster than a speeding bullet. The original. The gold standard. Name him.
+q02_reveal,reveal,SUPERMAN! The Man of Steel. Clark Kent.
+q03_question,question,Amazon warrior princess. Born of legend. Forged in battle. Who is she?
+q03_reveal,reveal,WONDER WOMAN! Diana Prince. Daughter of Zeus.
+q04_question,question,The Fastest Man Alive. Connected to the Speed Force itself. Who is he?
+q04_reveal,reveal,"THE FLASH! Barry Allen. If you blinked, he already lapped you."
+q05_question,question,King of Atlantis. Commander of everything beneath the waves. Name him.
+q05_reveal,reveal,"AQUAMAN! Arthur Curry. Seven seas, one king."
+q06_question,question,Willpower forged into light. The ring chose him. Who is he?
+q06_reveal,reveal,"GREEN LANTERN! Hal Jordan. In brightest day, in blackest night."
+q07_question,question,Ancient power. Modern fury. He was the champion before Shazam. Who is he?
+q07_reveal,reveal,BLACK ADAM! One magic word — the skies crack.
+q08_question,question,Why so serious? Gotham's most dangerous clown. Who is he?
+q08_reveal,reveal,THE JOKER! No real name. Just chaos wearing a smile.
+q09_question,question,The last son of Mars. Shape-shifter. Telepath. Who is he?
+q09_reveal,reveal,MARTIAN MANHUNTER! J'onn J'onzz. The loneliest hero in the DC universe.
+q10_question,question,Destroyer of worlds. Seeker of the Anti-Life Equation. Who is this?
+q10_reveal,reveal,DARKSEID! His Omega Beams never miss. Never.
+q11_question,question,The original Boy Wonder — all grown up. Who is he?
+q11_reveal,reveal,NIGHTWING! Dick Grayson. Even Batman respects this one.
+q12_question,question,"A time traveler from the future, chasing fame and glory. Who is he?"
+q12_reveal,reveal,BOOSTER GOLD! He stole his suit from a museum. Saved the timeline. Nobody knows it.
+q13_question,question,Superman's cousin — but she actually remembers Krypton. Who is she?
+q13_reveal,reveal,SUPERGIRL! Kara Zor-El. Just as powerful. Way more Kryptonian.
+q14_question,question,Nature's most dangerous botanist. One kiss — and you're hers. Who is she?
+q14_reveal,reveal,POISON IVY! Pamela Isley. Gotham's most genuinely terrifying villain.
+q15_question,question,Chain-smoking occult detective. He's cheated the devil. More than once. Who is he?
+q15_reveal,reveal,JOHN CONSTANTINE! The best in the game. The worst person to trust.
+q16_question,question,Mister J's most devoted fan. The best thing to ever escape Arkham. Who is she?
+q16_reveal,reveal,HARLEY QUINN! Doctor Harleen Quinzel. She came to study the Joker. Never really left.
+q17_question,question,The world's greatest assassin. Uses nine percent of his brain. Who is he?
+q17_reveal,reveal,DEATHSTROKE! Slade Wilson. He neutralized the entire Justice League. Alone.
+q18_question,question,Solar-powered alien princess. The longer she's in sunlight — the stronger she gets. Who is she?
+q18_reveal,reveal,STARFIRE! Koriand'r of Tamaran. No ceiling on that power.
+q19_question,question,Every animal on Earth. One body. The fun guy on a serious team. Who is he?
+q19_reveal,reveal,BEAST BOY! Garfield Logan. Yes. He can go full T-Rex.
+q20_question,question,"Half man, half machine. One hundred percent hero. Who is he?"
+q20_reveal,reveal,CYBORG! Victor Stone. His father built his new body overnight.
+q21_question,question,The Demon's Head. Immortal eco-terrorist. Centuries old. Who is he?
+q21_reveal,reveal,RA'S AL GHUL! The Lazarus Pit grants him eternal life. The one villain Batman genuinely fears.
+q22_question,question,An alien scarab — fused permanently to his spine. He didn't ask for this. Who is he?
+q22_reveal,reveal,BLUE BEETLE! Jaime Reyes. The scarab chose him. He chose to be a hero.
+q23_question,question,Guardian of the Green. He thought he was a man — until he learned the terrifying truth. Who is he?
+q23_reveal,reveal,SWAMP THING! He's not a man who became a plant. The other way around.
+q24_question,question,The Emerald Archer. Lost everything on a desert island. Found his purpose there. Who is he?
+q24_reveal,reveal,GREEN ARROW! Oliver Queen. Most dangerous man with a bow on the planet.
+q25_question,question,Every decision ruled by a coin flip. Gotham's fallen DA. Who is he?
+q25_reveal,reveal,TWO-FACE! Harvey Dent. One acid attack. Everything changed.
+recap,recap,Twenty-five down. Comment your score right now. Harder rounds ahead.
+q26_question,question,The last Czarnian alive — because he killed the rest of them himself. Who is he?
+q26_reveal,reveal,LOBO! Heaven AND Hell rejected him. He just kept coming back.
+q27_question,question,A stretchy thief turned stretchy hero. Batman calls him the most dangerous man alive. Who is he?
+q27_reveal,reveal,PLASTIC MAN! Eel O'Brian. The most underestimated powerhouse in DC.
+q28_question,question,Thief with a conscience. Batman's greatest weakness — and his greatest ally. Who is she?
+q28_reveal,reveal,CATWOMAN! Selina Kyle. The woman who got Bruce Wayne to say yes.
+q29_question,question,A criminal who literally cannot stop leaving clues. His compulsion is his greatest weakness. Who is he?
+q29_reveal,reveal,THE RIDDLER! Edward Nygma. Most intellectually arrogant villain in Gotham. By far.
+q30_question,question,Helmet of Nabu. Champion of Order. The most powerful sorcerer in the DC universe. Who is he?
+q30_reveal,reveal,DOCTOR FATE! Kent Nelson. Put on the helmet — Nabu might not give you back.
+q31_question,question,Shrinks to subatomic scale. Full mass at any size. Who is he?
+q31_reveal,reveal,THE ATOM! Ray Palmer. Smallest hero. Biggest punch.
+q32_question,question,The world's most dangerous intellect. The only man Superman has ever truly feared. Who is he?
+q32_reveal,reveal,LEX LUTHOR! Billionaire. Genius. Former President of the United States. Zero superpowers.
+q33_question,question,Cryogenic grief — made into a weapon. He's not evil. He's desperate. Who is he?
+q33_reveal,reveal,MISTER FREEZE! Victor Fries. Trying to save his wife. His suit keeps him alive at minus a hundred degrees.
+q34_question,question,Gotham's sewer-dwelling predator. Born different. Treated worse. Who is he?
+q34_reveal,reveal,KILLER CROC! Waylon Jones. A skin condition gave him reptile scales. It never stops growing.
+q35_question,question,Fear is his only weapon. And it's enough. Who is he?
+q35_reveal,reveal,SCARECROW! Jonathan Crane. Even Batman isn't immune to that fear toxin.
+q36_question,question,He broke the Bat. Not with power — with brains. Who is he?
+q36_reveal,reveal,BANE! Read every book in his prison cell. Then broke Batman's back.
+q37_question,question,The monster that killed Superman. Literally. Who is this?
+q37_reveal,reveal,DOOMSDAY! An ancient Kryptonian bioweapon. Each death makes him immune to that cause. Forever.
+q38_question,question,The son of Batman. There have been a few — but only one was born for it. Who is he?
+q38_reveal,reveal,ROBIN! Damian Wayne. Raised by assassins. Completely irreplaceable.
+q39_question,question,A rhyming demon — bound to a knight. From the court of Camelot. Who is this?
+q39_reveal,reveal,ETRIGAN THE DEMON! Bound by Merlin himself in 536 AD. He speaks only in rhyme.
+q40_question,question,Me am not Superman. Everything backwards — but the heart is real. Who is this?
+q40_reveal,reveal,BIZARRO! Imperfect Superman clone. Genuinely trying to be a hero. Gets everything wrong.
+recap_2,recap,Ten left. Final stretch. These are the real DC diehards.
+q41_question,question,"Magic cast by speaking backwards. Top hat, fishnets, reality-bending power. Who is she?"
+q41_reveal,reveal,ZATANNA! Zatara's daughter. Bruce Wayne's childhood friend.
+q42_question,question,"A kryptonite heart — Superman's weakness, walking around in a robot suit. Who is he?"
+q42_reveal,reveal,METALLO! John Corben. Every single heartbeat is Superman's kryptonite.
+q43_question,question,The greatest escape artist alive. He escaped Apokolips itself. Who is he?
+q43_reveal,reveal,MISTER MIRACLE! Scott Free. No one escapes Apokolips. He did.
+q44_question,question,One magic word — and a twelve-year-old kid becomes the World's Mightiest Mortal. Who is he?
+q44_reveal,reveal,SHAZAM! Billy Batson. Six gods' power. One kid's heart.
+q45_question,question,Her sonic scream shatters steel. Best hand-to-hand fighter in the DC universe. Who is she?
+q45_reveal,reveal,BLACK CANARY! Dinah Lance. Rarely uses the scream. Doesn't need to.
+q46_question,question,Collector of worlds — shrunken and bottled. Superman's most terrifying villain. Who is he?
+q46_reveal,reveal,BRAINIAC! Twelfth-level intellect. He bottled the last Kryptonian city. Keeps it as a trophy.
+q47_question,question,Ancient soul reborn. Wings of fury. A mace that never stops swinging. Who is he?
+q47_reveal,reveal,HAWKMAN! Carter Hall. Reincarnated across thousands of years. Always finds his way back.
+q48_question,question,Never misses. Not once. The world's most precise assassin. Who is he?
+q48_reveal,reveal,DEADSHOT! Floyd Lawton. When it looks like a miss — that was intentional too.
+q49_question,question,Daughter of a demon. She holds back the darkness every single day. Who is she?
+q49_reveal,reveal,RAVEN! Rachel Roth. Born to end the world. Chose to protect it instead.
+q50_question,question,The Wrath of God — made manifest. The most powerful being in the DC universe. Who is this?
+q50_reveal,reveal,THE SPECTRE! He doesn't defeat his enemies. He erases them.
+b501_question,bonusq,Bonus round. Let's see how sharp you really are. Whose ice-cold eyes are these? Just the eyes. That's all you get.
+b501_reveal,bonus,KILLER FROST! Caitlin Snow. It was right there in those eyes.
+b502_question,bonusq,Two guns. One very specific style. Whose weapon is this?
+b502_reveal,bonus,RED HOOD! Jason Todd. The Robin who died — and came back angrier.
+b503_question,bonusq,Half the silhouette. Two minds in one body. Name the character.
+b503_reveal,bonus,FIRESTORM! Ronnie Raymond and Martin Stein. Nuclear-powered and permanently merged.
+b504_question,bonusq,One of these silhouettes is NOT a real DC character. Which one is fake?
+b504_reveal,bonus,SINESTRO! Hal Jordan's greatest mentor. Turned his greatest enemy. Fear has a color too.
+b505_question,bonusq,Too fast to focus on. Blurry by design. Who is this?
+b505_reveal,bonus,KID FLASH! Wally West. And then — he got even faster.
+outro,outro,Fifty DC heroes. How many did you get? Drop your score in the comments right now. Subscribe for more. Catch you in the next one.
