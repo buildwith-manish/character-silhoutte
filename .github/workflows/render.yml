@@ -107,24 +107,13 @@ jobs:
           t0 = time.time()
           ok = 0
 
-          # Bundle once per job (saves ~30s per clip — no re-bundling for each render)
-          print("Bundling Remotion project...")
-          bundle_dir = "out/bundle"
-          r = subprocess.run(["npx", "remotion", "bundle", "src/index.js", bundle_dir, "--log=error"],
-                             capture_output=True, text=True, timeout=300)
-          if r.returncode != 0:
-            print(f"Bundle failed: {r.stderr[:300]}")
-            bundle_dir = "src/index.js"
-          else:
-            print(f"Bundle done in {time.time()-t0:.0f}s")
-
           for i, (name, comp, outf, props) in enumerate(clips):
               p = f"out/clips/{outf}"
               if os.path.exists(p) and os.path.getsize(p) > 100000:
                   print(f"  [{i+1}/{len(clips)}] {name}: skip"); ok += 1; continue
               pp = f"out/.props/{name}.json"
               with open(pp, "w") as f: json.dump(props, f)
-              cmd = ["npx", "remotion", "render", bundle_dir, comp, p,
+              cmd = ["npx", "remotion", "render", "src/index.js", comp, p,
                      f"--props={pp}", "--codec=h264", "--crf=18",
                      "--x264-preset=fast", "--concurrency=4",
                      "--log=error"]
