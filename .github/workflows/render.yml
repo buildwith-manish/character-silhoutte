@@ -11,9 +11,12 @@ on:
         description: 'Quality (1440p or 1080p)'
         required: false
         default: '1440p'
+      resume_from_run:
+        description: 'Resume from a previous run ID (skip rendering, reuse artifacts). Leave empty for full render.'
+        required: false
+        default: ''
 
 jobs:
-  # ─── Split 59 clips into 40 parallel jobs (GitHub Pro allows 40 concurrent jobs) ───
   render:
     runs-on: ubuntu-latest
     strategy:
@@ -38,11 +41,10 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install py7zr
-        run: pip install py7zr
-
-      - name: Install ffmpeg
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Install py7zr + ffmpeg
+        run: |
+          pip install py7zr
+          sudo apt-get update && sudo apt-get install -y ffmpeg
 
       - name: Extract voiceover clips
         run: python3 -c "import py7zr; py7zr.SevenZipFile('clips_wav.7z').extractall('.') if __import__('os').path.exists('clips_wav.7z') else print('no clips')"
@@ -68,15 +70,12 @@ jobs:
               if not rd2 and nc==40 and rid<500: queue.append(("recap2","Recap2","recap2.mp4",{})); rd2=True
           queue.append(("outro","Outro","outro.mp4",{}))
 
-          NUM_GROUPS = 40  # must match the matrix size above
-          group = ${{ matrix.group }} - 1  # 0-indexed
-          # Greedy bin-packing: sort clips by estimated duration desc, assign each
-          # to the group with the least total clips so all jobs finish at about the
-          # same time. Each round clip is ~11.8s, cards are ~3-8s.
+          NUM_GROUPS = 40
+          group = ${{ matrix.group }} - 1
           clip_durs = {"teaser": 2.3, "intro": 6.5, "recap": 4.5, "recap2": 4.5, "outro": 10.0}
           for i, (name, comp, outf, props) in enumerate(queue):
               if name not in clip_durs:
-                  clip_durs[name] = 11.8  # round clips (round-NN) are all 11.8s
+                  clip_durs[name] = 11.8
           sorted_queue = sorted(enumerate(queue), key=lambda x: clip_durs[x[1][0]], reverse=True)
           group_counts = [0] * NUM_GROUPS
           group_clips = [[] for _ in range(NUM_GROUPS)]
@@ -88,14 +87,47 @@ jobs:
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
               f.write(f"count={len(my_clips)}\n")
-
-          # Write clip list as JSON
           with open('my_clips.json', 'w') as f:
               json.dump(my_clips, f)
           print(f"Group ${{ matrix.group }}: {[c[0] for c in my_clips]} ({len(my_clips)} clips)")
           PY
 
+      # ============================================================
+      # RESUME FROM ARTIFACTS: if a previous run ID is provided,
+      # download that run's clips for this group and skip rendering.
+      # ============================================================
+      - name: Try downloading existing clips from previous run
+        id: resume
+        if: ${{ github.event.inputs.resume_from_run != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: clips-group-${{ matrix.group }}
+          path: out/clips
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.inputs.resume_from_run }}
+        continue-on-error: true
+
+      - name: Check if all clips already exist
+        id: check
+        run: |
+          python3 - <<'PY'
+          import json, os
+          clips = json.load(open("my_clips.json"))
+          all_exist = True
+          existing = 0
+          for name, comp, outf, props in clips:
+              p = f"out/clips/{outf}"
+              if os.path.exists(p) and os.path.getsize(p) > 100000:
+                  existing += 1
+              else:
+                  all_exist = False
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f"all_exist={'true' if all_exist else 'false'}\n")
+          print(f"Clips: {existing}/{len(clips)} already exist — {'SKIP render' if all_exist else 'WILL render missing'}")
+          PY
+
       - name: Render clips
+        if: steps.check.outputs.all_exist != 'true'
         run: |
           python3 - <<'PY'
           import subprocess, os, json, time
@@ -110,7 +142,7 @@ jobs:
           for i, (name, comp, outf, props) in enumerate(clips):
               p = f"out/clips/{outf}"
               if os.path.exists(p) and os.path.getsize(p) > 100000:
-                  print(f"  [{i+1}/{len(clips)}] {name}: skip"); ok += 1; continue
+                  print(f"  [{i+1}/{len(clips)}] {name}: skip (exists)"); ok += 1; continue
               pp = f"out/.props/{name}.json"
               with open(pp, "w") as f: json.dump(props, f)
               cmd = ["npx", "remotion", "render", "src/index.js", comp, p,
@@ -137,7 +169,9 @@ jobs:
           path: out/clips/*.mp4
           retention-days: 3
 
-  # ─── Final job: concat all clips + upload to YouTube ───
+  # ============================================================
+  # CONCAT AND UPLOAD: downloads all clips, joins, uploads to YT
+  # ============================================================
   concat-and-upload:
     needs: render
     runs-on: ubuntu-latest
@@ -155,17 +189,21 @@ jobs:
           path: all-clips
           pattern: clips-group-*
           merge-multiple: true
+        continue-on-error: true
 
       - name: Move clips to out/clips
         run: |
           mkdir -p out/clips
-          echo "=== all-clips structure ==="
-          find all-clips -type f -name "*.mp4" | head -10
-          echo "=== copying ==="
-          find all-clips -type f -name "*.mp4" -exec cp {} out/clips/ \;
+          if [ -d "all-clips" ]; then
+            find all-clips -type f -name "*.mp4" -exec cp {} out/clips/ \;
+          fi
           echo "=== clips in out/clips ==="
           ls out/clips/ | wc -l
-          ls -la out/clips/ | head -10
+          ls out/clips/ | head -10
+          if [ "$(ls out/clips/ | wc -l)" -eq 0 ]; then
+            echo "ERROR: No clips found!"
+            exit 1
+          fi
 
       - name: Concatenate all clips
         run: |
@@ -175,15 +213,17 @@ jobs:
           echo "file 'out/clips/intro.mp4'" >> concat.txt
           nc=0; rd=0; rd2=0
           for rid in $ORDER; do
-            echo "file 'out/clips/round-${rid}.mp4'" >> concat.txt
+            if [ -f "out/clips/round-${rid}.mp4" ]; then
+              echo "file 'out/clips/round-${rid}.mp4'" >> concat.txt
+            else
+              echo "WARNING: out/clips/round-${rid}.mp4 not found — skipping"
+            fi
             if [ "$rid" -lt 500 ]; then nc=$((nc+1)); fi
             if [ "$nc" -eq 25 ] && [ "$rd" -eq 0 ] && [ "$rid" -lt 500 ]; then
-              echo "file 'out/clips/recap.mp4'" >> concat.txt
-              rd=1
+              echo "file 'out/clips/recap.mp4'" >> concat.txt; rd=1
             fi
             if [ "$nc" -eq 40 ] && [ "$rd2" -eq 0 ] && [ "$rid" -lt 500 ]; then
-              echo "file 'out/clips/recap2.mp4'" >> concat.txt
-              rd2=1
+              echo "file 'out/clips/recap2.mp4'" >> concat.txt; rd2=1
             fi
           done
           echo "file 'out/clips/outro.mp4'" >> concat.txt
@@ -209,11 +249,13 @@ jobs:
         run: |
           python3 - <<'PY'
           import json, subprocess, os
+          if not os.environ.get('CLIENT_SECRET') or not os.environ.get('REFRESH_TOKEN'):
+              print("YouTube secrets not set — skipping upload (artifact is still available)")
+              exit(0)
           cs = json.loads(os.environ['CLIENT_SECRET'])
           info = cs.get("installed", cs.get("web", {}))
           cid = info.get("client_id", "")
           csec = info.get("client_secret", "")
-          # Get access token
           r = subprocess.run(["curl", "-s", "-X", "POST", "https://oauth2.googleapis.com/token",
               "-d", f"client_id={cid}", "-d", f"client_secret={csec}",
               "-d", f"refresh_token={os.environ['REFRESH_TOKEN']}",
@@ -225,7 +267,6 @@ jobs:
           meta = {"snippet":{"title":os.environ['TITLE'],"description":os.environ['DESC'],
                             "tags":os.environ['TAGS'].split(","),"categoryId":"24"},
                   "status":{"privacyStatus":"private","selfDeclaredMadeForKids":False}}
-          # Start upload
           r1 = subprocess.run(["curl", "-s", "-i", "-X", "POST",
               "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
               "-H", f"Authorization: Bearer {at}", "-H", "Content-Type: application/json",
