@@ -44,8 +44,11 @@ jobs:
       - name: Extract voiceover clips
         run: python3 -c "import py7zr; py7zr.SevenZipFile('clips_wav.7z').extractall('.') if __import__('os').path.exists('clips_wav.7z') else print('no clips')"
 
-      - name: Generate rounds.json
-        run: node scripts/csv-to-json.js
+      - name: Generate rounds.json + mix soundtracks + mix voiceover
+        run: |
+          node scripts/csv-to-json.js
+          npm run mix
+          npm run vo
 
       - name: Determine clips for this job
         id: clips
@@ -169,7 +172,7 @@ jobs:
           done
           echo "file 'out/clips/outro.mp4'" >> concat.txt
           echo "Concatenating..."
-          ffmpeg -y -v error -f concat -safe 0 -i concat.txt -c copy -movflags +faststart final_video.mp4
+          ffmpeg -y -v error -f concat -safe 0 -i concat.txt -c:v libx264 -crf 18 -preset fast -c:a aac -b:a 384k -movflags +faststart final_video.mp4
           ls -la final_video.mp4
           ffprobe -v error -show_entries format=duration -of csv=p=0 final_video.mp4
 
@@ -184,9 +187,9 @@ jobs:
         env:
           CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
-          TITLE: ${{ secrets.YOUTUBE_TITLE || 'Guess the Hero by Silhouette | 50 Marvel Heroes' }}
-          DESC: ${{ secrets.YOUTUBE_DESC || 'Can you name all 50 Marvel heroes? Comment your score!' }}
-          TAGS: ${{ secrets.YOUTUBE_TAGS || 'marvel,quiz,superhero,guess the hero,silhouette,trivia,mcu' }}
+          TITLE: ${{ secrets.YOUTUBE_TITLE || 'Guess the Character — 50 DC Heroes | Quiz Matrix' }}
+          DESC: ${{ secrets.YOUTUBE_DESC || 'Can you name all 50 DC heroes from their silhouettes? Comment your score!' }}
+          TAGS: ${{ secrets.YOUTUBE_TAGS || 'dc,quiz,superhero,guess the character,silhouette,trivia,dc comics,quiz matrix' }}
         run: |
           python3 - <<'PY'
           import json, subprocess, os
@@ -205,7 +208,7 @@ jobs:
           print("Got token")
           meta = {"snippet":{"title":os.environ['TITLE'],"description":os.environ['DESC'],
                             "tags":os.environ['TAGS'].split(","),"categoryId":"24"},
-                  "status":{"privacyStatus":"unlisted","selfDeclaredMadeForKids":False}}
+                  "status":{"privacyStatus":"private","selfDeclaredMadeForKids":False}}
           # Start upload
           r1 = subprocess.run(["curl", "-s", "-i", "-X", "POST",
               "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
