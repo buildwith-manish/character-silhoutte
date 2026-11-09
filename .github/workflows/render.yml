@@ -41,6 +41,9 @@ jobs:
       - name: Install py7zr
         run: pip install py7zr
 
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
       - name: Extract voiceover clips
         run: python3 -c "import py7zr; py7zr.SevenZipFile('clips_wav.7z').extractall('.') if __import__('os').path.exists('clips_wav.7z') else print('no clips')"
 
