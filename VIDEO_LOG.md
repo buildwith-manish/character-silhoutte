@@ -2,9 +2,10 @@
 
 Every finished video gets a row here. See the [Backups](README.md#backups) section of the README for the full workflow.
 
-| Video # | Title | Date Rendered | Voice Provider & Plan | Voice Name | Model | Git Tag | Backup ZIP Location | Monetization Status |
-|---------|-------|---------------|----------------------|------------|-------|---------|--------------------|--------------------|
-| 01 | Guess the Character — 50 DC Heroes | TODO | TODO | TODO | TODO | `video-01-final` | TODO | TODO |
+| Video # | Title | Date Rendered | Voice Provider & Plan | Voice Name / ID | Model | Git Tag | Backup ZIP Location | Monetization Status |
+|---------|-------|---------------|----------------------|-----------------|-------|---------|--------------------|--------------------|
+| 00 | Guess the Character — 50 Marvel Heroes | 2026-11-07 | TODO | `5XbWatCr4Q4ezek0ZhfT` | TODO | `video-00-final` | TODO | TODO |
+| 01 | Guess the Character — 50 DC Heroes | TODO | TODO | `5XbWatCr4Q4ezek0ZhfT` | TODO | `video-01-final` | TODO | TODO |
 
 <!-- How to add a row:
   1. Finish the render and verify the final video.
@@ -18,4 +19,8 @@ Voice provider examples: "Gemini 3.8 Flash TTS (free tier)", "Kokoro-82M (Apache
 Backup location examples: "Google Drive /backups/char-silhoutte/video-01.zip",
 "Local NAS /video-backups/char-silhoutte/video-01.zip".
 Monetization status: "Not monetized", "Monetized (YouTube)", "Pending review".
+
+Voice Name / ID: the ElevenLabs voice ID (or other provider's voice identifier)
+used to generate the voiceover. Both Marvel (video 00) and DC (video 01) use the
+same voice: 5XbWatCr4Q4ezek0ZhfT.
 -->
