@@ -67,9 +67,21 @@ jobs:
 
           NUM_GROUPS = 40  # must match the matrix size above
           group = ${{ matrix.group }} - 1  # 0-indexed
-          # Round-robin split: 59 clips over 40 jobs = 19 jobs with 2 clips, 21 jobs with 1 clip.
-          # No job is empty, and heavy clips (bonus rounds, cards) are spread across jobs.
-          my_clips = queue[group::NUM_GROUPS]
+          # Greedy bin-packing: sort clips by estimated duration desc, assign each
+          # to the group with the least total clips so all jobs finish at about the
+          # same time. Each round clip is ~11.8s, cards are ~3-8s.
+          clip_durs = {"teaser": 2.3, "intro": 6.5, "recap": 4.5, "recap2": 4.5, "outro": 10.0}
+          for i, (name, comp, outf, props) in enumerate(queue):
+              if name not in clip_durs:
+                  clip_durs[name] = 11.8  # round clips (round-NN) are all 11.8s
+          sorted_queue = sorted(enumerate(queue), key=lambda x: clip_durs[x[1][0]], reverse=True)
+          group_counts = [0] * NUM_GROUPS
+          group_clips = [[] for _ in range(NUM_GROUPS)]
+          for orig_idx, clip in sorted_queue:
+              min_group = group_counts.index(min(group_counts))
+              group_clips[min_group].append(clip)
+              group_counts[min_group] += 1
+          my_clips = group_clips[group]
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
               f.write(f"count={len(my_clips)}\n")
@@ -91,13 +103,25 @@ jobs:
           scale_flag = "" if quality == "1440p" else "--scale=0.75"
           t0 = time.time()
           ok = 0
+
+          # Bundle once per job (saves ~30s per clip — no re-bundling for each render)
+          print("Bundling Remotion project...")
+          bundle_dir = "out/bundle"
+          r = subprocess.run(["npx", "remotion", "bundle", "src/index.js", bundle_dir, "--log=error"],
+                             capture_output=True, text=True, timeout=300)
+          if r.returncode != 0:
+            print(f"Bundle failed: {r.stderr[:300]}")
+            bundle_dir = "src/index.js"
+          else:
+            print(f"Bundle done in {time.time()-t0:.0f}s")
+
           for i, (name, comp, outf, props) in enumerate(clips):
               p = f"out/clips/{outf}"
               if os.path.exists(p) and os.path.getsize(p) > 100000:
                   print(f"  [{i+1}/{len(clips)}] {name}: skip"); ok += 1; continue
               pp = f"out/.props/{name}.json"
               with open(pp, "w") as f: json.dump(props, f)
-              cmd = ["npx", "remotion", "render", "src/index.js", comp, p,
+              cmd = ["npx", "remotion", "render", bundle_dir, comp, p,
                      f"--props={pp}", "--codec=h264", "--crf=18",
                      "--x264-preset=fast", "--concurrency=4",
                      "--log=error"]
