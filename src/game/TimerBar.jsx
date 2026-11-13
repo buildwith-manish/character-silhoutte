@@ -4,12 +4,12 @@ import { G } from "./config";
 
 // Shrinking progress bar under the silhouette. Starts green and full, turns yellow when `yellowAtLeft` seconds remain,
 // then flashes red for the last `redAtLeft` seconds. `t` = seconds since the clip started.
-export const TimerBar = ({ t, width = 1400, height = 36 }) => {
+export const TimerBar = ({ t, total = G.questionSeconds, width = 1400, height = 36 }) => {
   const { fps } = useVideoConfig();
   const pop = spring({ frame: Math.max(0, Math.round(t * fps)), fps, config: { damping: 13, stiffness: 240 } }); // the bar pops in the moment the timer starts
   const C = G.timer;
-  const left = Math.max(0, G.questionSeconds - t);
-  const frac = Math.min(1, left / G.questionSeconds);
+  const left = Math.max(0, total - t);
+  const frac = Math.min(1, left / total);
   const red = left <= C.redAtLeft;
   const yellow = !red && left <= C.yellowAtLeft;
   const base = red ? C.red : yellow ? C.yellow : C.green;

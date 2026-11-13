@@ -1,23 +1,19 @@
 import React from "react";
 import { Audio, Sequence, interpolate, staticFile } from "remotion";
-import { CHARACTERS, G, framesFor, stingerAfter, stingerFramesFor } from "./config";
+import { G, SEGMENTS, totalVideoFrames } from "./config";
 
 // Splits the marathon into one music segment per tier. A segment starts where its tier is announced (the level-up
 // stinger before it) and ends at the next stinger, so the loop switch is hidden under the stinger whoosh/impact.
 export const musicSegments = () => {
+  // Bonus clips are part of the tier they follow, so the music just keeps playing under them.
   const segs = [];
-  let f = 0;
   let cur = { key: G.tiers[0].key, from: 0 };
-  CHARACTERS.slice(0, G.total).forEach((c) => {
-    f += framesFor(c.id);
-    const st = stingerAfter(c.id);
-    if (st) {
-      segs.push({ ...cur, frames: f - cur.from });
-      cur = { key: st.next, from: f };
-      f += stingerFramesFor(G.stingers.indexOf(st));
-    }
+  SEGMENTS.forEach((s) => {
+    if (s.kind !== "stinger") return;
+    segs.push({ ...cur, frames: s.from - cur.from });
+    cur = { key: G.stingers[s.index].next, from: s.from };
   });
-  segs.push({ ...cur, frames: f - cur.from });
+  segs.push({ ...cur, frames: totalVideoFrames - cur.from });
   return segs;
 };
 

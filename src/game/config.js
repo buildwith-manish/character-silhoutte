@@ -37,6 +37,18 @@ export const G = {
     punchSeconds: 0.14, // time to reach the peak
     flashOpacity: 0.55, // white flash on the reveal frame
   },
+  // Bonus rounds: a pattern-interrupt clip inserted AFTER the listed round (novelty resets attention; bonus 5 sits just before the final push).
+  // Each clip = intro splash (introSeconds) + guessing time (item.seconds, shown on the timer bar) + reveal (revealSeconds, long enough to read the fact).
+  // They use their own look (BonusBackground: rotating sunburst, diamond pattern, marquee lights, confetti) so they never read as a normal round.
+  // `after` must NOT clash with a stinger round (12, 25, 38). Order below = order in the video.
+  bonus: {
+    introSeconds: 1.8,
+    revealSeconds: 4.5,
+    items: [
+      // EMOJI DECODER: three emojis spell a game. Hint chip shows when 3 s are left. 9 s to think.
+      { key: "emoji", after: 10, label: "EMOJI DECODER", accent: "#FF4FD8", prompt: "Which game do these emojis spell?", seconds: 9, tiles: ["🐦", "😠", "🐷"], hint: "Mobile · slingshots", answer: "Angry Birds", sub: "Rovio · 2009", fact: "It was Rovio's 52nd game. The studio had made 51 before it." },
+    ],
+  },
   // Level-up stingers (step 4): a 1-second full-screen card inserted AFTER the listed round, themed with the NEXT tier's colours.
   stingerSeconds: 1,
   stingers: [
@@ -102,12 +114,12 @@ export const tierOf = (id) => G.tiers.find((t) => id >= t.from && id <= t.to) ||
 export const roundFrames = Math.round((G.questionSeconds + G.revealSeconds) * G.fps); // default (no voiceover) length
 
 // Tick schedule (seconds from clip start): steady ticks, then a faster tempo (higher pitch) in the final red phase.
-export const tickTimes = () => {
+export const tickTimes = (total = G.questionSeconds) => {
   const { tickEvery, fastTickEvery, redAtLeft } = G.timer;
-  const fastFrom = G.questionSeconds - redAtLeft;
+  const fastFrom = total - redAtLeft;
   const out = [];
   for (let s = 0; s < fastFrom - 1e-6; s += tickEvery) out.push({ t: s, fast: false });
-  for (let s = fastFrom; s < G.questionSeconds - 1e-6; s += fastTickEvery) out.push({ t: s, fast: true });
+  for (let s = fastFrom; s < total - 1e-6; s += fastTickEvery) out.push({ t: s, fast: true });
   return out;
 };
 
@@ -159,15 +171,25 @@ export const stingerFramesFor = (index) => Math.round(stingerSecondsFor(index) *
 // ---- global timeline (for the background) -----------------------------------------------------------------------------
 // Frame at which a round / stinger starts inside the full GameVideo. GameBackground uses this so its grid scroll and icon
 // drift continue unbroken across clips (every clip is its own Sequence, so useCurrentFrame() alone restarts at 0).
-export const roundStartFrame = (id) => {
-  const n = Number(id);
-  const rounds = CHARACTERS.slice(0, G.total).filter((c) => c.id < n).reduce((s, c) => s + framesFor(c.id), 0);
-  const stingers = G.stingers.reduce((s, st, i) => (st.after < n ? s + stingerFramesFor(i) : s), 0);
-  return rounds + stingers;
-};
-export const stingerStartFrame = (index) => {
-  const after = G.stingers[index].after;
-  const rounds = CHARACTERS.slice(0, G.total).filter((c) => c.id <= after).reduce((s, c) => s + framesFor(c.id), 0);
-  const stingers = G.stingers.reduce((s, _, i) => (i < index ? s + stingerFramesFor(i) : s), 0);
-  return rounds + stingers;
-};
+// Bonus clip length: intro splash + guessing time + reveal.
+export const bonusSecondsFor = (index) => G.bonus.introSeconds + G.bonus.items[index].seconds + G.bonus.revealSeconds;
+export const bonusFramesFor = (index) => Math.round(bonusSecondsFor(index) * G.fps);
+
+// The whole video as one ordered list: round -> its bonus clip(s) -> its level-up stinger (if any).
+// Everything that needs "where does this clip start" or "how long is the video" reads this one list.
+export const SEGMENTS = (() => {
+  const out = [];
+  let f = 0;
+  const push = (seg, frames) => { out.push({ ...seg, from: f, frames }); f += frames; };
+  CHARACTERS.slice(0, G.total).forEach((c) => {
+    push({ kind: "round", id: c.id }, framesFor(c.id));
+    G.bonus.items.forEach((b, i) => { if (b.after === c.id) push({ kind: "bonus", index: i }, bonusFramesFor(i)); });
+    G.stingers.forEach((s, i) => { if (s.after === c.id) push({ kind: "stinger", index: i }, stingerFramesFor(i)); });
+  });
+  return out;
+})();
+export const totalVideoFrames = SEGMENTS.reduce((n, s) => n + s.frames, 0);
+const startOf = (pred) => { const s = SEGMENTS.find(pred); return s ? s.from : 0; };
+export const roundStartFrame = (id) => startOf((s) => s.kind === "round" && s.id === Number(id));
+export const stingerStartFrame = (index) => startOf((s) => s.kind === "stinger" && s.index === index);
+export const bonusStartFrame = (index) => startOf((s) => s.kind === "bonus" && s.index === index);
