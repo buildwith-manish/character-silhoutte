@@ -49,6 +49,8 @@ export const G = {
       { key: "emoji", after: 10, label: "EMOJI DECODER", accent: "#FF4FD8", prompt: "Which game do these emojis spell?", seconds: 9, tiles: ["🐦", "😠", "🐷"], hint: "Mobile · slingshots", answer: "Angry Birds", sub: "Rovio · 2009", fact: "It was Rovio's 52nd game. The studio had made 51 before it." },
       // HIGHER OR LOWER (duel): which of two games came out first. Years are hidden until the reveal. 8 s to think.
       { key: "versus", after: 20, label: "WHO CAME FIRST?", accent: "#7CFF4F", prompt: "Which game came out FIRST?", seconds: 8, hint: "Both are arcade classics", cards: [{ tag: "A", title: "Donkey Kong", line: "Nintendo · Arcade", year: "1981" }, { tag: "B", title: "Pac-Man", line: "Namco · Arcade", year: "1980" }], winner: 1, answer: "B · Pac-Man", sub: "Released May 1980 (Japan)", fact: "It reached arcades more than a year before Donkey Kong (July 1981)." },
+      // CONSOLE BY CONTROLLER: black controller silhouette + four console choices (A-D). Hint at 3 s left. 8 s to think.
+      { key: "controller", after: 30, label: "NAME THAT CONSOLE", accent: "#38E1FF", prompt: "Which console uses this controller?", seconds: 8, hint: "Released in 1996", choices: ["PlayStation", "Sega Genesis", "Nintendo 64", "Super Nintendo"], answer: "C · Nintendo 64", sub: "Released 1996", fact: "Its controller had three handles, with the analog stick on the middle one." },
     ],
   },
   // Level-up stingers (step 4): a 1-second full-screen card inserted AFTER the listed round, themed with the NEXT tier's colours.

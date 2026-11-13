@@ -6,10 +6,11 @@ import { BonusBackground } from "./BonusBackground";
 import { TimerBar } from "./TimerBar";
 import { EmojiDecoder } from "./bonus/EmojiDecoder";
 import { HigherLower } from "./bonus/HigherLower";
+import { ControllerGuess } from "./bonus/ControllerGuess";
 
 // Each bonus type draws only its own puzzle (the area between the prompt and the answer). Everything shared lives here:
 // intro splash, chips, prompt, timer, reveal answer + fact, flash and sound.
-const TYPES = { emoji: EmojiDecoder, versus: HigherLower };
+const TYPES = { emoji: EmojiDecoder, versus: HigherLower, controller: ControllerGuess };
 
 // One bonus clip: intro splash -> guessing time (timer bar) -> reveal. Look = BonusBackground, never the tier look.
 export const BonusRound = ({ index = 0 }) => {
