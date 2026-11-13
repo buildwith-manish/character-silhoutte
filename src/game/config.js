@@ -28,6 +28,15 @@ export const G = {
     fastTickEvery: 0.5, // tick tempo during the red phase
     flashHz: 5, // red-phase flash rate
   },
+  // Camera motion (step 3): gentle zoom while the clock runs, snap punch-in on the reveal.
+  motion: {
+    zoomFrom: 1.0,
+    zoomTo: 1.05, // 100% -> 105% across the question phase
+    punchPeak: 1.22, // reveal snap zoom peak
+    punchSettle: 1.1, // where the reveal settles
+    punchSeconds: 0.14, // time to reach the peak
+    flashOpacity: 0.55, // white flash on the reveal frame
+  },
   hook: {
     headline: "Can you identify all 50 gaming legends?",
     headlineSeconds: 3.2,

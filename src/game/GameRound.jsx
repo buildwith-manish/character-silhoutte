@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Sequence, interpolate, spring, staticFile, useCurrentFrame } from "remotion";
 import { useFonts } from "../util";
 import { G, getCharacter, tierOf, questionFrames, tickTimes } from "./config";
 import { TimerBar } from "./TimerBar";
@@ -20,6 +20,14 @@ export const GameRound = ({ roundId = 1 }) => {
   const revealed = frame >= questionFrames;
 
   const colorOpacity = revealed ? interpolate(revealT, [0, 0.25], [0, 1], { extrapolateRight: "clamp" }) : 0;
+  const M = G.motion;
+  // question: slow, steady zoom-in. reveal: snap to the peak, then spring back to the settle scale.
+  const slowZoom = interpolate(t, [0, G.questionSeconds], [M.zoomFrom, M.zoomTo], { extrapolateRight: "clamp" });
+  const snapIn = interpolate(revealT, [0, M.punchSeconds], [M.zoomTo, M.punchPeak], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const settle = spring({ frame: Math.max(0, frame - questionFrames - Math.round(M.punchSeconds * fps)), fps, config: { damping: 11, stiffness: 140 } });
+  const camScale = !revealed ? slowZoom : revealT < M.punchSeconds ? snapIn : M.punchPeak + (M.punchSettle - M.punchPeak) * settle;
+  const flash = revealed ? interpolate(revealT, [0, 0.18], [M.flashOpacity, 0], { extrapolateRight: "clamp" }) : 0;
+  const namePop = revealed ? spring({ frame: Math.max(0, frame - questionFrames - 4), fps, config: { damping: 10, stiffness: 200 } }) : 0;
   const nameIn = revealed ? interpolate(revealT, [0.1, 0.45], [0, 1], { extrapolateRight: "clamp" }) : 0;
 
   return (
@@ -27,7 +35,7 @@ export const GameRound = ({ roundId = 1 }) => {
       {/* soft spotlight disc behind the character */}
       <div style={{ position: "absolute", left: 1280 - 620, top: 700 - 620, width: 1240, height: 1240, borderRadius: "50%", background: `radial-gradient(circle, rgba(255,255,255,.92) 0%, ${tier.accent}99 38%, rgba(0,0,0,0) 68%)`, opacity: 0.85 }} />
       {/* silhouette (black) with the colour version crossfading in on reveal */}
-      <div style={{ position: "absolute", left: 1280 - SIL / 2, top: 200 }}>
+      <div style={{ position: "absolute", left: 1280 - SIL / 2, top: 200, transform: `scale(${camScale.toFixed(4)})`, transformOrigin: "50% 45%" }}>
         <Silhouette char={char} size={SIL} />
         <Silhouette char={char} size={SIL} color style={{ position: "absolute", left: 0, top: 0, opacity: colorOpacity }} />
       </div>
@@ -41,11 +49,13 @@ export const GameRound = ({ roundId = 1 }) => {
 
       {/* answer */}
       {revealed && (
-        <div style={{ position: "absolute", left: 0, width: "100%", top: 1190, textAlign: "center", opacity: nameIn, transform: `translateY(${(1 - nameIn) * 30}px)` }}>
+        <div style={{ position: "absolute", left: 0, width: "100%", top: 1190, textAlign: "center", opacity: nameIn, transform: `translateY(${(1 - nameIn) * 30}px) scale(${(0.82 + 0.18 * namePop).toFixed(4)})` }}>
           <div style={{ fontFamily: "'Big Shoulders Display',Impact,sans-serif", fontWeight: 900, fontSize: 150, lineHeight: 1, textTransform: "uppercase", textShadow: "0 6px 30px rgba(0,0,0,.6)" }}>{char.name}</div>
           <div style={{ marginTop: 6, fontWeight: 700, fontSize: 44, letterSpacing: ".12em", textTransform: "uppercase", color: tier.accent }}>{char.game}</div>
         </div>
       )}
+
+      {flash > 0.001 && <AbsoluteFill style={{ background: `rgba(255,255,255,${flash.toFixed(3)})`, pointerEvents: "none" }} />}
 
       {/* audio: steady ticks, then a faster, higher-pitched tick tempo during the red phase; impact + chime at the reveal */}
       {tickTimes().map((k, i) => (
