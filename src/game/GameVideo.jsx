@@ -3,6 +3,7 @@ import { Sequence, Series } from "remotion";
 import { GameRound } from "./GameRound";
 import { Hook } from "./Hook";
 import { Stinger } from "./Stinger";
+import { MusicBed } from "./MusicBed";
 import { CHARACTERS, G, framesFor, stingerAfter, stingerFramesFor } from "./config";
 
 export const gameVideoFrames = CHARACTERS.slice(0, G.total).reduce((n, c) => n + framesFor(c.id), 0) + G.stingers.reduce((n, _, i) => n + stingerFramesFor(i), 0);
@@ -28,6 +29,7 @@ export const GameVideo = () => (
         );
       })}
     </Series>
+    <MusicBed />
     <Sequence from={0} durationInFrames={Math.round(G.hook.headlineSeconds * G.fps) + 1}>
       <Hook />
     </Sequence>
