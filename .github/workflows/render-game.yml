@@ -1,0 +1,108 @@
+name: Render Game Quiz (parallel)
+
+# Video 02 (game characters). Splits GameVideo into N frame ranges, renders them in parallel, renders the audio once,
+# then joins everything (video is stream-copied, so no quality loss at the joins).
+# Run it from the Actions tab -> "Render Game Quiz (parallel)" -> Run workflow.
+
+on:
+  workflow_dispatch:
+    inputs:
+      chunks:
+        description: "Parallel jobs (GitHub Pro: up to 40, Free: 20)"
+        required: false
+        default: "40"
+      crf:
+        description: "Video quality (lower = better, 14 is high quality)"
+        required: false
+        default: "14"
+      preset:
+        description: "x264 preset (slow = smaller/better, fast = quicker)"
+        required: false
+        default: "slow"
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      total: ${{ steps.plan.outputs.total }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-game
+      - name: Plan frame ranges
+        id: plan
+        run: node scripts/game-plan.js "${{ inputs.chunks }}"
+
+  render:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 40
+      matrix:
+        chunk: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-game
+      - name: Render frames ${{ matrix.chunk.a }}-${{ matrix.chunk.b }} (video only)
+        run: |
+          mkdir -p out
+          npx remotion render src/index.js GameVideo "out/chunk-${{ matrix.chunk.i }}.mp4" \
+            --frames=${{ matrix.chunk.a }}-${{ matrix.chunk.b }} --muted \
+            --codec=h264 --crf=${{ inputs.crf }} --x264-preset=${{ inputs.preset }} \
+            --pixel-format=yuv420p --color-space=bt709 --concurrency=4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chunk-${{ matrix.chunk.i }}
+          path: out/chunk-${{ matrix.chunk.i }}.mp4
+          retention-days: 2
+
+  audio:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-game
+      - name: Render audio once (so there are no clicks at chunk joins)
+        run: |
+          mkdir -p out
+          npx remotion render src/index.js GameVideo out/audio.wav --codec=wav
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audio
+          path: out/audio.wav
+          retention-days: 2
+
+  merge:
+    needs: [plan, render, audio]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: chunk-*
+          merge-multiple: true
+          path: parts
+      - uses: actions/download-artifact@v4
+        with:
+          name: audio
+          path: parts
+      - name: Join chunks + add audio
+        run: |
+          cd parts
+          ls chunk-*.mp4 | sort | sed "s/^/file '/; s/$/'/" > list.txt
+          echo "chunks: $(wc -l < list.txt)"
+          ffmpeg -y -v error -f concat -safe 0 -i list.txt -i audio.wav \
+            -map 0:v -map 1:a -c:v copy -c:a aac -b:a 320k -movflags +faststart ../game-quiz.mp4
+          cd ..
+          ls -la game-quiz.mp4
+          ffprobe -v error -show_entries format=duration -of csv=p=0 game-quiz.mp4
+          echo "expected frames: ${{ needs.plan.outputs.total }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: game-quiz-final
+          path: game-quiz.mp4
+          retention-days: 7
