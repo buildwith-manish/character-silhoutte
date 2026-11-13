@@ -54,6 +54,8 @@ if (!hasWavs(clipsDir) && fs.existsSync(archive)) {
   fs.rmSync(tmp, { recursive: true, force: true });
 }
 
+// Clips that are in clips.7z but must NOT be used. Round 50 is unresolved on purpose, so its spoken reveal (Ghost) is never played.
+const SKIP = new Set(["g50_reveal"]);
 const vo = {};
 if (fs.existsSync(clipsDir) && fs.statSync(clipsDir).isDirectory()) {
   fs.rmSync(voDir, { recursive: true, force: true });
@@ -62,6 +64,7 @@ if (fs.existsSync(clipsDir) && fs.statSync(clipsDir).isDirectory()) {
     if (!/\.wav$/i.test(name)) continue;
     const base = name.replace(/\.wav$/i, "");
     const id = base.replace(/^\d+_/, ""); // strip an optional NNN_ prefix: 003_g02_question.wav and g02_question.wav both work
+    if (SKIP.has(id)) continue;
     const s = probeAudioSeconds(path.join(clipsDir, name));
     if (s == null) continue;
     vo[id] = Math.round(s * 1000) / 1000;
