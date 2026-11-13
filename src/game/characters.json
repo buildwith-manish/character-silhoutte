@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "name": "Mario",
+    "game": "Super Mario",
+    "hint": "Cap, mustache, bulbous nose, and overalls.",
+    "imageFile": "mario.png"
+  },
+  {
+    "id": 2,
+    "name": "Pikachu",
+    "game": "Pokémon",
+    "hint": "Pointy black-tipped ears, chubby cheeks, lightning-bolt tail.",
+    "imageFile": "pikachu.png"
+  },
+  {
+    "id": 3,
+    "name": "Pac-Man",
+    "game": "Pac-Man",
+    "hint": "Classic round pie shape with an open wedge mouth.",
+    "imageFile": "pac-man.png"
+  },
+  {
+    "id": 4,
+    "name": "Sonic the Hedgehog",
+    "game": "Sonic",
+    "hint": "Long curved quills, running pose, sneakers.",
+    "imageFile": "sonic-the-hedgehog.png"
+  },
+  {
+    "id": 5,
+    "name": "Bowser",
+    "game": "Super Mario",
+    "hint": "Spiked shell, horns, heavy tail, clawed hands.",
+    "imageFile": "bowser.png"
+  },
+  {
+    "id": 6,
+    "name": "Yoshi",
+    "game": "Super Mario",
+    "hint": "Big round snout, small shell saddle, crest on head.",
+    "imageFile": "yoshi.png"
+  },
+  {
+    "id": 7,
+    "name": "Luigi",
+    "game": "Super Mario",
+    "hint": "Taller, leaner build than Mario with the signature L cap brim.",
+    "imageFile": "luigi.png"
+  },
+  {
+    "id": 8,
+    "name": "Donkey Kong",
+    "game": "Donkey Kong",
+    "hint": "Broad hunched gorilla shoulders, necktie silhouette.",
+    "imageFile": "donkey-kong.png"
+  },
+  {
+    "id": 9,
+    "name": "Steve",
+    "game": "Minecraft",
+    "hint": "Strictly square, blocky head, torso, and pickaxe pose.",
+    "imageFile": "steve.png"
+  },
+  {
+    "id": 10,
+    "name": "Kirby",
+    "game": "Kirby",
+    "hint": "Perfectly round body, stubby arms, and large feet.",
+    "imageFile": "kirby.png"
+  },
+  {
+    "id": 11,
+    "name": "Crash Bandicoot",
+    "game": "Crash Bandicoot",
+    "hint": "Tall triangular torso, spiky hair tuft, big sneakers.",
+    "imageFile": "crash-bandicoot.png"
+  },
+  {
+    "id": 12,
+    "name": "Mega Man",
+    "game": "Mega Man",
+    "hint": "Helmet with ear spools, arm buster cannon raised.",
+    "imageFile": "mega-man.png"
+  },
+  {
+    "id": 13,
+    "name": "Link",
+    "game": "The Legend of Zelda",
+    "hint": "Pointed floppy cap, Master Sword on back, Hylian shield.",
+    "imageFile": "link.png"
+  },
+  {
+    "id": 14,
+    "name": "Master Chief",
+    "game": "Halo",
+    "hint": "Bulky MJOLNIR armor, helmet visor outline, holding an assault rifle.",
+    "imageFile": "master-chief.png"
+  },
+  {
+    "id": 15,
+    "name": "Lara Croft",
+    "game": "Tomb Raider",
+    "hint": "Long ponytail/braid, dual holster stance, tank top outline.",
+    "imageFile": "lara-croft.png"
+  },
+  {
+    "id": 16,
+    "name": "Sub-Zero",
+    "game": "Mortal Kombat",
+    "hint": "Ninja cowl, face mask, cryo-ice pose.",
+    "imageFile": "sub-zero.png"
+  },
+  {
+    "id": 17,
+    "name": "Scorpion",
+    "game": "Mortal Kombat",
+    "hint": "Kunai spear on a chain extended from hand, ninja mask.",
+    "imageFile": "scorpion.png"
+  },
+  {
+    "id": 18,
+    "name": "Chun-Li",
+    "game": "Street Fighter",
+    "hint": "Ox-horn hair buns with ribbons, spiked wristbands, muscular stance.",
+    "imageFile": "chun-li.png"
+  },
+  {
+    "id": 19,
+    "name": "Ryu",
+    "game": "Street Fighter",
+    "hint": "Headband fluttering behind, sleeveless gi, folded karate stance.",
+    "imageFile": "ryu.png"
+  },
+  {
+    "id": 20,
+    "name": "Spyro the Dragon",
+    "game": "Spyro",
+    "hint": "Quadruped small dragon, curved horns, small bat wings.",
+    "imageFile": "spyro-the-dragon.png"
+  },
+  {
+    "id": 21,
+    "name": "Rayman",
+    "game": "Rayman",
+    "hint": "Floating head with windblown hair, floating detached hands and shoes.",
+    "imageFile": "rayman.png"
+  },
+  {
+    "id": 22,
+    "name": "Princess Peach",
+    "game": "Super Mario",
+    "hint": "Bell-shaped ballgown, parasol, spiked crown.",
+    "imageFile": "princess-peach.png"
+  },
+  {
+    "id": 23,
+    "name": "Cuphead",
+    "game": "Cuphead",
+    "hint": "Cup head with a bent striped straw, gloved hands on hips.",
+    "imageFile": "cuphead.png"
+  },
+  {
+    "id": 24,
+    "name": "Creeper",
+    "game": "Minecraft",
+    "hint": "Tall blocky pillar body with four stubby corner legs.",
+    "imageFile": "creeper.png"
+  },
+  {
+    "id": 25,
+    "name": "Wario",
+    "game": "Super Mario",
+    "hint": "Broad zig-zag mustache, jagged ears, muscular arms akimbo.",
+    "imageFile": "wario.png"
+  },
+  {
+    "id": 26,
+    "name": "Charizard",
+    "game": "Pokémon",
+    "hint": "Long neck, horn prongs, large wings, flame-tipped tail.",
+    "imageFile": "charizard.png"
+  },
+  {
+    "id": 27,
+    "name": "Fox McCloud",
+    "game": "Star Fox",
+    "hint": "Canine snout, headset with mic, combat vest and blaster.",
+    "imageFile": "fox-mccloud.png"
+  },
+  {
+    "id": 28,
+    "name": "Cloud Strife",
+    "game": "Final Fantasy VII",
+    "hint": "Huge spiky anime hair, massive Buster Sword over shoulder.",
+    "imageFile": "cloud-strife.png"
+  },
+  {
+    "id": 29,
+    "name": "Kratos",
+    "game": "God of War",
+    "hint": "Broad bald head, heavy beard silhouette, Leviathan axe on back.",
+    "imageFile": "kratos.png"
+  },
+  {
+    "id": 30,
+    "name": "Samus Aran",
+    "game": "Metroid",
+    "hint": "Wide power suit shoulder spheres, arm cannon ready.",
+    "imageFile": "samus-aran.png"
+  },
+  {
+    "id": 31,
+    "name": "Solid Snake",
+    "game": "Metal Gear Solid",
+    "hint": "Headband trailing, tactical vest, pistol raised.",
+    "imageFile": "solid-snake.png"
+  },
+  {
+    "id": 32,
+    "name": "Doom Slayer",
+    "game": "DOOM",
+    "hint": "Heavy futuristic praetor suit, iconic helmet crest, Super Shotgun.",
+    "imageFile": "doom-slayer.png"
+  },
+  {
+    "id": 33,
+    "name": "Sans",
+    "game": "Undertale",
+    "hint": "Short, slippers, puffy winter hoodie silhouette.",
+    "imageFile": "sans.png"
+  },
+  {
+    "id": 34,
+    "name": "Geralt of Rivia",
+    "game": "The Witcher",
+    "hint": "Half-ponytail hair, twin sword scabbards across back.",
+    "imageFile": "geralt-of-rivia.png"
+  },
+  {
+    "id": 35,
+    "name": "Arthur Morgan",
+    "game": "Red Dead Redemption 2",
+    "hint": "Wide-brimmed cowboy hat, bandolier, duster coat outline.",
+    "imageFile": "arthur-morgan.png"
+  },
+  {
+    "id": 36,
+    "name": "Gordon Freeman",
+    "game": "Half-Life",
+    "hint": "HEV suit, glasses/goatee profile, holding a red crowbar.",
+    "imageFile": "gordon-freeman.png"
+  },
+  {
+    "id": 37,
+    "name": "Nathan Drake",
+    "game": "Uncharted",
+    "hint": "Half-tucked henley shirt, shoulder holster, grappling hook loop.",
+    "imageFile": "nathan-drake.png"
+  },
+  {
+    "id": 38,
+    "name": "Sephiroth",
+    "game": "Final Fantasy VII",
+    "hint": "Floor-length straight hair, single wing, impossibly long Masamune blade.",
+    "imageFile": "sephiroth.png"
+  },
+  {
+    "id": 39,
+    "name": "Sackboy",
+    "game": "LittleBigPlanet",
+    "hint": "Zipper pull on chest, oversized stitched round head.",
+    "imageFile": "sackboy.png"
+  },
+  {
+    "id": 40,
+    "name": "Trevor Philips",
+    "game": "Grand Theft Auto V",
+    "hint": "Receding hairline, loose V-neck t-shirt, casual aggressive stance.",
+    "imageFile": "trevor-philips.png"
+  },
+  {
+    "id": 41,
+    "name": "Ezio Auditore",
+    "game": "Assassin's Creed",
+    "hint": "Pointed eagle-beak hood, dual hidden blade bracers, flowing capelet.",
+    "imageFile": "ezio-auditore.png"
+  },
+  {
+    "id": 42,
+    "name": "Mewtwo",
+    "game": "Pokémon",
+    "hint": "Bulbous head horns, chest-to-head tube, thick coiled tail.",
+    "imageFile": "mewtwo.png"
+  },
+  {
+    "id": 43,
+    "name": "Vault Boy",
+    "game": "Fallout",
+    "hint": "1950s wavy cartoon hair, thumbs-up pose, jumpsuit outline.",
+    "imageFile": "vault-boy.png"
+  },
+  {
+    "id": 44,
+    "name": "Gengar",
+    "game": "Pokémon",
+    "hint": "Round spiky-backed shadow, devilish ear points, wide grin outline.",
+    "imageFile": "gengar.png"
+  },
+  {
+    "id": 45,
+    "name": "Sly Cooper",
+    "game": "Sly Cooper",
+    "hint": "Raccoon tail with rings, thief cap, large golden cane hook.",
+    "imageFile": "sly-cooper.png"
+  },
+  {
+    "id": 46,
+    "name": "Joel Miller",
+    "game": "The Last of Us",
+    "hint": "Heavy flannel/jacket outline, backpack with taped shotgun, rugged posture.",
+    "imageFile": "joel-miller.png"
+  },
+  {
+    "id": 47,
+    "name": "Ellie",
+    "game": "The Last of Us",
+    "hint": "Side-swept ponytail, backpack with switchblade or bow slung over shoulder.",
+    "imageFile": "ellie.png"
+  },
+  {
+    "id": 48,
+    "name": "Hornet",
+    "game": "Hollow Knight",
+    "hint": "Curved needle-like head horns, dress cloak, sewing needle blade.",
+    "imageFile": "hornet.png"
+  },
+  {
+    "id": 49,
+    "name": "The Knight",
+    "game": "Hollow Knight",
+    "hint": "Dual horn shell mask, small cloak, nail weapon held upright.",
+    "imageFile": "the-knight.png"
+  },
+  {
+    "id": 50,
+    "name": "Ghost",
+    "game": "Call of Duty: Modern Warfare",
+    "hint": "Tactical headset over iconic skull-pattern balaclava silhouette.",
+    "imageFile": "ghost.png"
+  }
+]
