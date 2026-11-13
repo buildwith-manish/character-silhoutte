@@ -4,6 +4,7 @@ import { useFonts } from "../util";
 import { G, getCharacter, tierOf, questionFrames, tickTimes } from "./config";
 import { TimerBar } from "./TimerBar";
 import { PromptBanner, RoundCounter } from "./Overlays";
+import { FinalCard } from "./FinalCard";
 import { Silhouette } from "./Silhouette";
 
 const SIL = 1000; // silhouette box (px)
@@ -18,9 +19,12 @@ export const GameRound = ({ roundId = 1 }) => {
   const fps = G.fps;
   const t = frame / fps;
   const revealT = Math.max(0, t - G.questionSeconds);
-  const revealed = frame >= questionFrames;
+  const isFinal = char.id === G.total; // unresolved final round: no answer, fade to the comment-driver card
+  const revealed = frame >= questionFrames && !isFinal;
+  const afterQ = frame >= questionFrames;
 
   const colorOpacity = revealed ? interpolate(revealT, [0, 0.25], [0, 1], { extrapolateRight: "clamp" }) : 0;
+  const revealT0 = Math.max(0, t - G.questionSeconds);
   const M = G.motion;
   // question: slow, steady zoom-in. reveal: snap to the peak, then spring back to the settle scale.
   const slowZoom = interpolate(t, [0, G.questionSeconds], [M.zoomFrom, M.zoomTo], { extrapolateRight: "clamp" });
@@ -49,7 +53,7 @@ export const GameRound = ({ roundId = 1 }) => {
       <RoundCounter id={char.id} accent={tier.accent} />
       <PromptBanner id={char.id} t={t} fps={fps} accent={tier.accent} />
 
-      {!revealed && <TimerBar t={t} />}
+      {!afterQ && <TimerBar t={t} />}
 
       {/* answer */}
       {revealed && (
@@ -59,6 +63,8 @@ export const GameRound = ({ roundId = 1 }) => {
         </div>
       )}
 
+      {isFinal && afterQ && <FinalCard t={revealT0} />}
+
       {flash > 0.001 && <AbsoluteFill style={{ background: `rgba(255,255,255,${flash.toFixed(3)})`, pointerEvents: "none" }} />}
 
       {/* audio: steady ticks, then a faster, higher-pitched tick tempo during the red phase; impact + chime at the reveal */}
@@ -67,9 +73,10 @@ export const GameRound = ({ roundId = 1 }) => {
           <Audio src={staticFile(k.fast ? "sounds/tick-high.wav" : "sounds/tick.wav")} volume={k.fast ? 0.85 : 0.7} />
         </Sequence>
       ))}
-      <Sequence from={questionFrames}>
-        <Audio src={staticFile("sounds/impact.wav")} volume={0.55} />
-        <Audio src={staticFile("sounds/chime.wav")} volume={0.7} />
+      <Sequence from={questionFrames} layout="none">
+        {!isFinal && <Audio src={staticFile("sounds/impact.wav")} volume={0.55} />}
+        {!isFinal && <Audio src={staticFile("sounds/chime.wav")} volume={0.7} />}
+        {isFinal && <Audio src={staticFile("sounds/whoosh.wav")} volume={0.6} />}
       </Sequence>
     </AbsoluteFill>
   );

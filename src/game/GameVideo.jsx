@@ -3,9 +3,9 @@ import { Sequence, Series } from "remotion";
 import { GameRound } from "./GameRound";
 import { Hook } from "./Hook";
 import { Stinger } from "./Stinger";
-import { CHARACTERS, G, roundFrames, stingerAfter, stingerFrames } from "./config";
+import { CHARACTERS, G, framesFor, stingerAfter, stingerFrames } from "./config";
 
-export const gameVideoFrames = G.total * roundFrames + G.stingers.length * stingerFrames;
+export const gameVideoFrames = CHARACTERS.slice(0, G.total).reduce((n, c) => n + framesFor(c.id), 0) + G.stingers.length * stingerFrames;
 
 // The whole marathon back to back. No intro card: Round 1 is on screen at 0:00 with the hook overlay on top.
 // A 1-second level-up stinger follows rounds 12, 25 and 38 (config.stingers).
@@ -16,7 +16,7 @@ export const GameVideo = () => (
         const st = stingerAfter(c.id);
         return (
           <React.Fragment key={c.id}>
-            <Series.Sequence durationInFrames={roundFrames}>
+            <Series.Sequence durationInFrames={framesFor(c.id)}>
               <GameRound roundId={c.id} />
             </Series.Sequence>
             {st ? (

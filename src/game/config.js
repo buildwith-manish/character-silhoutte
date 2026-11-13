@@ -50,6 +50,14 @@ export const G = {
     fromSeconds: 1.0,
     texts: ["Did you get this in under 2 seconds?", "If you missed this, you owe 1 point!", "Share your streak so far in the comments!"],
   },
+  // Unresolved final round (step 6): the last round runs its timer as usual, but the answer is NOT revealed.
+  // It fades to black with a comment-driver message; put the answer in the pinned comment.
+  final: {
+    seconds: 5, // end-card length after the countdown
+    fadeSeconds: 0.7,
+    kicker: "Did you figure out #50?",
+    text: "Tell us in the comments before checking the pinned comment for the answer!",
+  },
   hook: {
     headline: "Can you identify all 50 gaming legends?",
     headlineSeconds: 3.2,
@@ -88,3 +96,6 @@ export const promptFor = (id) => {
   if (id >= G.total || id % every !== 0) return null;
   return texts[(id / every - 1) % texts.length];
 };
+
+// Frames for one round clip: the last round uses the (longer) unresolved end card instead of the reveal.
+export const framesFor = (id) => Math.round((G.questionSeconds + (Number(id) === G.total ? G.final.seconds : G.revealSeconds)) * G.fps);
