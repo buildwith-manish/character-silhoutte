@@ -8,10 +8,11 @@ import { EmojiDecoder } from "./bonus/EmojiDecoder";
 import { HigherLower } from "./bonus/HigherLower";
 import { ControllerGuess } from "./bonus/ControllerGuess";
 import { MythOrFact } from "./bonus/MythOrFact";
+import { CheatCode } from "./bonus/CheatCode";
 
 // Each bonus type draws only its own puzzle (the area between the prompt and the answer). Everything shared lives here:
 // intro splash, chips, prompt, timer, reveal answer + fact, flash and sound.
-const TYPES = { emoji: EmojiDecoder, versus: HigherLower, controller: ControllerGuess, myth: MythOrFact };
+const TYPES = { emoji: EmojiDecoder, versus: HigherLower, controller: ControllerGuess, myth: MythOrFact, cheat: CheatCode };
 
 // One bonus clip: intro splash -> guessing time (timer bar) -> reveal. Look = BonusBackground, never the tier look.
 export const BonusRound = ({ index = 0 }) => {
@@ -39,7 +40,7 @@ export const BonusRound = ({ index = 0 }) => {
 
   return (
     <AbsoluteFill style={{ fontFamily: "'Manrope','Segoe UI',sans-serif", color: "#fff", opacity: ready ? 1 : 0 }}>
-      <BonusBackground t={(bonusStartFrame(index) + frame) / fps} accent={accent} />
+      <BonusBackground t={(bonusStartFrame(index) + frame) / fps} accent={accent} variant={item.key} />
 
       {/* chips */}
       <div style={{ position: "absolute", left: 90, top: 70, padding: "14px 34px", borderRadius: 10, border: `2px solid ${accent}`, background: "rgba(0,0,0,.45)", fontFamily: "'Big Shoulders Display',Impact,sans-serif", fontWeight: 900, fontSize: 56, letterSpacing: ".08em", color: accent }}>
