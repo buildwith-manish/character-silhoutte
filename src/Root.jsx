@@ -6,7 +6,8 @@ import { T } from "./timing";
 import settings from "../settings.json";
 import { GameRound } from "./game/GameRound";
 import { GameVideo, gameVideoFrames } from "./game/GameVideo";
-import { roundFrames } from "./game/config";
+import { Stinger } from "./game/Stinger";
+import { roundFrames, stingerFrames } from "./game/config";
 import rounds from "./rounds.json";
 
 // 2560x1440 @ 60 fps. "Round" = one quiz clip; Teaser / Intro / Recap / Outro = the long-video structure cards (settings.json -> structure).
@@ -78,6 +79,7 @@ export const RemotionRoot = () => (
     <Composition id="Recap"     component={Recap}     durationInFrames={cardFrames("recap", 4.5)} {...base} />
     <Composition id="Recap2"    component={Recap2}    durationInFrames={cardFrames("recap2", 4.5)} {...base} />
     <Composition id="GameRound" component={GameRound} durationInFrames={roundFrames} {...base} defaultProps={{ roundId: 1 }} />
+    <Composition id="GameStinger" component={Stinger} durationInFrames={stingerFrames} {...base} defaultProps={{ index: 0 }} />
     <Composition id="GameVideo" component={GameVideo} durationInFrames={gameVideoFrames} {...base} />
     <Composition id="Outro"     component={Outro}     durationInFrames={cardFrames("outro", 8)}   {...base} />
   </>

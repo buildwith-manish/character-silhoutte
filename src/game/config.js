@@ -37,6 +37,13 @@ export const G = {
     punchSeconds: 0.14, // time to reach the peak
     flashOpacity: 0.55, // white flash on the reveal frame
   },
+  // Level-up stingers (step 4): a 1-second full-screen card inserted AFTER the listed round, themed with the NEXT tier's colours.
+  stingerSeconds: 1,
+  stingers: [
+    { after: 12, kicker: "LEVEL 1 COMPLETE!", title: "Entering Medium Mode...", next: "medium" },
+    { after: 25, kicker: "LEVEL 2 COMPLETE!", title: "Entering Hard Mode...", next: "hard" },
+    { after: 38, kicker: "WARNING", title: "Level 4 Expert Mode — Most People Fail Here!", next: "expert" },
+  ],
   hook: {
     headline: "Can you identify all 50 gaming legends?",
     headlineSeconds: 3.2,
@@ -64,3 +71,7 @@ export const tickTimes = () => {
   for (let s = fastFrom; s < G.questionSeconds - 1e-6; s += fastTickEvery) out.push({ t: s, fast: true });
   return out;
 };
+
+export const stingerFrames = Math.round(G.stingerSeconds * G.fps);
+export const stingerAfter = (roundId) => G.stingers.find((x) => x.after === Number(roundId));
+export const tierByKey = (key) => G.tiers.find((t) => t.key === key);

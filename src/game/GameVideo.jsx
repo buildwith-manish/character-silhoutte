@@ -2,19 +2,31 @@ import React from "react";
 import { Sequence, Series } from "remotion";
 import { GameRound } from "./GameRound";
 import { Hook } from "./Hook";
-import { CHARACTERS, G, roundFrames } from "./config";
+import { Stinger } from "./Stinger";
+import { CHARACTERS, G, roundFrames, stingerAfter, stingerFrames } from "./config";
 
-export const gameVideoFrames = G.total * roundFrames;
+export const gameVideoFrames = G.total * roundFrames + G.stingers.length * stingerFrames;
 
 // The whole marathon back to back. No intro card: Round 1 is on screen at 0:00 with the hook overlay on top.
+// A 1-second level-up stinger follows rounds 12, 25 and 38 (config.stingers).
 export const GameVideo = () => (
   <>
     <Series>
-      {CHARACTERS.slice(0, G.total).map((c) => (
-        <Series.Sequence key={c.id} durationInFrames={roundFrames}>
-          <GameRound roundId={c.id} />
-        </Series.Sequence>
-      ))}
+      {CHARACTERS.slice(0, G.total).map((c) => {
+        const st = stingerAfter(c.id);
+        return (
+          <React.Fragment key={c.id}>
+            <Series.Sequence durationInFrames={roundFrames}>
+              <GameRound roundId={c.id} />
+            </Series.Sequence>
+            {st ? (
+              <Series.Sequence durationInFrames={stingerFrames}>
+                <Stinger index={G.stingers.indexOf(st)} />
+              </Series.Sequence>
+            ) : null}
+          </React.Fragment>
+        );
+      })}
     </Series>
     <Sequence from={0} durationInFrames={Math.round(G.hook.headlineSeconds * G.fps) + 1}>
       <Hook />
