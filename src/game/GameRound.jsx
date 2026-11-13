@@ -1,7 +1,8 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { useFonts } from "../util";
-import { G, getCharacter, tierOf, questionFrames } from "./config";
+import { G, getCharacter, tierOf, questionFrames, tickTimes } from "./config";
+import { TimerBar } from "./TimerBar";
 import { Silhouette } from "./Silhouette";
 
 const SIL = 1000; // silhouette box (px)
@@ -17,7 +18,6 @@ export const GameRound = ({ roundId = 1 }) => {
   const t = frame / fps;
   const revealT = Math.max(0, t - G.questionSeconds);
   const revealed = frame >= questionFrames;
-  const secondsLeft = Math.max(0, Math.ceil(G.questionSeconds - t));
 
   const colorOpacity = revealed ? interpolate(revealT, [0, 0.25], [0, 1], { extrapolateRight: "clamp" }) : 0;
   const nameIn = revealed ? interpolate(revealT, [0.1, 0.45], [0, 1], { extrapolateRight: "clamp" }) : 0;
@@ -37,12 +37,7 @@ export const GameRound = ({ roundId = 1 }) => {
         {tier.label}
       </div>
 
-      {/* temporary numeric countdown (replaced by the shrinking bar in step 2) */}
-      {!revealed && (
-        <div style={{ position: "absolute", left: 0, width: "100%", top: 1210, textAlign: "center", fontFamily: "'Big Shoulders Display',Impact,sans-serif", fontWeight: 900, fontSize: 150, lineHeight: 1 }}>
-          {secondsLeft}
-        </div>
-      )}
+      {!revealed && <TimerBar t={t} />}
 
       {/* answer */}
       {revealed && (
@@ -52,10 +47,10 @@ export const GameRound = ({ roundId = 1 }) => {
         </div>
       )}
 
-      {/* audio: one tick per second (last 3 higher), impact + chime at the reveal */}
-      {Array.from({ length: G.questionSeconds }, (_, k) => (
-        <Sequence key={k} from={Math.round(k * fps)} durationInFrames={Math.round(fps * 0.5)}>
-          <Audio src={staticFile(k >= G.questionSeconds - 3 ? "sounds/tick-high.wav" : "sounds/tick.wav")} volume={0.7} />
+      {/* audio: steady ticks, then a faster, higher-pitched tick tempo during the red phase; impact + chime at the reveal */}
+      {tickTimes().map((k, i) => (
+        <Sequence key={i} from={Math.round(k.t * fps)} durationInFrames={Math.round(fps * 0.4)}>
+          <Audio src={staticFile(k.fast ? "sounds/tick-high.wav" : "sounds/tick.wav")} volume={k.fast ? 0.85 : 0.7} />
         </Sequence>
       ))}
       <Sequence from={questionFrames}>

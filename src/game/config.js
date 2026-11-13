@@ -17,6 +17,17 @@ export const G = {
     { key: "hard", label: "HARD", from: 26, to: 38, accent: "#FF4D5E", bg: ["#6A1424", "#35091A", "#0C0206"] }, // dark crimson
     { key: "expert", label: "EXPERT", from: 39, to: 50, accent: "#FFC83D", bg: ["#2A2412", "#14110A", "#030303"] }, // gold / obsidian
   ],
+  // Shrinking-bar timer (step 2): green -> yellow when `yellowAtLeft` seconds remain -> flashing red for the last `redAtLeft` seconds.
+  timer: {
+    green: "#3DDC97",
+    yellow: "#FFC83D",
+    red: "#FF3B4E",
+    yellowAtLeft: 3,
+    redAtLeft: 2,
+    tickEvery: 1, // seconds between ticks
+    fastTickEvery: 0.5, // tick tempo during the red phase
+    flashHz: 5, // red-phase flash rate
+  },
   hook: {
     headline: "Can you identify all 50 gaming legends?",
     headlineSeconds: 3.2,
@@ -34,3 +45,13 @@ export const tierOf = (id) => G.tiers.find((t) => id >= t.from && id <= t.to) ||
 
 export const roundFrames = Math.round((G.questionSeconds + G.revealSeconds) * G.fps);
 export const questionFrames = Math.round(G.questionSeconds * G.fps);
+
+// Tick schedule (seconds from clip start): steady ticks, then a faster tempo (higher pitch) in the final red phase.
+export const tickTimes = () => {
+  const { tickEvery, fastTickEvery, redAtLeft } = G.timer;
+  const fastFrom = G.questionSeconds - redAtLeft;
+  const out = [];
+  for (let s = 0; s < fastFrom - 1e-6; s += tickEvery) out.push({ t: s, fast: false });
+  for (let s = fastFrom; s < G.questionSeconds - 1e-6; s += fastTickEvery) out.push({ t: s, fast: true });
+  return out;
+};
