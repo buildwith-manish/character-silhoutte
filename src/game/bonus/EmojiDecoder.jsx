@@ -1,11 +1,10 @@
 import React from "react";
-import { interpolate, spring } from "remotion";
+import { Img, spring, staticFile } from "remotion";
 
-const EMOJI_FONT = "'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji','Twemoji Mozilla',sans-serif";
 const TILE = 470;
 const GAP = 120;
 
-// EMOJI DECODER: three emoji tiles + "= ?". Tiles pop in one by one so the viewer reads them in order; the "?" tile pulses
+// EMOJI DECODER: three picture tiles (item.tiles = image paths under public/) + "= ?". Tiles pop in one by one so the viewer reads them in order; the "?" tile pulses
 // while the clock runs, a hint chip appears with 3 s left, and on the reveal the "?" turns into a green check.
 export const EmojiDecoder = ({ item, phase, tq, tr, fps, left }) => {
   const tiles = item.tiles;
@@ -32,7 +31,7 @@ export const EmojiDecoder = ({ item, phase, tq, tr, fps, left }) => {
         return (
           <React.Fragment key={i}>
             <Tile i={i} border={item.accent} glow={`${item.accent}66`} bg="rgba(4,14,20,.72)" scale={0.4 + 0.6 * p}>
-              <span style={{ fontFamily: EMOJI_FONT, fontSize: 300, lineHeight: 1, opacity: p }}>{e}</span>
+              <Img src={staticFile(e)} style={{ width: TILE - 80, height: TILE - 80, objectFit: "contain", opacity: p, filter: "drop-shadow(0 10px 18px rgba(0,0,0,.45))" }} />
             </Tile>
             <div style={{ position: "absolute", left: x0 + i * (TILE + GAP) + TILE, top: 400, width: GAP, height: TILE, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Big Shoulders Display',Impact,sans-serif", fontWeight: 900, fontSize: 130, color: "#fff", opacity: popOf(0.25 + i * 0.5 + 0.2) }}>
               {i < n - 1 ? "+" : "="}

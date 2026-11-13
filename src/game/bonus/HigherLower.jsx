@@ -1,9 +1,9 @@
 import React from "react";
-import { spring } from "remotion";
+import { Img, spring, staticFile } from "remotion";
 
 const CARD_W = 1000;
-const CARD_H = 600;
-const CARD_TOP = 340;
+const CARD_H = 650;
+const CARD_TOP = 300;
 const LEFT_X = 130;
 const RIGHT_X = 2560 - 130 - CARD_W;
 
@@ -30,9 +30,10 @@ export const HigherLower = ({ item, phase, tq, tr, fps, left }) => {
         {won && (
           <div style={{ position: "absolute", right: 30, top: 34, padding: "8px 30px", borderRadius: 12, background: "#3DDC97", color: "#04121a", fontFamily: "'Big Shoulders Display',Impact,sans-serif", fontWeight: 900, fontSize: 64, letterSpacing: ".08em", transform: `scale(${(0.7 + 0.3 * yearPop).toFixed(3)})` }}>FIRST!</div>
         )}
-        <div style={{ marginTop: 150, fontFamily: "'Big Shoulders Display',Impact,sans-serif", fontWeight: 900, fontSize: 170, lineHeight: 1, textTransform: "uppercase", textShadow: "0 6px 30px rgba(0,0,0,.6)" }}>{c.title}</div>
-        <div style={{ marginTop: 6, fontWeight: 800, fontSize: 46, letterSpacing: ".1em", textTransform: "uppercase", color: item.accent }}>{c.line}</div>
-        <div style={{ marginTop: 40, fontFamily: "'JetBrains Mono','Menlo',monospace", fontWeight: 800, fontSize: 120, lineHeight: 1, color: reveal ? (won ? "#3DDC97" : "#fff") : "#FFD23F", transform: `scale(${reveal ? 0.8 + 0.2 * yearPop : 1})`, textShadow: reveal ? "none" : "0 0 40px #FFD23F88" }}>
+        {c.image && <Img src={staticFile(c.image)} style={{ position: "absolute", left: "50%", top: 14, width: 300, height: 300, marginLeft: -150, objectFit: "contain", filter: "drop-shadow(0 10px 18px rgba(0,0,0,.5))" }} />}
+        <div style={{ paddingTop: c.image ? 300 : 150, fontFamily: "'Big Shoulders Display',Impact,sans-serif", fontWeight: 900, fontSize: c.image ? 140 : 170, lineHeight: 1, textTransform: "uppercase", textShadow: "0 6px 30px rgba(0,0,0,.6)" }}>{c.title}</div>
+        <div style={{ marginTop: 4, fontWeight: 800, fontSize: 42, letterSpacing: ".1em", textTransform: "uppercase", color: item.accent }}>{c.line}</div>
+        <div style={{ marginTop: c.image ? 22 : 40, fontFamily: "'JetBrains Mono','Menlo',monospace", fontWeight: 800, fontSize: c.image ? 104 : 120, lineHeight: 1, color: reveal ? (won ? "#3DDC97" : "#fff") : "#FFD23F", transform: `scale(${reveal ? 0.8 + 0.2 * yearPop : 1})`, textShadow: reveal ? "none" : "0 0 40px #FFD23F88" }}>
           {reveal ? c.year : "????"}
         </div>
       </div>

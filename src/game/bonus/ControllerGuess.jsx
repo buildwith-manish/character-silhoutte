@@ -1,41 +1,11 @@
 import React from "react";
-import { interpolate, spring } from "remotion";
+import { Img, interpolate, spring, staticFile } from "remotion";
 
-const VB_W = 800;
-const VB_H = 560;
-const SIZE_W = 900; // px on screen
-const SIZE_H = (SIZE_W * VB_H) / VB_W;
-
-// Three-pronged N64-style pad, drawn from simple shapes so the silhouette and the coloured reveal share the same outline.
-const Pad = ({ color }) => (
-  <g fill={color} stroke={color} strokeWidth="2">
-    <rect x="40" y="70" width="720" height="190" rx="95" />
-    <rect x="40" y="150" width="215" height="380" rx="107" transform="rotate(7 147 150)" />
-    <rect x="545" y="150" width="215" height="380" rx="107" transform="rotate(-7 653 150)" />
-    <rect x="310" y="200" width="180" height="345" rx="90" />
-  </g>
-);
-
-const Details = () => (
-  <g>
-    {/* D-pad */}
-    <rect x="150" y="115" width="44" height="130" rx="10" fill="#2b2f38" />
-    <rect x="107" y="158" width="130" height="44" rx="10" fill="#2b2f38" />
-    {/* Start */}
-    <circle cx="400" cy="140" r="20" fill="#D8352A" />
-    {/* B (green) and A (blue) */}
-    <circle cx="540" cy="205" r="32" fill="#2FA84F" />
-    <circle cx="612" cy="245" r="38" fill="#2F6FD8" />
-    {/* C buttons (yellow) */}
-    {[[668, 112], [668, 188], [630, 150], [706, 150]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r="17" fill="#F2C230" />)}
-    {/* analog stick */}
-    <circle cx="400" cy="300" r="56" fill="#3a3f4a" />
-    <circle cx="400" cy="300" r="36" fill="#1d2027" />
-  </g>
-);
+const SIZE_W = 860; // px on screen (the PNG is ~1.08:1)
+const SIZE_H = 640;
 
 // CONTROLLER GUESS: a black controller silhouette plus four console choices. The pad pops in, choices slide up one by one, a hint
-// shows with 3 s left, and on the reveal the pad turns grey with its coloured buttons while the wrong choices disappear.
+// shows with 3 s left, and on the reveal the PNG crossfades from solid black to full colour while the wrong choices disappear.
 export const ControllerGuess = ({ item, phase, tq, tr, fps, left }) => {
   const reveal = phase === "reveal";
   const padPop = spring({ frame: Math.max(0, Math.round(tq * fps)), fps, config: { damping: 11, stiffness: 170 } });
@@ -50,16 +20,9 @@ export const ControllerGuess = ({ item, phase, tq, tr, fps, left }) => {
 
   return (
     <>
-      <div style={{ position: "absolute", left: (2560 - SIZE_W) / 2, top: 275, width: SIZE_W, height: SIZE_H, transform: `scale(${(0.6 + 0.4 * padPop).toFixed(4)})`, opacity: Math.min(1, padPop * 1.4), filter: `drop-shadow(0 0 40px ${item.accent}88)` }}>
-        <svg width={SIZE_W} height={SIZE_H} viewBox={`0 0 ${VB_W} ${VB_H}`}>
-          <Pad color="#000" />
-          {colorIn > 0 && (
-            <g opacity={colorIn}>
-              <Pad color="#9aa0aa" />
-              <Details />
-            </g>
-          )}
-        </svg>
+      <div style={{ position: "absolute", left: (2560 - SIZE_W) / 2, top: 290, width: SIZE_W, height: SIZE_H, transform: `scale(${(0.6 + 0.4 * padPop).toFixed(4)})`, opacity: Math.min(1, padPop * 1.4), filter: `drop-shadow(0 0 40px ${item.accent}88)` }}>
+        <Img src={staticFile(item.image)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", filter: "brightness(0)", opacity: 1 - colorIn }} />
+        <Img src={staticFile(item.image)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", opacity: colorIn }} />
       </div>
 
       {/* console choices */}
