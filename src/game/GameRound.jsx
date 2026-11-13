@@ -1,7 +1,8 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, spring, staticFile, useCurrentFrame } from "remotion";
 import { useFonts } from "../util";
-import { G, getCharacter, tierOf, tickTimes, timeline, qClipId, rClipId, voSrc } from "./config";
+import { G, getCharacter, tierOf, tickTimes, timeline, qClipId, rClipId, voSrc, roundStartFrame } from "./config";
+import { GameBackground } from "./GameBackground";
 import { TimerBar } from "./TimerBar";
 import { PromptBanner, RoundCounter } from "./Overlays";
 import { FinalCard } from "./FinalCard";
@@ -42,6 +43,8 @@ export const GameRound = ({ roundId = 1 }) => {
 
   return (
     <AbsoluteFill style={{ background: `radial-gradient(1500px 1100px at 50% 42%, ${tier.bg[0]} 0%, ${tier.bg[1]} 55%, ${tier.bg[2]} 100%)`, fontFamily: "'Manrope','Segoe UI',sans-serif", color: "#fff", opacity: ready ? 1 : 0 }}>
+      {/* gaming backdrop: arcade grid floor, pixel stars + icons, scanlines (global time = seamless across clips) */}
+      <GameBackground t={(roundStartFrame(char.id) + frame) / fps} tier={tier} />
       {/* soft spotlight disc behind the character */}
       <div style={{ position: "absolute", left: 1280 - 620, top: 700 - 620, width: 1240, height: 1240, borderRadius: "50%", background: `radial-gradient(circle, rgba(255,255,255,.92) 0%, ${tier.accent}99 38%, rgba(0,0,0,0) 68%)`, opacity: 0.85 }} />
       {/* silhouette (black) with the colour version crossfading in on reveal */}

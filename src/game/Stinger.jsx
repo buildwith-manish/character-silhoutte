@@ -1,7 +1,8 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { useFonts } from "../util";
-import { G, tierByKey, stingerClipId, stingerSecondsFor, voDuration, voSrc } from "./config";
+import { G, tierByKey, stingerClipId, stingerSecondsFor, stingerStartFrame, voDuration, voSrc } from "./config";
+import { GameBackground } from "./GameBackground";
 
 // 1-second full-screen "level up" card between tiers. Uses the colours of the tier the viewer is ENTERING.
 export const Stinger = ({ index = 0 }) => {
@@ -20,6 +21,7 @@ export const Stinger = ({ index = 0 }) => {
   const blink = warn ? (Math.sin(t * Math.PI * 2 * 6) > 0 ? 1 : 0.6) : 1;
   return (
     <AbsoluteFill style={{ opacity: ready ? out : 0, background: `radial-gradient(1500px 1100px at 50% 45%, ${tier.bg[0]} 0%, ${tier.bg[1]} 55%, ${tier.bg[2]} 100%)`, fontFamily: "'Big Shoulders Display',Impact,sans-serif", color: "#fff", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+      <GameBackground t={(stingerStartFrame(index) + frame) / fps} tier={tier} />
       {/* diagonal accent bands sweeping in */}
       <div style={{ position: "absolute", left: 0, top: 560, width: `${wipe * 100}%`, height: 14, background: tier.accent, boxShadow: `0 0 40px ${tier.accent}` }} />
       <div style={{ position: "absolute", right: 0, top: 870, width: `${wipe * 100}%`, height: 14, background: tier.accent, boxShadow: `0 0 40px ${tier.accent}` }} />

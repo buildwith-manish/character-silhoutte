@@ -155,3 +155,19 @@ export const stingerSecondsFor = (index) => {
   return d != null ? Math.max(G.stingerSeconds, d + G.voice.stingerPad) : G.stingerSeconds;
 };
 export const stingerFramesFor = (index) => Math.round(stingerSecondsFor(index) * G.fps);
+
+// ---- global timeline (for the background) -----------------------------------------------------------------------------
+// Frame at which a round / stinger starts inside the full GameVideo. GameBackground uses this so its grid scroll and icon
+// drift continue unbroken across clips (every clip is its own Sequence, so useCurrentFrame() alone restarts at 0).
+export const roundStartFrame = (id) => {
+  const n = Number(id);
+  const rounds = CHARACTERS.slice(0, G.total).filter((c) => c.id < n).reduce((s, c) => s + framesFor(c.id), 0);
+  const stingers = G.stingers.reduce((s, st, i) => (st.after < n ? s + stingerFramesFor(i) : s), 0);
+  return rounds + stingers;
+};
+export const stingerStartFrame = (index) => {
+  const after = G.stingers[index].after;
+  const rounds = CHARACTERS.slice(0, G.total).filter((c) => c.id <= after).reduce((s, c) => s + framesFor(c.id), 0);
+  const stingers = G.stingers.reduce((s, _, i) => (i < index ? s + stingerFramesFor(i) : s), 0);
+  return rounds + stingers;
+};
