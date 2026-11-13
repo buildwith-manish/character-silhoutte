@@ -85,7 +85,7 @@ export const MythOrFact = ({ item, phase, tq, tr, fps, left }) => {
   }
 
   // tension in the last 3 s
-  const tense = !reveal ? interpolate(left, [3, 0], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) : 0;
+  const tense = !reveal ? interpolate(left, [0, 3], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) : 0;
   const trembleX = Math.sin(tq * 95) * 4 * tense;
   const trembleY = Math.cos(tq * 83) * 2.5 * tense;
 
