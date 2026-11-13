@@ -1,0 +1,104 @@
+file,clip_id,section,character,text,est_seconds,target_max_seconds,status
+001_g01_question.wav,g01_question,Round 1,Mario,Number 1. Who's this?,1.5,1.8,ok
+002_g01_reveal.wav,g01_reveal,Round 1,Mario,Mario! From Super Mario.,1.5,2.6,ok
+003_g02_question.wav,g02_question,Round 2,Pikachu,Easy one. Who is this?,1.9,1.8,long
+004_g02_reveal.wav,g02_reveal,Round 2,Pikachu,Pikachu! From Pokémon.,1.1,2.6,ok
+005_g03_question.wav,g03_question,Round 3,Pac-Man,Name this legend.,1.1,1.8,ok
+006_g03_reveal.wav,g03_reveal,Round 3,Pac-Man,Pac-Man! From Pac-Man.,1.1,2.6,ok
+007_g04_question.wav,g04_question,Round 4,Sonic the Hedgehog,"Quick, who's this?",1.1,1.8,ok
+008_g04_reveal.wav,g04_reveal,Round 4,Sonic the Hedgehog,Sonic the Hedgehog! From Sonic.,1.9,2.6,ok
+009_g05_question.wav,g05_question,Round 5,Bowser,Number 5. Who's this?,1.5,1.8,ok
+010_g05_reveal.wav,g05_reveal,Round 5,Bowser,Bowser! From Super Mario.,1.5,2.6,ok
+011_g06_question.wav,g06_question,Round 6,Yoshi,Easy one. Who is this?,1.9,1.8,long
+012_g06_reveal.wav,g06_reveal,Round 6,Yoshi,Yoshi! From Super Mario.,1.5,2.6,ok
+013_g07_question.wav,g07_question,Round 7,Luigi,Name this legend.,1.1,1.8,ok
+014_g07_reveal.wav,g07_reveal,Round 7,Luigi,Luigi! From Super Mario.,1.5,2.6,ok
+015_g08_question.wav,g08_question,Round 8,Donkey Kong,"Quick, who's this?",1.1,1.8,ok
+016_g08_reveal.wav,g08_reveal,Round 8,Donkey Kong,Donkey Kong! From Donkey Kong.,1.9,2.6,ok
+017_g09_question.wav,g09_question,Round 9,Steve,Number 9. Who's this?,1.5,1.8,ok
+018_g09_reveal.wav,g09_reveal,Round 9,Steve,Steve! From Minecraft.,1.1,2.6,ok
+019_g10_question.wav,g10_question,Round 10,Kirby,Easy one. Who is this?,1.9,1.8,long
+020_g10_reveal.wav,g10_reveal,Round 10,Kirby,Kirby! From Kirby.,1.1,2.6,ok
+021_g11_question.wav,g11_question,Round 11,Crash Bandicoot,Name this legend.,1.1,1.8,ok
+022_g11_reveal.wav,g11_reveal,Round 11,Crash Bandicoot,Crash Bandicoot! From Crash Bandicoot.,1.9,2.6,ok
+023_g12_question.wav,g12_question,Round 12,Mega Man,"Quick, who's this?",1.1,1.8,ok
+024_g12_reveal.wav,g12_reveal,Round 12,Mega Man,Mega Man! From Mega Man.,1.9,2.6,ok
+025_stinger_1.wav,stinger_1,Level-up stinger 1,Stinger,Level one complete! Entering medium mode.,2.2,1.8,long
+026_g13_question.wav,g13_question,Round 13,Link,Number 13. Who's this?,1.5,1.8,ok
+027_g13_reveal.wav,g13_reveal,Round 13,Link,Link! From The Legend of Zelda.,2.2,2.6,ok
+028_g14_question.wav,g14_question,Round 14,Master Chief,Getting trickier. Who is this?,1.9,1.8,long
+029_g14_reveal.wav,g14_reveal,Round 14,Master Chief,Master Chief! From Halo.,1.5,2.6,ok
+030_g15_question.wav,g15_question,Round 15,Lara Croft,Look at the shape. Who's this?,2.2,1.8,long
+031_g15_reveal.wav,g15_reveal,Round 15,Lara Croft,Lara Croft! From Tomb Raider.,1.9,2.6,ok
+032_g16_question.wav,g16_question,Round 16,Sub-Zero,Number 16. Who's this?,1.5,1.8,ok
+033_g16_reveal.wav,g16_reveal,Round 16,Sub-Zero,Sub-Zero! From Mortal Kombat.,1.5,2.6,ok
+034_g17_question.wav,g17_question,Round 17,Scorpion,Getting trickier. Who is this?,1.9,1.8,long
+035_g17_reveal.wav,g17_reveal,Round 17,Scorpion,Scorpion! From Mortal Kombat.,1.5,2.6,ok
+036_g18_question.wav,g18_question,Round 18,Chun-Li,Look at the shape. Who's this?,2.2,1.8,long
+037_g18_reveal.wav,g18_reveal,Round 18,Chun-Li,Chun-Li! From Street Fighter.,1.5,2.6,ok
+038_g19_question.wav,g19_question,Round 19,Ryu,Number 19. Who's this?,1.5,1.8,ok
+039_g19_reveal.wav,g19_reveal,Round 19,Ryu,Ryu! From Street Fighter.,1.5,2.6,ok
+040_g20_question.wav,g20_question,Round 20,Spyro the Dragon,Getting trickier. Who is this?,1.9,1.8,long
+041_g20_reveal.wav,g20_reveal,Round 20,Spyro the Dragon,Spyro the Dragon! From Spyro.,1.9,2.6,ok
+042_g21_question.wav,g21_question,Round 21,Rayman,Look at the shape. Who's this?,2.2,1.8,long
+043_g21_reveal.wav,g21_reveal,Round 21,Rayman,Rayman! From Rayman.,1.1,2.6,ok
+044_g22_question.wav,g22_question,Round 22,Princess Peach,Number 22. Who's this?,1.5,1.8,ok
+045_g22_reveal.wav,g22_reveal,Round 22,Princess Peach,Princess Peach! From Super Mario.,1.9,2.6,ok
+046_g23_question.wav,g23_question,Round 23,Cuphead,Getting trickier. Who is this?,1.9,1.8,long
+047_g23_reveal.wav,g23_reveal,Round 23,Cuphead,Cuphead! From Cuphead.,1.1,2.6,ok
+048_g24_question.wav,g24_question,Round 24,Creeper,Look at the shape. Who's this?,2.2,1.8,long
+049_g24_reveal.wav,g24_reveal,Round 24,Creeper,Creeper! From Minecraft.,1.1,2.6,ok
+050_g25_question.wav,g25_question,Round 25,Wario,Number 25. Who's this?,1.5,1.8,ok
+051_g25_reveal.wav,g25_reveal,Round 25,Wario,Wario! From Super Mario.,1.5,2.6,ok
+052_stinger_2.wav,stinger_2,Level-up stinger 2,Stinger,Level two complete! Entering hard mode.,2.2,1.8,long
+053_g26_question.wav,g26_question,Round 26,Charizard,Only real gamers know this one.,2.2,1.8,long
+054_g26_reveal.wav,g26_reveal,Round 26,Charizard,Charizard! From Pokémon.,1.1,2.6,ok
+055_g27_question.wav,g27_question,Round 27,Fox McCloud,Who's hiding in the shadow?,1.9,1.8,long
+056_g27_reveal.wav,g27_reveal,Round 27,Fox McCloud,Fox McCloud! From Star Fox.,1.9,2.6,ok
+057_g28_question.wav,g28_question,Round 28,Cloud Strife,Number 28. Think hard. Who's this?,2.2,1.8,long
+058_g28_reveal.wav,g28_reveal,Round 28,Cloud Strife,Cloud Strife! From Final Fantasy VII.,2.2,2.6,ok
+059_g29_question.wav,g29_question,Round 29,Kratos,Only real gamers know this one.,2.2,1.8,long
+060_g29_reveal.wav,g29_reveal,Round 29,Kratos,Kratos! From God of War.,1.9,2.6,ok
+061_g30_question.wav,g30_question,Round 30,Samus Aran,Who's hiding in the shadow?,1.9,1.8,long
+062_g30_reveal.wav,g30_reveal,Round 30,Samus Aran,Samus Aran! From Metroid.,1.5,2.6,ok
+063_g31_question.wav,g31_question,Round 31,Solid Snake,Number 31. Think hard. Who's this?,2.2,1.8,long
+064_g31_reveal.wav,g31_reveal,Round 31,Solid Snake,Solid Snake! From Metal Gear Solid.,2.2,2.6,ok
+065_g32_question.wav,g32_question,Round 32,Doom Slayer,Only real gamers know this one.,2.2,1.8,long
+066_g32_reveal.wav,g32_reveal,Round 32,Doom Slayer,Doom Slayer! From DOOM.,1.5,2.6,ok
+067_g33_question.wav,g33_question,Round 33,Sans,Who's hiding in the shadow?,1.9,1.8,long
+068_g33_reveal.wav,g33_reveal,Round 33,Sans,Sans! From Undertale.,1.1,2.6,ok
+069_g34_question.wav,g34_question,Round 34,Geralt of Rivia,Number 34. Think hard. Who's this?,2.2,1.8,long
+070_g34_reveal.wav,g34_reveal,Round 34,Geralt of Rivia,Geralt of Rivia! From The Witcher.,2.2,2.6,ok
+071_g35_question.wav,g35_question,Round 35,Arthur Morgan,Only real gamers know this one.,2.2,1.8,long
+072_g35_reveal.wav,g35_reveal,Round 35,Arthur Morgan,Arthur Morgan! From Red Dead Redemption 2.,2.6,2.6,ok
+073_g36_question.wav,g36_question,Round 36,Gordon Freeman,Who's hiding in the shadow?,1.9,1.8,long
+074_g36_reveal.wav,g36_reveal,Round 36,Gordon Freeman,Gordon Freeman! From Half-Life.,1.5,2.6,ok
+075_g37_question.wav,g37_question,Round 37,Nathan Drake,Number 37. Think hard. Who's this?,2.2,1.8,long
+076_g37_reveal.wav,g37_reveal,Round 37,Nathan Drake,Nathan Drake! From Uncharted.,1.5,2.6,ok
+077_g38_question.wav,g38_question,Round 38,Sephiroth,Only real gamers know this one.,2.2,1.8,long
+078_g38_reveal.wav,g38_reveal,Round 38,Sephiroth,Sephiroth! From Final Fantasy VII.,1.9,2.6,ok
+079_stinger_3.wav,stinger_3,Level-up stinger 3,Stinger,Warning! Expert mode. Most people fail here!,2.6,2.2,long
+080_g39_question.wav,g39_question,Round 39,Sackboy,Look closely. Who is this?,1.9,1.8,long
+081_g39_reveal.wav,g39_reveal,Round 39,Sackboy,Sackboy! From LittleBigPlanet.,1.1,2.6,ok
+082_g40_question.wav,g40_question,Round 40,Trevor Philips,Number 40. Expert level. Who's this?,2.2,1.8,long
+083_g40_reveal.wav,g40_reveal,Round 40,Trevor Philips,Trevor Philips! From Grand Theft Auto V.,2.6,2.6,ok
+084_g41_question.wav,g41_question,Round 41,Ezio Auditore,This one breaks most people.,1.9,1.8,long
+085_g41_reveal.wav,g41_reveal,Round 41,Ezio Auditore,Ezio Auditore! From Assassin's Creed.,1.9,2.6,ok
+086_g42_question.wav,g42_question,Round 42,Mewtwo,Look closely. Who is this?,1.9,1.8,long
+087_g42_reveal.wav,g42_reveal,Round 42,Mewtwo,Mewtwo! From Pokémon.,1.1,2.6,ok
+088_g43_question.wav,g43_question,Round 43,Vault Boy,Number 43. Expert level. Who's this?,2.2,1.8,long
+089_g43_reveal.wav,g43_reveal,Round 43,Vault Boy,Vault Boy! From Fallout.,1.5,2.6,ok
+090_g44_question.wav,g44_question,Round 44,Gengar,This one breaks most people.,1.9,1.8,long
+091_g44_reveal.wav,g44_reveal,Round 44,Gengar,Gengar! From Pokémon.,1.1,2.6,ok
+092_g45_question.wav,g45_question,Round 45,Sly Cooper,Look closely. Who is this?,1.9,1.8,long
+093_g45_reveal.wav,g45_reveal,Round 45,Sly Cooper,Sly Cooper! From Sly Cooper.,1.9,2.6,ok
+094_g46_question.wav,g46_question,Round 46,Joel Miller,Number 46. Expert level. Who's this?,2.2,1.8,long
+095_g46_reveal.wav,g46_reveal,Round 46,Joel Miller,Joel Miller! From The Last of Us.,2.6,2.6,ok
+096_g47_question.wav,g47_question,Round 47,Ellie,This one breaks most people.,1.9,1.8,long
+097_g47_reveal.wav,g47_reveal,Round 47,Ellie,Ellie! From The Last of Us.,2.2,2.6,ok
+098_g48_question.wav,g48_question,Round 48,Hornet,Look closely. Who is this?,1.9,1.8,long
+099_g48_reveal.wav,g48_reveal,Round 48,Hornet,Hornet! From Hollow Knight.,1.5,2.6,ok
+100_g49_question.wav,g49_question,Round 49,The Knight,Number 49. Expert level. Who's this?,2.2,1.8,long
+101_g49_reveal.wav,g49_reveal,Round 49,The Knight,The Knight! From Hollow Knight.,1.9,2.6,ok
+102_g50_question.wav,g50_question,Round 50,Ghost,Number fifty. The final one. Who is this?,3.0,1.8,long
+103_g50_reveal.wav,g50_reveal,Round 50 end card,Ghost,"Did you figure out number fifty? Tell us in the comments, then check the pinned comment for the answer!",7.0,6.0,long

@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, spring, staticFile, useCurrentFrame } from "remotion";
 import { useFonts } from "../util";
-import { G, getCharacter, tierOf, questionFrames, tickTimes } from "./config";
+import { G, getCharacter, tierOf, tickTimes, timeline, qClipId, rClipId, voSrc } from "./config";
 import { TimerBar } from "./TimerBar";
 import { PromptBanner, RoundCounter } from "./Overlays";
 import { FinalCard } from "./FinalCard";
@@ -18,16 +18,21 @@ export const GameRound = ({ roundId = 1 }) => {
   const tier = tierOf(char.id);
   const fps = G.fps;
   const t = frame / fps;
-  const revealT = Math.max(0, t - G.questionSeconds);
-  const isFinal = char.id === G.total; // unresolved final round: no answer, fade to the comment-driver card
+  // voiceover-aware timeline: question line (pre-roll) -> timer -> reveal (stretches to fit the reveal line)
+  const TL = timeline(char.id);
+  const V = G.voice;
+  const questionFrames = Math.round(TL.qEnd * fps);
+  const tq = t - TL.pre; // seconds since the timer started (negative while the question is being read)
+  const revealT = Math.max(0, t - TL.qEnd);
+  const isFinal = TL.isFinal; // unresolved final round: no answer, fade to the comment-driver card
   const revealed = frame >= questionFrames && !isFinal;
   const afterQ = frame >= questionFrames;
 
   const colorOpacity = revealed ? interpolate(revealT, [0, 0.25], [0, 1], { extrapolateRight: "clamp" }) : 0;
-  const revealT0 = Math.max(0, t - G.questionSeconds);
+  const revealT0 = revealT;
   const M = G.motion;
   // question: slow, steady zoom-in. reveal: snap to the peak, then spring back to the settle scale.
-  const slowZoom = interpolate(t, [0, G.questionSeconds], [M.zoomFrom, M.zoomTo], { extrapolateRight: "clamp" });
+  const slowZoom = interpolate(t, [0, TL.qEnd], [M.zoomFrom, M.zoomTo], { extrapolateRight: "clamp" });
   const snapIn = interpolate(revealT, [0, M.punchSeconds], [M.zoomTo, M.punchPeak], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const settle = spring({ frame: Math.max(0, frame - questionFrames - Math.round(M.punchSeconds * fps)), fps, config: { damping: 11, stiffness: 140 } });
   const camScale = !revealed ? slowZoom : revealT < M.punchSeconds ? snapIn : M.punchPeak + (M.punchSettle - M.punchPeak) * settle;
@@ -51,9 +56,9 @@ export const GameRound = ({ roundId = 1 }) => {
       </div>
 
       <RoundCounter id={char.id} accent={tier.accent} />
-      <PromptBanner id={char.id} t={t} fps={fps} accent={tier.accent} />
+      <PromptBanner id={char.id} t={tq} fps={fps} accent={tier.accent} />
 
-      {!afterQ && <TimerBar t={t} />}
+      {!afterQ && tq >= 0 && <TimerBar t={tq} />}
 
       {/* answer */}
       {revealed && (
@@ -67,16 +72,27 @@ export const GameRound = ({ roundId = 1 }) => {
 
       {flash > 0.001 && <AbsoluteFill style={{ background: `rgba(255,255,255,${flash.toFixed(3)})`, pointerEvents: "none" }} />}
 
-      {/* audio: steady ticks, then a faster, higher-pitched tick tempo during the red phase; impact + chime at the reveal */}
+      {/* audio: voiceover question line, then ticks from the moment the timer pops (steady, then faster in the red phase),
+          then impact + chime + the reveal line (SFX duck under the voice) */}
+      {TL.qd != null && (
+        <Sequence from={Math.round((TL.pre > 0 ? V.qStart : 0.05) * fps)}>
+          <Audio src={staticFile(voSrc(qClipId(char.id)))} volume={V.volume} />
+        </Sequence>
+      )}
       {tickTimes().map((k, i) => (
-        <Sequence key={i} from={Math.round(k.t * fps)} durationInFrames={Math.round(fps * 0.4)}>
+        <Sequence key={i} from={Math.round((TL.pre + k.t) * fps)} durationInFrames={Math.round(fps * 0.4)}>
           <Audio src={staticFile(k.fast ? "sounds/tick-high.wav" : "sounds/tick.wav")} volume={k.fast ? 0.85 : 0.7} />
         </Sequence>
       ))}
       <Sequence from={questionFrames} layout="none">
-        {!isFinal && <Audio src={staticFile("sounds/impact.wav")} volume={0.55} />}
-        {!isFinal && <Audio src={staticFile("sounds/chime.wav")} volume={0.7} />}
+        {!isFinal && <Audio src={staticFile("sounds/impact.wav")} volume={0.55 * (TL.rd != null ? V.duckSfx : 1)} />}
+        {!isFinal && <Audio src={staticFile("sounds/chime.wav")} volume={0.7 * (TL.rd != null ? V.duckSfx : 1)} />}
         {isFinal && <Audio src={staticFile("sounds/whoosh.wav")} volume={0.6} />}
+        {TL.rd != null && (
+          <Sequence from={Math.round(TL.rStartAt * fps)}>
+            <Audio src={staticFile(voSrc(rClipId(char.id)))} volume={V.volume} />
+          </Sequence>
+        )}
       </Sequence>
     </AbsoluteFill>
   );

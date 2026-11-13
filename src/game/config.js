@@ -1,7 +1,7 @@
 // Video 02 — "Guess the Game Character" silhouette marathon. Single source of truth for the game-quiz compositions.
 // Everything that can be tuned (timing, tiers, colours, copy) lives here, not in the components.
 import characters from "./characters.json";
-import generated from "./characters.generated.json";
+import generated from "./characters.generated.json"; // { images: {file: bool}, vo: {clipId: seconds} } written by scripts/game-prepare.js
 
 export const G = {
   fps: 60,
@@ -58,6 +58,20 @@ export const G = {
     kicker: "Did you figure out #50?",
     text: "Tell us in the comments before checking the pinned comment for the answer!",
   },
+  // Voiceover (step 7). Clips live in clips_game/ (NNN_g01_question.wav ...), `npm run game:prepare` measures them.
+  // Question line plays first, the countdown starts when it ends; the reveal line plays at the reveal and the reveal
+  // (or the Round 50 end card) automatically stretches if the line is longer than the default.
+  voice: {
+    qStart: 0.3, // question line starts this long into the round
+    pad: 0.15, // breathing room between the end of the question line and the timer pop
+    maxPreRoll: 3, // a runaway question clip never delays the timer more than this (prepare warns)
+    rStart: 0.25, // reveal line starts this long after the reveal hit
+    rTail: 0.45, // silence after the reveal line before the next round
+    overlapRounds: [1], // timer runs from 0:00 and the question line plays OVER it (keeps the cold-open hook)
+    stingerPad: 0.25, // stinger length = max(stingerSeconds, stinger clip + this)
+    volume: 1,
+    duckSfx: 0.4, // chime/impact volume multiplier while a reveal line is speaking
+  },
   hook: {
     headline: "Can you identify all 50 gaming legends?",
     headlineSeconds: 3.2,
@@ -68,13 +82,14 @@ export const G = {
   },
 };
 
-const flag = (c) => Boolean(generated[c.imageFile]);
+const IMAGES = generated.images || {};
+const VO = generated.vo || {};
+const flag = (c) => Boolean(IMAGES[c.imageFile]);
 export const CHARACTERS = characters.map((c) => ({ ...c, hasImage: flag(c) }));
 export const getCharacter = (id) => CHARACTERS.find((c) => c.id === Number(id));
 export const tierOf = (id) => G.tiers.find((t) => id >= t.from && id <= t.to) || G.tiers[G.tiers.length - 1];
 
-export const roundFrames = Math.round((G.questionSeconds + G.revealSeconds) * G.fps);
-export const questionFrames = Math.round(G.questionSeconds * G.fps);
+export const roundFrames = Math.round((G.questionSeconds + G.revealSeconds) * G.fps); // default (no voiceover) length
 
 // Tick schedule (seconds from clip start): steady ticks, then a faster tempo (higher pitch) in the final red phase.
 export const tickTimes = () => {
@@ -86,7 +101,7 @@ export const tickTimes = () => {
   return out;
 };
 
-export const stingerFrames = Math.round(G.stingerSeconds * G.fps);
+export const stingerFrames = Math.round(G.stingerSeconds * G.fps); // default length
 export const stingerAfter = (roundId) => G.stingers.find((x) => x.after === Number(roundId));
 export const tierByKey = (key) => G.tiers.find((t) => t.key === key);
 
@@ -97,5 +112,36 @@ export const promptFor = (id) => {
   return texts[(id / every - 1) % texts.length];
 };
 
-// Frames for one round clip: the last round uses the (longer) unresolved end card instead of the reveal.
-export const framesFor = (id) => Math.round((G.questionSeconds + (Number(id) === G.total ? G.final.seconds : G.revealSeconds)) * G.fps);
+// ---- voiceover-aware timing ------------------------------------------------------------------------------------------
+const pad2 = (n) => String(n).padStart(2, "0");
+export const qClipId = (id) => `g${pad2(id)}_question`;
+export const rClipId = (id) => `g${pad2(id)}_reveal`; // Round 50: the line spoken over the end card
+export const stingerClipId = (index) => `stinger_${index + 1}`;
+export const voDuration = (clipId) => (VO[clipId] != null ? VO[clipId] : null);
+export const voSrc = (clipId) => `game-vo/${clipId}.wav`;
+
+// Everything about one round's timing, in seconds from the clip start:
+//   pre      question line plays, timer not running yet (0 = no question clip, or an overlap round)
+//   qEnd     the countdown ended / the reveal hits  (= pre + questionSeconds)
+//   total    clip length (reveal stretches to fit the reveal line)
+export const timeline = (id) => {
+  const n = Number(id);
+  const V = G.voice;
+  const qd = voDuration(qClipId(n));
+  const rd = voDuration(rClipId(n));
+  const isFinal = n === G.total;
+  const pre = qd != null && !V.overlapRounds.includes(n) ? Math.min(V.maxPreRoll, V.qStart + qd + V.pad) : 0;
+  const qEnd = pre + G.questionSeconds;
+  const rStartAt = isFinal ? G.final.fadeSeconds * 0.6 : V.rStart; // seconds after qEnd
+  const base = isFinal ? G.final.seconds : G.revealSeconds;
+  const revealLen = rd != null ? Math.max(base, rStartAt + rd + V.rTail) : base;
+  return { n, pre, qEnd, revealLen, total: qEnd + revealLen, qd, rd, rStartAt, isFinal };
+};
+export const framesFor = (id) => Math.round(timeline(id).total * G.fps);
+
+// Stinger length stretches to fit its optional clip (stinger_1..3).
+export const stingerSecondsFor = (index) => {
+  const d = voDuration(stingerClipId(index));
+  return d != null ? Math.max(G.stingerSeconds, d + G.voice.stingerPad) : G.stingerSeconds;
+};
+export const stingerFramesFor = (index) => Math.round(stingerSecondsFor(index) * G.fps);
