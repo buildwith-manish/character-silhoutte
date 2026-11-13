@@ -1,0 +1,101 @@
+name: Upload Video to YouTube
+
+# Manual only. Fill in the boxes, click "Run workflow", and the chosen video is
+# uploaded. Nothing here runs automatically after a render.
+#
+# One-time setup: add repository secrets (Settings -> Secrets and variables -> Actions):
+#   YOUTUBE_CLIENT_SECRET (paste the whole client_secret.json - it contains the client ID) and YOUTUBE_REFRESH_TOKEN
+#   (YOUTUBE_CLIENT_ID is only needed if YOUTUBE_CLIENT_SECRET holds just the plain secret string)
+# (OAuth client from Google Cloud with the YouTube Data API v3 enabled, and a refresh
+#  token created with the scope https://www.googleapis.com/auth/youtube.upload)
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Render run ID (the number in the URL .../actions/runs/<ID> of the finished render)'
+        type: string
+        required: true
+      video_name:
+        description: 'Exact artifact/file name used when rendering, no .mp4 (e.g. game-quiz)'
+        type: string
+        required: true
+      title:
+        description: 'YouTube title (max 100 characters)'
+        type: string
+        required: true
+      description:
+        description: 'YouTube description (write \n for a new line, max 5000 characters)'
+        type: string
+        required: true
+      keywords:
+        description: 'Tags, separated by commas (e.g. quiz, guess the character, silhouette)'
+        type: string
+        required: false
+        default: ''
+      privacy:
+        description: 'Visibility after upload'
+        type: choice
+        options: ['private', 'unlisted', 'public']
+        default: 'private'
+      made_for_kids:
+        description: 'Is this video made for kids?'
+        type: choice
+        options: ['no', 'yes']
+        default: 'no'
+      category_id:
+        description: 'YouTube category ID (24 = Entertainment, 20 = Gaming, 27 = Education)'
+        type: string
+        default: '24'
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Check inputs
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+          VIDEO_NAME: ${{ inputs.video_name }}
+          TITLE: ${{ inputs.title }}
+        run: |
+          [[ "$RUN_ID" =~ ^[0-9]+$ ]] || { echo "::error::run_id must be digits only"; exit 1; }
+          [[ "$VIDEO_NAME" =~ ^[A-Za-z0-9_-]{1,80}$ ]] || { echo "::error::video_name: letters, numbers, - and _ only (no .mp4)"; exit 1; }
+          [ -n "$TITLE" ] && [ "${#TITLE}" -le 100 ] || { echo "::error::title must be 1-100 characters"; exit 1; }
+
+      - name: Download the chosen video
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.video_name }}
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+          path: video
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install YouTube client
+        run: pip install --quiet google-api-python-client google-auth google-auth-httplib2
+
+      - name: Upload to YouTube
+        env:
+          YT_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          VIDEO_FILE: video/${{ inputs.video_name }}.mp4
+          YT_TITLE: ${{ inputs.title }}
+          YT_DESCRIPTION: ${{ inputs.description }}
+          YT_KEYWORDS: ${{ inputs.keywords }}
+          YT_PRIVACY: ${{ inputs.privacy }}
+          YT_KIDS: ${{ inputs.made_for_kids }}
+          YT_CATEGORY: ${{ inputs.category_id }}
+        run: python3 scripts/youtube_upload.py

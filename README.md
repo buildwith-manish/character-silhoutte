@@ -52,3 +52,10 @@ The `tag-video` helper script automates steps 1–3:
 ```
 
 Large generated files (rendered `.mp4`s, the `out/` folder, `clips_wav/`, mixed soundtracks) are gitignored — back them up separately (Google Drive, NAS, etc.) and record the location in `VIDEO_LOG.md`.
+
+## Render & upload (GitHub Actions)
+
+1. **Actions -> Render Video (parallel) -> Run workflow.** It splits the composition (default `GameVideo`) into up to 40 frame-range chunks, renders them in parallel (video only), renders the audio once, then joins them without re-encoding. Download the result from the run's **Artifacts** (named after `video_name`). Use `test_frames` for a quick test render.
+2. **Actions -> Upload Video to YouTube -> Run workflow.** Enter the render run ID (the number in the run's URL), the same `video_name`, a title, description and privacy. Nothing uploads automatically after a render.
+
+Upload secrets (Settings -> Secrets and variables -> Actions): `YOUTUBE_CLIENT_SECRET` (the whole `client_secret.json`) and `YOUTUBE_REFRESH_TOKEN`.

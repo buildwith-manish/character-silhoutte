@@ -1,0 +1,374 @@
+name: Render Video (parallel)
+
+# prepare -> N parallel video-only chunks + 1 audio pass -> merge (no re-encode of video)
+#
+# Run it from Actions -> "Render Video (parallel)" -> Run workflow, and pick the
+# branch that holds the video project. Set "composition" (and "entry" if it is not
+# src/index.ts) for any Remotion project; defaults are the game-character quiz (GameVideo). Download the result from the run's
+# "Artifacts" section (named after the "video_name" box you fill in).
+#
+# Only the final video is kept as an artifact. The temporary chunk and audio
+# artifacts are deleted automatically once the merge succeeds.
+
+on:
+  workflow_dispatch:
+    inputs:
+      composition:
+        description: 'Remotion composition ID to render'
+        type: string
+        default: 'GameVideo'
+      entry:
+        description: 'Remotion entry file'
+        type: string
+        default: 'src/index.js'
+      chunks:
+        description: 'Parallel render jobs (Pro plan allows 40 at once, Free 20)'
+        type: choice
+        options: ['40', '20', '10']
+        default: '40'
+      test_frames:
+        description: 'Test mode: render only the first N frames (0 = full video)'
+        type: string
+        default: '0'
+      crf:
+        description: 'x264 CRF (lower = better quality, bigger file)'
+        type: string
+        default: '18'
+      keep_days:
+        description: 'How many days to keep the final video download (1-90)'
+        type: string
+        default: '21'
+      preset:
+        description: 'x264 preset'
+        type: choice
+        options: ['slow', 'medium', 'fast']
+        default: 'slow'
+      video_name:
+        description: 'Final file name, no extension (letters, numbers, - and _ only). Use this exact name in the upload workflow.'
+        type: string
+        default: 'game-quiz'
+      max_parallel:
+        description: 'Max render jobs running at the same time (Free plan 20, Pro 40)'
+        type: choice
+        options: ['40', '20', '10']
+        default: '40'
+
+env:
+  COMPOSITION: ${{ inputs.composition }}
+  ENTRY: ${{ inputs.entry }}
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # 1. PREPARE: real frame count from Remotion -> list of frame ranges
+  # ---------------------------------------------------------------------------
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      total: ${{ steps.plan.outputs.total }}
+      count: ${{ steps.plan.outputs.count }}
+    steps:
+      - name: Check the file name
+        env:
+          VIDEO_NAME: ${{ inputs.video_name }}
+        run: |
+          [[ "$COMPOSITION" =~ ^[A-Za-z0-9_-]{1,80}$ ]] || { echo "::error::composition: letters, numbers, - and _ only"; exit 1; }
+          if ! [[ "$ENTRY" =~ ^[A-Za-z0-9_./-]+$ ]] || [[ "$ENTRY" == *..* ]]; then
+            echo "::error::entry must be a relative file path"; exit 1
+          fi
+          if ! [[ "$VIDEO_NAME" =~ ^[A-Za-z0-9_-]{1,80}$ ]]; then
+            echo "::error::video_name must be 1-80 characters: letters, numbers, - and _ only"
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Prepare project data (unpack clips.7z, measure voiceover)
+        run: |
+          pip install --quiet py7zr || true
+          npm run game:prepare
+
+      - name: Install Chrome for Remotion
+        run: npx remotion browser ensure
+
+      - name: Plan the chunks
+        id: plan
+        env:
+          CHUNKS: ${{ inputs.chunks }}
+          TEST_FRAMES: ${{ inputs.test_frames }}
+        run: |
+          if ! npx remotion compositions "$ENTRY" --json > comps.raw 2> comps.err; then
+            cat comps.err
+            echo "::error title=remotion compositions failed::$(tail -c 900 comps.err | tr '\n' ' ' | tr -d '\r')"
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json, os, re, math
+          raw = open('comps.raw').read()
+          dec = json.JSONDecoder()
+          data = None
+          for m in re.finditer(r'[\[{]', raw):
+              try:
+                  data, _ = dec.raw_decode(raw[m.start():])
+              except ValueError:
+                  continue
+              comps = data['compositions'] if isinstance(data, dict) and 'compositions' in data else data
+              if isinstance(comps, list) and comps and isinstance(comps[0], dict) and 'id' in comps[0]:
+                  break
+              data = None
+          if data is None:
+              # Remotion versions that ignore --json print a table: id fps WxH frames (secs)
+              clean = re.sub(r'\x1b\[[0-9;]*m', '', raw)
+              comps = []
+              for line in clean.splitlines():
+                  t = re.match(r'^\s*([A-Za-z0-9_-]+)\s+(\d+(?:\.\d+)?)\s+(\d+)x(\d+)\s+(\d+)\b', line)
+                  if t:
+                      comps.append({'id': t.group(1), 'fps': t.group(2), 'width': t.group(3), 'height': t.group(4), 'durationInFrames': int(t.group(5))})
+              if comps:
+                  data = comps
+          if data is None:
+              flat = raw[-700:].replace(chr(10), ' ')
+              print(f"::error title=could not parse compositions JSON::{flat}")
+              raise SystemExit(1)
+          comp = next((c for c in comps if c['id'] == os.environ['COMPOSITION']), None)
+          if comp is None:
+              ids = ', '.join(c['id'] for c in comps)
+              print(f"::error title=composition not found::{os.environ['COMPOSITION']} not in: {ids}")
+              raise SystemExit(1)
+          total = int(comp['durationInFrames'])
+          test = int(os.environ.get('TEST_FRAMES') or 0)
+          if test > 0:
+              total = min(total, test)
+          want = int(os.environ['CHUNKS'])
+          count = max(1, min(want, total))
+          per = math.ceil(total / count)
+          include = []
+          for i in range(count):
+              start = i * per
+              end = min(total - 1, start + per - 1)
+              if start > end:
+                  break
+              include.append({'i': i, 'name': f'{i:03d}', 'start': start, 'end': end})
+          count = len(include)
+          print(f"{comp['id']}: {comp['width']}x{comp['height']} @ {comp['fps']}fps, {total} frames -> {count} chunks of up to {per}")
+          out = os.environ['GITHUB_OUTPUT']
+          with open(out, 'a') as f:
+              f.write('matrix=' + json.dumps({'include': include}) + '\n')
+              f.write(f'total={total}\n')
+              f.write(f'count={count}\n')
+          PY
+
+  # ---------------------------------------------------------------------------
+  # 2a. RENDER: each job renders its frame range, video only (--muted)
+  # ---------------------------------------------------------------------------
+  render:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: ${{ fromJSON(inputs.max_parallel) }}
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Prepare project data (unpack clips.7z, measure voiceover)
+        run: |
+          pip install --quiet py7zr || true
+          npm run game:prepare
+
+      - name: Install Chrome for Remotion
+        run: npx remotion browser ensure
+
+      - name: Render frames ${{ matrix.start }}-${{ matrix.end }}
+        run: |
+          mkdir -p out
+          npx remotion render "$ENTRY" "$COMPOSITION" "out/chunk-${{ matrix.name }}.mp4" \
+            --frames=${{ matrix.start }}-${{ matrix.end }} \
+            --muted \
+            --codec=h264 \
+            --pixel-format=yuv420p \
+            --color-space=bt709 \
+            --image-format=png \
+            --crf=${{ inputs.crf }} \
+            --x264-preset=${{ inputs.preset }} \
+            --concurrency=$(nproc) \
+            --log=info
+          ls -la out/
+
+      - name: Upload chunk
+        uses: actions/upload-artifact@v4
+        with:
+          name: chunk-${{ matrix.name }}
+          path: out/chunk-${{ matrix.name }}.mp4
+          retention-days: 1
+          compression-level: 0
+          if-no-files-found: error
+
+  # ---------------------------------------------------------------------------
+  # 2b. AUDIO: one pass over the whole timeline, so there are no seams
+  # ---------------------------------------------------------------------------
+  audio:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Prepare project data (unpack clips.7z, measure voiceover)
+        run: |
+          pip install --quiet py7zr || true
+          npm run game:prepare
+
+      - name: Install Chrome for Remotion
+        run: npx remotion browser ensure
+
+      - name: Render audio only (lossless WAV)
+        env:
+          TEST_FRAMES: ${{ inputs.test_frames }}
+        run: |
+          mkdir -p out
+          FR=""
+          if [ "${TEST_FRAMES:-0}" != "0" ]; then FR="--frames=0-$((TEST_FRAMES-1))"; fi
+          if ! npx remotion render "$ENTRY" "$COMPOSITION" out/audio.wav \
+            --codec=wav --config=remotion.audio.config.ts $FR \
+            --log=info > audio.log 2>&1; then
+            tail -n 40 audio.log
+            echo "::error title=audio render failed::$(tail -c 1200 audio.log | sed 's/\x1b\[[0-9;]*m//g' | tr '\n' ' ' | tr -d '\r')"
+            exit 1
+          fi
+          tail -n 5 audio.log
+          ls -la out/
+
+      - name: Upload audio
+        uses: actions/upload-artifact@v4
+        with:
+          name: video-audio
+          path: out/audio.wav
+          retention-days: 1
+          if-no-files-found: error
+
+  # ---------------------------------------------------------------------------
+  # 3. MERGE: join chunks without re-encoding video, encode audio once
+  # ---------------------------------------------------------------------------
+  merge:
+    needs: [prepare, render, audio]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Download chunks
+        uses: actions/download-artifact@v4
+        with:
+          pattern: chunk-*
+          path: parts
+          merge-multiple: true
+
+      - name: Download audio
+        uses: actions/download-artifact@v4
+        with:
+          name: video-audio
+          path: audio
+
+      - name: Join chunks + mux audio
+        env:
+          EXPECT_CHUNKS: ${{ needs.prepare.outputs.count }}
+          EXPECT_FRAMES: ${{ needs.prepare.outputs.total }}
+          TEST_FRAMES: ${{ inputs.test_frames }}
+          VIDEO_NAME: ${{ inputs.video_name }}
+        run: |
+          set -euo pipefail
+          ls parts | sort > /dev/null
+          GOT=$(ls parts/chunk-*.mp4 | wc -l)
+          echo "chunks found: $GOT / expected $EXPECT_CHUNKS"
+          [ "$GOT" -eq "$EXPECT_CHUNKS" ] || { echo "Missing chunks"; exit 1; }
+
+          : > list.txt
+          for f in $(ls parts/chunk-*.mp4 | sort); do
+            echo "file '$PWD/$f'" >> list.txt
+          done
+
+          # 1) lossless join of the video (stream copy, no re-encode)
+          ffmpeg -y -v error -f concat -safe 0 -i list.txt -c copy video-only.mp4
+
+          FRAMES=$(ffprobe -v error -select_streams v:0 -count_packets -show_entries stream=nb_read_packets -of csv=p=0 video-only.mp4)
+          echo "video frames: $FRAMES / expected $EXPECT_FRAMES"
+          [ "$FRAMES" -eq "$EXPECT_FRAMES" ] || { echo "Frame count mismatch"; exit 1; }
+
+          # 2) add the single-pass audio (encoded once, 320k AAC)
+          SHORTEST=""
+          if [ "${TEST_FRAMES:-0}" != "0" ]; then SHORTEST="-shortest"; fi
+          ffmpeg -y -v error -i video-only.mp4 -i audio/audio.wav \
+            -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 320k $SHORTEST \
+            -movflags +faststart final-video.mp4
+
+          mv final-video.mp4 "$VIDEO_NAME.mp4"
+          ls -la "$VIDEO_NAME.mp4"
+          echo "video duration: $(ffprobe -v error -select_streams v:0 -show_entries stream=duration -of csv=p=0 "$VIDEO_NAME.mp4")"
+          echo "audio duration: $(ffprobe -v error -select_streams a:0 -show_entries stream=duration -of csv=p=0 "$VIDEO_NAME.mp4")"
+
+      - name: Upload final video
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.video_name }}
+          path: ${{ inputs.video_name }}.mp4
+          retention-days: ${{ inputs.keep_days }}
+          compression-level: 0
+          if-no-files-found: error
+
+  # ---------------------------------------------------------------------------
+  # 4. CLEANUP: keep only the final video, delete chunk + audio artifacts
+  # ---------------------------------------------------------------------------
+  cleanup:
+    needs: merge
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Delete temporary artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          gh api --paginate "repos/$REPO/actions/runs/$RUN_ID/artifacts" \
+            --jq '.artifacts[] | select(.name | startswith("chunk-") or . == "video-audio") | .id' |
+          while read -r id; do
+            echo "deleting artifact $id"
+            gh api -X DELETE "repos/$REPO/actions/artifacts/$id" --silent
+          done
