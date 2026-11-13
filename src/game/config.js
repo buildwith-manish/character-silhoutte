@@ -102,13 +102,14 @@ export const G = {
     endFadeSeconds: 3,
     files: { easy: "music/game-easy.wav", medium: "music/game-medium.wav", hard: "music/game-hard.wav", expert: "music/game-expert.wav" },
   },
+  // Cold-open hook (Hook.jsx): "50 GAMING LEGENDS" slam + tagline + stat chips + a corner teaser, all over live Round 1.
   hook: {
-    headline: "Can you identify all 50 gaming legends?",
-    headlineSeconds: 3.2,
+    headlineSeconds: 3.4, // total hook length; everything has faded out by then
+    stats: [{ n: "50", label: "rounds" }, { n: "5", label: "bonus rounds" }, { n: "4", label: "levels" }],
     teaserRound: 48, // an impossible-looking Expert silhouette is flashed in the corner
-    teaserText: "Only 5% get Round 48 right.",
-    teaserFrom: 1.0,
-    teaserSeconds: 1.0,
+    teaserPercent: 5, // "ONLY 5%" counts up to this
+    teaserFrom: 1.5,
+    teaserSeconds: 1.6,
   },
 };
 
