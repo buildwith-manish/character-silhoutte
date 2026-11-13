@@ -1,0 +1,116 @@
+id,type,text
+intro,intro,[whispers] Fifty gaming legends. [excited] Only a true gamer gets them all.
+g01_question,question,[excited] Round one. Warm-up! Who is this star?
+g01_reveal,reveal,[excited] Mario! He started out as Jumpman.
+g02_question,question,[excited] Easy one. Name this hero.
+g02_reveal,reveal,[excited] Pikachu! Its name is a spark plus a squeak.
+g03_question,question,[excited] Think you know this icon?
+g03_reveal,reveal,[excited] Pac-Man! Legend says he's a pizza missing a slice.
+g04_question,question,[curious] Quick! Name that shadow.
+g04_reveal,reveal,[excited] Sonic! Sega's answer to Mario.
+g05_question,question,[excited] Number five. Guess the character.
+g05_reveal,reveal,"[excited] Bowser! In Japan, he's called Koopa."
+g06_question,question,[excited] You know this one. Say it!
+g06_reveal,reveal,[excited] Yoshi! He debuted in Super Mario World.
+g07_question,question,[curious] Who's lurking in the shadow?
+g07_reveal,reveal,[excited] Luigi! He began life as Mario in green.
+g08_question,question,[excited] Big shadow. Can you guess it?
+g08_reveal,reveal,[excited] Donkey Kong! Mario's very first enemy.
+g09_question,question,[excited] Blocky shape. What's the name?
+g09_reveal,reveal,[excited] Steve! Minecraft is the best-selling game ever.
+g10_question,question,[curious] Number ten. Do you know them?
+g10_reveal,reveal,[excited] Kirby! Born as a placeholder blob called Popopo.
+bonus_emoji_question,bonusq,[excited] Bonus! Decode the emojis.
+bonus_emoji_reveal,bonus,[excited] Angry Birds! Rovio's fifty-second game. [laughs] Fifty-one came first.
+g11_question,question,[excited] Which hero is this?
+g11_reveal,reveal,[excited] Crash Bandicoot! Naughty Dog's PlayStation mascot.
+g12_question,question,[excited] Last easy one. Name it fast!
+g12_reveal,reveal,[excited] Mega Man! He steals boss powers.
+stinger_1,stinger,[excited] Level one cleared. Medium mode.
+g13_question,question,[mischievously] Medium mode begins. Name this one.
+g13_reveal,reveal,[excited] Link! Not Zelda. Everyone mixes that up.
+g14_question,question,[curious] Getting trickier. Can you guess?
+g14_reveal,reveal,[excited] Master Chief! His Spartan number is one-seventeen.
+g15_question,question,[curious] Who's hiding here?
+g15_reveal,reveal,[excited] Lara Croft! Gaming's first big action heroine.
+g16_question,question,[mischievously] Fight night. Name this brawler.
+g16_reveal,reveal,[excited] Sub-Zero! Mortal Kombat's ice ninja.
+g17_question,question,[curious] Another fighter. Know the name?
+g17_reveal,reveal,"[excited] Scorpion! ""Get over here!"" started with him."
+g18_question,question,[curious] Which fighter is this?
+g18_reveal,reveal,[excited] Chun-Li! Street Fighter's first playable woman.
+g19_question,question,[mischievously] Final fighter. Take your best shot.
+g19_reveal,reveal,[excited] Ryu! The original Street Fighter hero.
+g20_question,question,[curious] Number twenty. Name that character.
+g20_reveal,reveal,[excited] Spyro! A purple dragon from nineteen ninety-eight.
+bonus_versus_question,bonusq,[curious] Bonus! Which came first?
+bonus_versus_reveal,bonus,[excited] Pac-Man! Nineteen eighty. A year before Donkey Kong.
+g21_question,question,[curious] Weird shape. Name it.
+g21_reveal,reveal,[excited] Rayman! No arms. No legs. No problem.
+g22_question,question,[mischievously] Royalty alert. Name this ruler.
+g22_reveal,reveal,[excited] Princess Peach! Once called Princess Toadstool.
+g23_question,question,[curious] Old-school cartoon. Recognize it?
+g23_reveal,reveal,[excited] Cuphead! Hand-drawn like nineteen-thirties cartoons.
+g24_question,question,[curious] Don't blink. What is this?
+g24_reveal,reveal,[laughs] Creeper! Born from a coding mistake.
+g25_question,question,[mischievously] Last medium one. Any guesses?
+g25_reveal,reveal,[laughs] Wario! His name means bad Mario.
+stinger_2,stinger,[excited] Level two cleared. Score in comments. [mischievously] Hard mode.
+g26_question,question,[serious] Hard mode. Name this monster.
+g26_reveal,reveal,[excited] Charizard! He's not even a Dragon type.
+g27_question,question,[serious] Take a guess.
+g27_reveal,reveal,[excited] Fox McCloud! Star Fox's ace pilot.
+g28_question,question,[mischievously] Name this soldier.
+g28_reveal,reveal,[excited] Cloud Strife! Final Fantasy Seven's spiky-haired soldier.
+g29_question,question,[serious] Rage incoming. Name this warrior.
+g29_reveal,reveal,[excited] Kratos! He went from Greek gods to Norse.
+g30_question,question,[serious] Suit up. Name this hero.
+g30_reveal,reveal,[gasps] Samus Aran! Metroid's big twist: she's a woman.
+bonus_controller_question,bonusq,[curious] Bonus! Name this console.
+bonus_controller_reveal,bonus,"[excited] Nintendo 64! Three handles, one analog stick."
+g31_question,question,[mischievously] Sneak up. Name this spy.
+g31_reveal,reveal,[mischievously] Solid Snake! A cardboard box. Still works.
+g32_question,question,[serious] Demons beware. Name this slayer.
+g32_reveal,reveal,[excited] Doom Slayer! Doom came out in nineteen ninety-three.
+g33_question,question,[serious] Short shadow. Can you name him?
+g33_reveal,reveal,[excited] Sans! Undertale was made mostly by one person.
+g34_question,question,[mischievously] Name this wanderer.
+g34_reveal,reveal,[excited] Geralt of Rivia! Born in Polish fantasy novels.
+g35_question,question,[serious] Yeehaw! Name this outlaw.
+g35_reveal,reveal,[excited] Arthur Morgan! Voiced by Roger Clark.
+g36_question,question,[serious] Think fast. Name this scientist.
+g36_reveal,reveal,[mischievously] Gordon Freeman! He never speaks. Not once.
+g37_question,question,[mischievously] Treasure time. Name this explorer.
+g37_reveal,reveal,[excited] Nathan Drake! Claims he descends from Sir Francis Drake.
+g38_question,question,[serious] One name. Which villain is this?
+g38_reveal,reveal,[excited] Sephiroth! His theme is One-Winged Angel.
+stinger_3,stinger,[gasps] Warning! [serious] Expert mode. Most people fail here.
+g39_question,question,[whispers] Cute but tricky.
+g39_reveal,reveal,[excited] Sackboy! A knitted burlap doll.
+g40_question,question,[serious] Chaos incoming. Name this madman.
+g40_reveal,reveal,[excited] Trevor Philips! Voiced by Steven Ogg.
+bonus_myth_question,bonusq,[mischievously] Myth or fact?
+bonus_myth_reveal,bonus,[excited] Fact! Sony and Nintendo built it. [sighs] Then Nintendo quit.
+g41_question,question,[whispers] Who's in the hood?
+g41_reveal,reveal,[excited] Ezio Auditore! Star of three Assassin's Creed games.
+g42_question,question,[whispers] Psychic shadow. Name it.
+g42_reveal,reveal,[gasps] Mewtwo! A clone of Mew.
+g43_question,question,[serious] Retro vibes. Name this mascot.
+g43_reveal,reveal,[excited] Vault Boy! Fallout's thumbs-up mascot.
+g44_question,question,[whispers] Spooky shadow. Name this ghost.
+g44_reveal,reveal,[mischievously] Gengar! Pokédex number ninety-four.
+g45_question,question,[whispers] Sneaky one. Name this thief.
+g45_reveal,reveal,[excited] Sly Cooper! A raccoon thief on PlayStation Two.
+bonus_cheat_question,bonusq,[excited] Bonus! Konami Code time.
+bonus_cheat_reveal,bonus,[excited] The Konami Code! Thirty lives in Contra.
+g46_question,question,[serious] Tough one. Name this survivor.
+g46_reveal,reveal,[excited] Joel Miller! Voiced by Troy Baker.
+g47_question,question,[whispers] Now her. Can you name her?
+g47_reveal,reveal,[excited] Ellie! Voiced by Ashley Johnson.
+g48_question,question,[whispers] Expert only. Name this warrior.
+g48_reveal,reveal,[gasps] Hornet! Fans begged for her own game. Silksong delivered.
+g49_question,question,[serious] Silent hero. Which one is this?
+g49_reveal,reveal,[excited] The Knight! Hollow Knight's silent hero.
+g50_question,question,[serious] Final round. Name the last shadow.
+g50_reveal,reveal,"[gasps] Ghost! Call of Duty's masked operator. [excited] Simon Riley, skull mask and all."
+outro,outro,[mischievously] Did you guess number fifty? [excited] Subscribe for more!
