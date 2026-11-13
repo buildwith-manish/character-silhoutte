@@ -3,6 +3,7 @@ import { AbsoluteFill, Audio, Sequence, interpolate, spring, staticFile, useCurr
 import { useFonts } from "../util";
 import { G, getCharacter, tierOf, questionFrames, tickTimes } from "./config";
 import { TimerBar } from "./TimerBar";
+import { PromptBanner, RoundCounter } from "./Overlays";
 import { Silhouette } from "./Silhouette";
 
 const SIL = 1000; // silhouette box (px)
@@ -44,6 +45,9 @@ export const GameRound = ({ roundId = 1 }) => {
       <div style={{ position: "absolute", left: 90, top: 70, padding: "14px 34px", borderRadius: 10, border: `2px solid ${tier.accent}`, background: "rgba(0,0,0,.35)", fontFamily: "'Big Shoulders Display',Impact,sans-serif", fontWeight: 900, fontSize: 56, letterSpacing: ".08em", color: tier.accent }}>
         {tier.label}
       </div>
+
+      <RoundCounter id={char.id} accent={tier.accent} />
+      <PromptBanner id={char.id} t={t} fps={fps} accent={tier.accent} />
 
       {!revealed && <TimerBar t={t} />}
 

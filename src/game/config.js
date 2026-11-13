@@ -44,6 +44,12 @@ export const G = {
     { after: 25, kicker: "LEVEL 2 COMPLETE!", title: "Entering Hard Mode...", next: "hard" },
     { after: 38, kicker: "WARNING", title: "Level 4 Expert Mode — Most People Fail Here!", next: "expert" },
   ],
+  // Persistent overlays (step 5): Round X/50 counter top-right; a short micro-challenge prompt every `promptEvery` rounds.
+  prompts: {
+    every: 4, // shown on rounds 4, 8, 12 ... (never on the unresolved final round)
+    fromSeconds: 1.0,
+    texts: ["Did you get this in under 2 seconds?", "If you missed this, you owe 1 point!", "Share your streak so far in the comments!"],
+  },
   hook: {
     headline: "Can you identify all 50 gaming legends?",
     headlineSeconds: 3.2,
@@ -75,3 +81,10 @@ export const tickTimes = () => {
 export const stingerFrames = Math.round(G.stingerSeconds * G.fps);
 export const stingerAfter = (roundId) => G.stingers.find((x) => x.after === Number(roundId));
 export const tierByKey = (key) => G.tiers.find((t) => t.key === key);
+
+// Prompt text for a round, or null. Rotates through prompts.texts so neighbouring prompt rounds differ.
+export const promptFor = (id) => {
+  const { every, texts } = G.prompts;
+  if (id >= G.total || id % every !== 0) return null;
+  return texts[(id / every - 1) % texts.length];
+};

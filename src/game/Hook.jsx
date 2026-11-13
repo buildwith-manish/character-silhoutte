@@ -23,7 +23,7 @@ export const Hook = () => {
   return (
     <AbsoluteFill style={{ pointerEvents: "none", fontFamily: "'Big Shoulders Display',Impact,sans-serif" }}>
       {t < h.headlineSeconds && (
-        <div style={{ position: "absolute", left: 0, width: "100%", top: 70, textAlign: "center", opacity: headOut, transform: `translateY(${(1 - headIn) * -60}px) scale(${0.9 + 0.1 * headIn})` }}>
+        <div style={{ position: "absolute", left: 0, width: "100%", top: 190, textAlign: "center", opacity: headOut, transform: `translateY(${(1 - headIn) * -60}px) scale(${0.9 + 0.1 * headIn})` }}>
           <span style={{ display: "inline-block", padding: "18px 56px", background: "rgba(0,0,0,.55)", border: "3px solid #FFC83D", borderRadius: 14, fontWeight: 900, fontSize: 104, letterSpacing: ".03em", textTransform: "uppercase", color: "#fff", textShadow: "0 4px 24px rgba(0,0,0,.7)" }}>
             Can you identify all <span style={{ color: "#FFC83D" }}>50</span> gaming legends?
           </span>
