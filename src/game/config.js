@@ -51,6 +51,8 @@ export const G = {
       { key: "versus", after: 20, label: "WHO CAME FIRST?", accent: "#7CFF4F", prompt: "Which game came out FIRST?", seconds: 8, hint: "Both are arcade classics", cards: [{ tag: "A", title: "Donkey Kong", line: "Nintendo · Arcade", year: "1981" }, { tag: "B", title: "Pac-Man", line: "Namco · Arcade", year: "1980" }], winner: 1, answer: "B · Pac-Man", sub: "Released May 1980 (Japan)", fact: "It reached arcades more than a year before Donkey Kong (July 1981)." },
       // CONSOLE BY CONTROLLER: black controller silhouette + four console choices (A-D). Hint at 3 s left. 8 s to think.
       { key: "controller", after: 30, label: "NAME THAT CONSOLE", accent: "#38E1FF", prompt: "Which console uses this controller?", seconds: 8, hint: "Released in 1996", choices: ["PlayStation", "Sega Genesis", "Nintendo 64", "Super Nintendo"], answer: "C · Nintendo 64", sub: "Released 1996", fact: "Its controller had three handles, with the analog stick on the middle one." },
+      // MYTH OR FACT: a statement types in word by word, then FACT / MYTH buttons. 9 s to think; the stamp on the reveal says FACT! or MYTH!.
+      { key: "myth", after: 40, label: "MYTH OR FACT?", accent: "#FFB02E", prompt: "Myth or Fact?", seconds: 9, truth: true, hint: "Think 1990s console wars", statement: "Sony's PlayStation started life as a joint project with Nintendo.", answer: "Sony + Nintendo", sub: "A late-1980s joint project", fact: "They built an SNES-based PlayStation together, then Nintendo walked away in 1991." },
     ],
   },
   // Level-up stingers (step 4): a 1-second full-screen card inserted AFTER the listed round, themed with the NEXT tier's colours.
