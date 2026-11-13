@@ -2,7 +2,7 @@
 
 Compositions (Remotion Studio): `GameVideo` (full marathon), `GameRound` (one round, prop `roundId`), `GameStinger` (level-up card).
 
-1. Put one transparent PNG per character in `public/game/` (names in `src/game/characters.json` -> `imageFile`).
+1. Put one transparent PNG (prompts + rules: `public/game/IMAGE_PROMPTS.md`) per character in `public/game/` (names in `src/game/characters.json` -> `imageFile`).
 2. `npm run game:prepare` (reports missing PNGs; missing ones render a placeholder).
 3. `npm run game:dev` to preview, `npm run game:render` to render `out/game-quiz.mp4`.
 
