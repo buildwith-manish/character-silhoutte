@@ -12,11 +12,17 @@ Round 50 is unresolved on purpose: post the answer in a pinned comment.
 
 ## Voiceover (step 7)
 
-1. Record/generate the lines in `voiceover/game-voiceover-lines.csv` (50 question, 50 reveal, 3 stinger; Round 50's reveal line is read over the end card).
-2. Put the WAVs in `clips_game/` keeping the `NNN_<clip_id>.wav` names (e.g. `003_g02_question.wav`, `101_stinger_1.wav`).
-3. `npm run game:prepare` measures them and copies them to `public/game-vo/` (git-ignored). It warns about question clips longer than ~2.7 s.
+The voiceover lives in `clips.7z` (repo root, 115 WAVs; text in `voiceover/lines.csv`). Nothing to unpack by hand:
+
+1. `npm run game:prepare` (also run automatically by `game:dev` / `game:render`) unpacks `clips.7z` into `clips_game/` when that folder is empty
+   (needs a `7z` binary or `pip install py7zr`), measures every clip and copies them to `public/game-vo/` (both git-ignored). Names may or may not
+   carry an `NNN_` prefix.
+2. `npm run game:render` -> `out/game-quiz.mp4` with voiceover mixed in.
+
+Clip ids: `g01..g50_question|reveal`, `stinger_1..3`, `bonus_{emoji,versus,controller,myth,cheat}_{question,reveal}`, `intro`, `outro`.
 
 How it plays: the question line is read first, the timer bar pops and ticking starts right after it ends; the reveal line plays at the reveal and the reveal
-stretches automatically if the line is longer than the default 2 s. Stinger and Round 50 end card stretch the same way. Missing clips fall back to the
-fixed timing, so you can add voiceover gradually. Round 1 is the exception by design (`voice.overlapRounds`): the timer runs from 0:00 and the question line
-plays over it, to keep the cold-open hook. Timings/ducking are in `src/game/config.js -> voice`.
+stretches automatically if the line is longer than the default 2 s. Stingers stretch the same way. Bonus clips: the question line plays over the splash
+(splash stretches to fit), the reveal line plays at the reveal (reveal stretches to fit). Round 1: the `intro` line plays over the hook, the timer pops when it
+ends and the Round 1 question line plays over the timer. Round 50: the reveal line plays over the end card, followed by the `outro` line.
+Missing clips fall back to the fixed timing, so you can add voiceover gradually. Timings/ducking are in `src/game/config.js -> voice`.

@@ -28,7 +28,7 @@
     "still:cards": "node scripts/still-cards.js",
     "precards": "npm run csv --silent && npm run cardsounds --silent && npm run vo --silent",
     "cards": "node scripts/render-batches.js --cards-only",
-    "game:prepare": "node scripts/game-prepare.js",
+    "game:prepare": "npm run csv --silent && node scripts/game-prepare.js",
     "game:music": "python3 scripts/generate-game-music.py",
     "game:dev": "npm run game:prepare --silent && remotion studio src/index.js",
     "game:still": "npm run game:prepare --silent && remotion still src/index.js GameRound out/game-round.png --props='{\"roundId\":1}' --frame=120",

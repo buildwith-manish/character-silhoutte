@@ -5,7 +5,7 @@ import { BonusRound } from "./BonusRound";
 import { Hook } from "./Hook";
 import { Stinger } from "./Stinger";
 import { MusicBed } from "./MusicBed";
-import { G, SEGMENTS, totalVideoFrames } from "./config";
+import { G, SEGMENTS, totalVideoFrames, hookSeconds } from "./config";
 
 export const gameVideoFrames = totalVideoFrames;
 
@@ -22,7 +22,7 @@ export const GameVideo = () => (
       ))}
     </Series>
     <MusicBed />
-    <Sequence from={0} durationInFrames={Math.round(G.hook.headlineSeconds * G.fps) + 1}>
+    <Sequence from={0} durationInFrames={Math.round(hookSeconds() * G.fps) + 1}>
       <Hook />
     </Sequence>
   </>

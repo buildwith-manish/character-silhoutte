@@ -20,4 +20,5 @@ src/voiceover-manifest.json
 
 # Game quiz voiceover: clips go in clips_game/, the prepared copies in public/game-vo/ are regenerated
 clips_game/
+.clips-extract-*/
 public/game-vo/

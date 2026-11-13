@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import { G, getCharacter, voDuration, qClipId } from "./config";
+import { G, getCharacter, voDuration, qClipId, hookSeconds } from "./config";
 import { Silhouette } from "./Silhouette";
 
 const GOLD = "#FFC83D";
@@ -21,9 +21,10 @@ export const Hook = () => {
   const { fps } = useVideoConfig();
   const t = frame / fps;
   const h = G.hook;
+  const HS = hookSeconds();
   const sp = (at, cfg = { damping: 12, stiffness: 200 }) => spring({ frame: Math.max(0, Math.round((t - at) * fps)), fps, config: cfg });
 
-  const out = interpolate(t, [h.headlineSeconds - 0.35, h.headlineSeconds], [1, 0], clamp);
+  const out = interpolate(t, [HS - 0.35, HS], [1, 0], clamp);
   const slam = spring({ frame, fps, config: { damping: 9, stiffness: 260 } }); // "50"
   const legends = sp(0.25);
   const tag = sp(0.9);
@@ -45,7 +46,7 @@ export const Hook = () => {
   const teaserChar = getCharacter(h.teaserRound);
 
   // SFX duck under the Round 1 question line when a voiceover clip exists
-  const duck = voDuration(qClipId(1)) != null ? G.voice.duckSfx : 1;
+  const duck = voDuration(qClipId(1)) != null || voDuration("intro") != null ? G.voice.duckSfx : 1;
   const at = (s) => Math.round(s * fps);
 
   return (
@@ -56,7 +57,7 @@ export const Hook = () => {
       <div style={{ position: "absolute", left: `${streak * 100}%`, top: 0, width: 260, height: 520, transform: "translateX(-50%) skewX(-18deg)", background: `linear-gradient(90deg, rgba(255,200,61,0), rgba(255,200,61,.55), rgba(255,200,61,0))`, opacity: out }} />
       <div style={{ position: "absolute", left: 600 - 300 * ring, top: 230 - 300 * ring, width: 600 * ring, height: 600 * ring, borderRadius: "50%", border: `8px solid ${GOLD}`, opacity: (1 - ring) * 0.8 * out }} />
 
-      {t < h.headlineSeconds && (
+      {t < HS && (
         <div style={{ position: "absolute", left: 0, width: "100%", top: 120, textAlign: "center", opacity: out, transform: `translateX(${shake}px)` }}>
           <div style={{ display: "inline-flex", alignItems: "baseline", gap: 36 }}>
             <span style={{ fontWeight: 900, fontSize: 300, lineHeight: 0.9, color: GOLD, transform: `scale(${(2.2 - 1.2 * slam).toFixed(4)})`, opacity: Math.min(1, slam * 2), textShadow: `0 0 70px ${GOLD}aa, 0 8px 30px rgba(0,0,0,.8)`, display: "inline-block" }}>50</span>

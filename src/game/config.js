@@ -84,10 +84,15 @@ export const G = {
   voice: {
     qStart: 0.3, // question line starts this long into the round
     pad: 0.15, // breathing room between the end of the question line and the timer pop
-    maxPreRoll: 3, // a runaway question clip never delays the timer more than this (prepare warns)
+    maxPreRoll: 3.6, // a runaway question clip never delays the timer more than this (prepare warns)
     rStart: 0.25, // reveal line starts this long after the reveal hit
     rTail: 0.45, // silence after the reveal line before the next round
-    overlapRounds: [1], // timer runs from 0:00 and the question line plays OVER it (keeps the cold-open hook)
+    overlapRounds: [1], // the question line plays OVER the running timer (keeps the cold-open hook). Round 1 first plays the `intro` clip (see introPad)
+    introStart: 0.05, // `intro` clip starts this long into Round 1 (under the hook overlay, no timer yet)
+    introPad: 0.2, // gap between the end of the `intro` clip and the Round 1 timer pop
+    bonusQStart: 0.2, // bonus question line starts this long into the bonus splash
+    bonusQPad: 0.15, // splash lasts at least until the bonus question line + this
+    outroPad: 0.3, // gap between the Round 50 reveal line and the outro line
     stingerPad: 0.25, // stinger length = max(stingerSeconds, stinger clip + this)
     volume: 1,
     duckSfx: 0.4, // chime/impact volume multiplier while a reveal line is speaking
@@ -132,6 +137,9 @@ export const tickTimes = (total = G.questionSeconds) => {
   return out;
 };
 
+// Hook overlay length: stretches so it lasts as long as the `intro` voice line.
+export const hookSeconds = () => { const d = voDuration(INTRO_CLIP); return d != null ? Math.max(G.hook.headlineSeconds, G.voice.introStart + d) : G.hook.headlineSeconds; };
+
 export const stingerFrames = Math.round(G.stingerSeconds * G.fps); // default length
 export const stingerAfter = (roundId) => G.stingers.find((x) => x.after === Number(roundId));
 export const tierByKey = (key) => G.tiers.find((t) => t.key === key);
@@ -148,6 +156,9 @@ const pad2 = (n) => String(n).padStart(2, "0");
 export const qClipId = (id) => `g${pad2(id)}_question`;
 export const rClipId = (id) => `g${pad2(id)}_reveal`; // Round 50: the line spoken over the end card
 export const stingerClipId = (index) => `stinger_${index + 1}`;
+export const INTRO_CLIP = "intro";
+export const OUTRO_CLIP = "outro";
+export const bonusClipId = (index, kind) => `bonus_${G.bonus.items[index].key}_${kind}`; // kind: question | reveal
 export const voDuration = (clipId) => (VO[clipId] != null ? VO[clipId] : null);
 export const voSrc = (clipId) => `game-vo/${clipId}.wav`;
 
@@ -161,12 +172,22 @@ export const timeline = (id) => {
   const qd = voDuration(qClipId(n));
   const rd = voDuration(rClipId(n));
   const isFinal = n === G.total;
-  const pre = qd != null && !V.overlapRounds.includes(n) ? Math.min(V.maxPreRoll, V.qStart + qd + V.pad) : 0;
+  const overlap = V.overlapRounds.includes(n);
+  // Round 1 opens with the `intro` clip (cold-open hook): the timer only pops once it has finished, then the question line plays over it.
+  const id1 = n === 1 ? voDuration(INTRO_CLIP) : null;
+  const pre = overlap
+    ? (id1 != null ? Math.min(8, V.introStart + id1 + V.introPad) : 0)
+    : qd != null ? Math.min(V.maxPreRoll, V.qStart + qd + V.pad) : 0;
+  const qAt = overlap ? pre + 0.05 : V.qStart; // when the question line starts
   const qEnd = pre + G.questionSeconds;
   const rStartAt = isFinal ? G.final.fadeSeconds * 0.6 : V.rStart; // seconds after qEnd
   const base = isFinal ? G.final.seconds : G.revealSeconds;
-  const revealLen = rd != null ? Math.max(base, rStartAt + rd + V.rTail) : base;
-  return { n, pre, qEnd, revealLen, total: qEnd + revealLen, qd, rd, rStartAt, isFinal };
+  // Round 50: the `outro` line follows the reveal line over the end card.
+  const od = isFinal ? voDuration(OUTRO_CLIP) : null;
+  const oStartAt = rd != null ? rStartAt + rd + V.outroPad : rStartAt;
+  const lastEnd = od != null ? oStartAt + od : rd != null ? rStartAt + rd : 0;
+  const revealLen = lastEnd > 0 ? Math.max(base, lastEnd + V.rTail) : base;
+  return { n, pre, qAt, qEnd, revealLen, total: qEnd + revealLen, qd, rd, od, id1, rStartAt, oStartAt, isFinal };
 };
 export const framesFor = (id) => Math.round(timeline(id).total * G.fps);
 
@@ -181,7 +202,17 @@ export const stingerFramesFor = (index) => Math.round(stingerSecondsFor(index) *
 // Frame at which a round / stinger starts inside the full GameVideo. GameBackground uses this so its grid scroll and icon
 // drift continue unbroken across clips (every clip is its own Sequence, so useCurrentFrame() alone restarts at 0).
 // Bonus clip length: intro splash + guessing time + reveal.
-export const bonusSecondsFor = (index) => G.bonus.introSeconds + G.bonus.items[index].seconds + G.bonus.revealSeconds;
+// The splash stretches to fit the bonus question line, the reveal stretches to fit the reveal line.
+export const bonusTimeline = (index) => {
+  const B = G.bonus, V = G.voice, item = B.items[index];
+  const qd = voDuration(bonusClipId(index, "question"));
+  const rd = voDuration(bonusClipId(index, "reveal"));
+  const intro = qd != null ? Math.max(B.introSeconds, V.bonusQStart + qd + V.bonusQPad) : B.introSeconds;
+  const qEnd = intro + item.seconds;
+  const revealLen = rd != null ? Math.max(B.revealSeconds, V.rStart + rd + V.rTail) : B.revealSeconds;
+  return { intro, qEnd, revealLen, total: qEnd + revealLen, qd, rd };
+};
+export const bonusSecondsFor = (index) => bonusTimeline(index).total;
 export const bonusFramesFor = (index) => Math.round(bonusSecondsFor(index) * G.fps);
 
 // The whole video as one ordered list: round -> its bonus clip(s) -> its level-up stinger (if any).

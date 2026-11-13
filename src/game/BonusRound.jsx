@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, spring, staticFile, useCurrentFrame } from "remotion";
 import { useFonts } from "../util";
-import { G, bonusStartFrame, tickTimes } from "./config";
+import { G, bonusStartFrame, tickTimes, bonusTimeline, bonusClipId, voSrc } from "./config";
 import { BonusBackground } from "./BonusBackground";
 import { TimerBar } from "./TimerBar";
 import { EmojiDecoder } from "./bonus/EmojiDecoder";
@@ -23,8 +23,10 @@ export const BonusRound = ({ index = 0 }) => {
   const item = B.items[index];
   const Puzzle = TYPES[item.key];
   const t = frame / fps;
-  const intro = B.introSeconds;
-  const qEnd = intro + item.seconds;
+  const BT = bonusTimeline(index);
+  const V = G.voice;
+  const intro = BT.intro;
+  const qEnd = BT.qEnd;
   const tq = t - intro; // seconds since the timer started (negative during the intro)
   const tr = t - qEnd; // seconds since the reveal
   const phase = t < intro ? "intro" : t < qEnd ? "question" : "reveal";
@@ -94,9 +96,19 @@ export const BonusRound = ({ index = 0 }) => {
         </Sequence>
       ))}
       <Sequence from={Math.round(qEnd * fps)} layout="none">
-        <Audio src={staticFile("sounds/impact.wav")} volume={0.55} />
-        <Audio src={staticFile("sounds/chime.wav")} volume={0.7} />
+        <Audio src={staticFile("sounds/impact.wav")} volume={0.55 * (BT.rd != null ? V.duckSfx : 1)} />
+        <Audio src={staticFile("sounds/chime.wav")} volume={0.7 * (BT.rd != null ? V.duckSfx : 1)} />
+        {BT.rd != null && (
+          <Sequence from={Math.round(V.rStart * fps)}>
+            <Audio src={staticFile(voSrc(bonusClipId(index, "reveal")))} volume={V.volume} />
+          </Sequence>
+        )}
       </Sequence>
+      {BT.qd != null && (
+        <Sequence from={Math.round(V.bonusQStart * fps)}>
+          <Audio src={staticFile(voSrc(bonusClipId(index, "question")))} volume={V.volume} />
+        </Sequence>
+      )}
     </AbsoluteFill>
   );
 };

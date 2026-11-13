@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, spring, staticFile, useCurrentFrame } from "remotion";
 import { useFonts } from "../util";
-import { G, getCharacter, tierOf, tickTimes, timeline, qClipId, rClipId, voSrc, roundStartFrame } from "./config";
+import { G, getCharacter, tierOf, tickTimes, timeline, qClipId, rClipId, voSrc, roundStartFrame, INTRO_CLIP, OUTRO_CLIP } from "./config";
 import { GameBackground } from "./GameBackground";
 import { TimerBar } from "./TimerBar";
 import { PromptBanner, RoundCounter } from "./Overlays";
@@ -78,8 +78,13 @@ export const GameRound = ({ roundId = 1 }) => {
       {/* audio: voiceover question line, then ticks from the moment the timer pops (steady, then faster in the red phase),
           then impact + chime + the reveal line (SFX duck under the voice) */}
       {TL.qd != null && (
-        <Sequence from={Math.round((TL.pre > 0 ? V.qStart : 0.05) * fps)}>
+        <Sequence from={Math.round(TL.qAt * fps)}>
           <Audio src={staticFile(voSrc(qClipId(char.id)))} volume={V.volume} />
+        </Sequence>
+      )}
+      {TL.id1 != null && (
+        <Sequence from={Math.round(V.introStart * fps)}>
+          <Audio src={staticFile(voSrc(INTRO_CLIP))} volume={V.volume} />
         </Sequence>
       )}
       {tickTimes().map((k, i) => (
@@ -94,6 +99,11 @@ export const GameRound = ({ roundId = 1 }) => {
         {TL.rd != null && (
           <Sequence from={Math.round(TL.rStartAt * fps)}>
             <Audio src={staticFile(voSrc(rClipId(char.id)))} volume={V.volume} />
+          </Sequence>
+        )}
+        {TL.od != null && (
+          <Sequence from={Math.round(TL.oStartAt * fps)}>
+            <Audio src={staticFile(voSrc(OUTRO_CLIP))} volume={V.volume} />
           </Sequence>
         )}
       </Sequence>

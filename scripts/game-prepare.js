@@ -6,6 +6,7 @@
 //            so Remotion can play them. The video stretches itself to fit them (see src/game/config.js -> timeline()).
 const fs = require("fs");
 const path = require("path");
+const { spawnSync } = require("child_process");
 const { probeAudioSeconds } = require("./lib");
 
 const root = path.join(__dirname, "..");
@@ -20,6 +21,39 @@ for (const c of chars) images[c.imageFile] = fs.existsSync(path.join(root, "publ
 
 const clipsDir = path.join(root, "clips_game");
 const voDir = path.join(root, "public/game-vo");
+
+// If clips_game/ is missing or empty, unpack clips.7z (committed in the repo root) into it. Tries a 7z binary first, then py7zr.
+const hasWavs = (d) => fs.existsSync(d) && fs.statSync(d).isDirectory() && fs.readdirSync(d).some((n) => /\.wav$/i.test(n));
+const archive = path.join(root, "clips.7z");
+if (!hasWavs(clipsDir) && fs.existsSync(archive)) {
+  const tmp = fs.mkdtempSync(path.join(root, ".clips-extract-"));
+  let ok = false;
+  for (const bin of ["7z", "7zz", "7za", "7zr"]) {
+    const r = spawnSync(bin, ["x", "-y", `-o${tmp}`, archive], { stdio: "ignore" });
+    if (!r.error && r.status === 0) { ok = true; break; }
+  }
+  if (!ok) {
+    const py = "import sys, py7zr; py7zr.SevenZipFile(sys.argv[1]).extractall(sys.argv[2])";
+    for (const bin of ["python3", "python"]) {
+      const r = spawnSync(bin, ["-c", py, archive, tmp], { stdio: "ignore" });
+      if (!r.error && r.status === 0) { ok = true; break; }
+    }
+  }
+  if (ok) {
+    fs.mkdirSync(clipsDir, { recursive: true });
+    const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).forEach((e) => {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (/\.wav$/i.test(e.name)) fs.copyFileSync(p, path.join(clipsDir, e.name)); // flatten: clips/x.wav -> clips_game/x.wav
+    });
+    walk(tmp);
+    console.log("[game] extracted clips.7z -> clips_game/");
+  } else {
+    console.error("[game] ⚠ could not extract clips.7z — install 7-Zip (7z) or `pip install py7zr`, or unpack it into clips_game/ yourself");
+  }
+  fs.rmSync(tmp, { recursive: true, force: true });
+}
+
 const vo = {};
 if (fs.existsSync(clipsDir) && fs.statSync(clipsDir).isDirectory()) {
   fs.rmSync(voDir, { recursive: true, force: true });
@@ -27,9 +61,7 @@ if (fs.existsSync(clipsDir) && fs.statSync(clipsDir).isDirectory()) {
   for (const name of fs.readdirSync(clipsDir)) {
     if (!/\.wav$/i.test(name)) continue;
     const base = name.replace(/\.wav$/i, "");
-    const i = base.indexOf("_");
-    if (i < 0) continue;
-    const id = base.slice(i + 1); // strip the NNN_ prefix
+    const id = base.replace(/^\d+_/, ""); // strip an optional NNN_ prefix: 003_g02_question.wav and g02_question.wav both work
     const s = probeAudioSeconds(path.join(clipsDir, name));
     if (s == null) continue;
     vo[id] = Math.round(s * 1000) / 1000;
@@ -52,6 +84,7 @@ for (const c of chars) {
   if (rd != null) r++;
 }
 const st = [1, 2, 3].filter((n) => vo[`stinger_${n}`] != null).length;
-if (Object.keys(vo).length) console.log(`[game] voiceover: ${q}/50 question, ${r}/50 reveal, ${st}/3 stinger clips (public/game-vo/)`);
+const bn = ["emoji", "versus", "controller", "myth", "cheat"].reduce((n, k) => n + (vo[`bonus_${k}_question`] != null) + (vo[`bonus_${k}_reveal`] != null), 0);
+if (Object.keys(vo).length) console.log(`[game] voiceover: ${q}/50 question, ${r}/50 reveal, ${st}/3 stinger, ${bn}/10 bonus, intro ${vo.intro != null ? "yes" : "NO"}, outro ${vo.outro != null ? "yes" : "NO"} (public/game-vo/)`);
 else console.log("[game] no voiceover clips in clips_game/ — the video renders with the default timing (6 s countdown + 2 s reveal)");
 if (warn.length) console.error("\n⚠  VOICEOVER TIMING WARNINGS\n  ! " + warn.join("\n  ! ") + "\n");
