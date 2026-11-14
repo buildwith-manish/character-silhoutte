@@ -2,7 +2,7 @@ import React from "react";
 import { AbsoluteFill, Img, staticFile, continueRender, delayRender } from "remotion";
 
 // Psychology-driven thumbnail set (1280x720) for "Guess the Game Character".
-//  P1 "95% FAIL"    loss aversion + staring face + pattern interrupt (yellow)  -> Sans
+//  P1 "GAMERS ONLY?" colour/silhouette split + staring face (yellow)           -> Sans
 //  P2 "WHO AM I?"   curiosity gap + gaze (only the eyes are revealed)          -> Kirby
 //  P3 "NAME ALL 50?" self-test + glowing-eye clue + ring on the cannon (v2)    -> Mega Man
 // Max 3 words of main text each; one focal point; specific number; saturated colour.
@@ -26,25 +26,40 @@ const Tag = ({ children, bg = "#0a0a14", color = "#fff" }) => (
 );
 const full = { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" };
 
+const OUT = "drop-shadow(0 0 3px #fff) drop-shadow(0 0 3px #fff)";
+// Black silhouette with an outer glow plus a subtle inner sheen so it reads as a shape, not a flat blob.
+const Sil = ({ src, glow = "rgba(255,140,0,.95)", sheen = "rgba(120,170,255,.38)" }) => (
+  <>
+    <Img src={src} style={{ ...full, filter: `brightness(0) ${OUT} drop-shadow(0 0 26px ${glow}) drop-shadow(0 16px 20px rgba(0,0,40,.5))` }} />
+    <div style={{ position: "absolute", inset: 0, WebkitMaskImage: `url(${src})`, WebkitMaskSize: "100% 100%", WebkitMaskRepeat: "no-repeat", background: `linear-gradient(155deg, ${sheen} 0%, rgba(0,0,0,0) 48%)` }} />
+  </>
+);
+
 // ---------------------------------------------------------------- P1
 export const ThumbP1 = ({ main = "sans.png" }) => {
   useFont();
-  const cx = 1000;
+  const cx = 930, B = 780, left = cx - B / 2, top = -24;
   return (
     <AbsoluteFill style={{ background: YELLOW, fontFamily: FONT, overflow: "hidden" }}>
       <AbsoluteFill style={{ background: `repeating-conic-gradient(from 0deg at ${cx}px 330px,#FFE14D 0deg 7deg,#FFB400 7deg 14deg)` }} />
-      <AbsoluteFill style={{ background: `radial-gradient(620px 620px at ${cx}px 340px,rgba(255,255,255,.85),rgba(255,255,255,0) 70%)` }} />
-      {/* staring face */}
-      <div style={{ position: "absolute", left: cx - 500, top: -50, width: 1000, height: 1000 }}>
-        <Img src={img(main)} style={{ ...full, filter: "drop-shadow(0 0 3px #0a0a14) drop-shadow(0 16px 0 rgba(0,0,0,.28))" }} />
+      <AbsoluteFill style={{ background: `radial-gradient(640px 640px at ${cx}px 340px,rgba(255,255,255,.9),rgba(255,255,255,0) 70%)` }} />
+      <div style={{ position: "absolute", left, top, width: B, height: B }}>
+        {/* left half: real colours */}
+        <Img src={img(main)} style={{ ...full, clipPath: "inset(0 50% 0 0)", filter: "drop-shadow(0 0 3px #0a0a14) drop-shadow(0 16px 0 rgba(0,0,0,.28))" }} />
+        {/* right half: silhouette */}
+        <div style={{ position: "absolute", inset: 0, clipPath: "inset(0 0 0 50%)" }}>
+          <Sil src={img(main)} glow="rgba(255,255,255,.9)" sheen="rgba(255,255,255,.28)" />
+        </div>
+        {/* seam */}
+        <div style={{ position: "absolute", left: "50%", top: "5%", bottom: "3%", width: 7, marginLeft: -3, background: "#fff", borderRadius: 4, boxShadow: "0 0 18px 7px rgba(255,255,255,.95), 0 0 2px 2px #0a0a14" }} />
       </div>
-      <AbsoluteFill style={{ background: "radial-gradient(ellipse at 62% 45%,rgba(0,0,0,0) 55%,rgba(60,30,0,.45) 100%)" }} />
+      <AbsoluteFill style={{ background: "radial-gradient(ellipse at 70% 45%,rgba(0,0,0,0) 55%,rgba(60,30,0,.45) 100%)" }} />
       {grain}
-      <div style={{ position: "absolute", left: 44, top: 70, transform: "rotate(-4deg)", transformOrigin: "0 0" }}>
-        <div style={{ fontWeight: 900, fontSize: 340, lineHeight: .8, color: "#fff", letterSpacing: "-.01em", ...stroke(20), textShadow: "0 16px 0 rgba(0,0,0,.35)" }}>95%</div>
-        <div style={{ display: "inline-block", marginTop: 30, padding: "4px 36px 12px", background: RED, color: "#fff", fontWeight: 900, fontSize: 210, lineHeight: .86, letterSpacing: ".03em", transform: "skewX(-8deg)", boxShadow: "0 14px 0 rgba(0,0,0,.4)", border: "8px solid #0a0a14" }}>FAIL</div>
+      <div style={{ position: "absolute", left: 44, top: 58, transform: "rotate(-4deg)", transformOrigin: "0 0" }}>
+        <div style={{ fontWeight: 900, fontSize: 218, lineHeight: .8, color: "#fff", letterSpacing: "-.005em", ...stroke(14), textShadow: "0 14px 0 rgba(0,0,0,.35)" }}>GAMERS</div>
+        <div style={{ display: "inline-block", marginTop: 34, padding: "4px 40px 12px", background: RED, color: "#fff", fontWeight: 900, fontSize: 200, lineHeight: .86, letterSpacing: ".03em", transform: "skewX(-8deg)", boxShadow: "0 14px 0 rgba(0,0,0,.4)", border: "8px solid #0a0a14" }}>ONLY?</div>
       </div>
-      <Tag>50 GAME CHARACTERS</Tag>
+      <Tag>50 SILHOUETTES</Tag>
     </AbsoluteFill>
   );
 };
@@ -52,45 +67,43 @@ export const ThumbP1 = ({ main = "sans.png" }) => {
 // ---------------------------------------------------------------- P2
 export const ThumbP2 = ({ main = "kirby.png" }) => {
   useFont();
-  const cx = 850, B = 780, left = cx - B / 2, top = -30;
+  const cx = 900, B = 830, left = cx - B / 2, top = -77;
   const eye = (x) => ({ ...full, clipPath: `ellipse(4.0% 10.0% at ${x}% 35.7%)` });
   return (
     <AbsoluteFill style={{ background: "#2a0a5e", fontFamily: FONT, overflow: "hidden" }}>
       <AbsoluteFill style={{ background: `radial-gradient(900px 760px at ${cx}px 360px,#ff3fa4 0%,#c2188f 28%,#5a1190 62%,#1b0640 100%)` }} />
-      <AbsoluteFill style={{ background: `repeating-conic-gradient(from 4deg at ${cx}px 380px,rgba(255,255,255,.10) 0deg 6deg,rgba(255,255,255,0) 6deg 16deg)` }} />
-      <div style={{ position: "absolute", left: cx - 330, top: 30, width: 660, height: 660, borderRadius: "50%", background: "radial-gradient(circle,#fff 0%,#ffe3f4 38%,rgba(255,200,235,0) 70%)" }} />
+      <AbsoluteFill style={{ background: `repeating-conic-gradient(from 4deg at ${cx}px 380px,rgba(255,255,255,.12) 0deg 6deg,rgba(255,255,255,0) 6deg 16deg)` }} />
+      <div style={{ position: "absolute", left: cx - 380, top: 20, width: 760, height: 700, borderRadius: "50%", background: "radial-gradient(circle,#fff 0%,#ffe3f4 38%,rgba(255,200,235,0) 70%)" }} />
       <div style={{ position: "absolute", left, top, width: B, height: B }}>
-        <Img src={img(main)} style={{ ...full, filter: "brightness(0) drop-shadow(0 0 3px #fff) drop-shadow(0 14px 22px rgba(0,0,0,.5))" }} />
+        <Sil src={img(main)} glow="rgba(255,255,255,.95)" sheen="rgba(255,120,200,.34)" />
         {/* only the eyes are revealed, with a glow */}
         <div style={{ position: "absolute", inset: 0, filter: "drop-shadow(0 0 14px #fff) drop-shadow(0 0 30px rgba(120,200,255,.9)) saturate(1.3) brightness(1.1)" }}>
           <Img src={img(main)} style={eye(42.5)} />
           <Img src={img(main)} style={eye(57.4)} />
         </div>
       </div>
-      <AbsoluteFill style={{ background: "radial-gradient(ellipse at 65% 48%,rgba(0,0,0,0) 55%,rgba(20,0,40,.6) 100%)" }} />
+      <AbsoluteFill style={{ background: "radial-gradient(ellipse at 70% 48%,rgba(0,0,0,0) 55%,rgba(20,0,40,.6) 100%)" }} />
       {grain}
-      <div style={{ position: "absolute", left: 44, top: 40 }}>
-        <div style={{ fontWeight: 900, fontSize: 168, lineHeight: .86, color: "#fff", letterSpacing: ".01em", ...stroke(14), textShadow: "0 10px 0 rgba(0,0,0,.4)" }}>WHO<br />AM I?</div>
+      <div style={{ position: "absolute", left: 44, top: 50 }}>
+        <div style={{ fontWeight: 900, fontSize: 196, lineHeight: .84, color: "#fff", letterSpacing: ".01em", ...stroke(13), textShadow: "0 10px 0 rgba(0,0,0,.4)" }}>WHO<br /><span style={{ color: GOLD }}>AM I?</span></div>
       </div>
-      <Tag bg="#fff" color="#2a0a5e">50 SHADOWS</Tag>
+      <Tag bg="#fff" color="#2a0a5e">50 SILHOUETTES</Tag>
     </AbsoluteFill>
   );
 };
 
 // ---------------------------------------------------------------- P3
-// v2: whole character in frame, ring only (no arrow), smaller headline, higher-stakes text,
-// glowing eyes as the "almost know it" clue, and a "50 SILHOUETTES" tag.
+// v3: whole character, ring only, glowing-eye clue, higher-stakes text, inner sheen on the silhouette.
 export const ThumbP3 = ({ main = "mega-man.png" }) => {
   useFont();
   const B = 790, left = 585, top = -36;
-  const eye = (x) => ({ ...full, clipPath: `ellipse(2.9% 3.5% at ${x}% 25.6%)` });
+  const eye = (x) => ({ ...full, clipPath: `ellipse(2.5% 3.1% at ${x}% 25.6%)` });
   return (
     <AbsoluteFill style={{ background: "#0095ff", fontFamily: FONT, overflow: "hidden" }}>
       <AbsoluteFill style={{ background: "radial-gradient(900px 800px at 960px 360px,#4be3ff 0%,#12b4ff 34%,#0071e0 70%,#003a8c 100%)" }} />
       <AbsoluteFill style={{ background: "repeating-conic-gradient(from 0deg at 960px 380px,rgba(255,255,255,.16) 0deg 6deg,rgba(255,255,255,0) 6deg 15deg)" }} />
       <div style={{ position: "absolute", left, top, width: B, height: B }}>
-        <Img src={img(main)} style={{ ...full, filter: "brightness(0) drop-shadow(0 0 3px #fff) drop-shadow(0 0 3px #fff) drop-shadow(0 0 26px rgba(255,140,0,.95)) drop-shadow(0 16px 20px rgba(0,0,40,.5))" }} />
-        {/* only the eyes are revealed, with a glow */}
+        <Sil src={img(main)} />
         <div style={{ position: "absolute", inset: 0, filter: "drop-shadow(0 0 10px #fff) drop-shadow(0 0 24px rgba(120,230,255,.95)) saturate(1.3) brightness(1.15)" }}>
           <Img src={img(main)} style={eye(46.9)} />
           <Img src={img(main)} style={eye(54.8)} />
@@ -98,7 +111,6 @@ export const ThumbP3 = ({ main = "mega-man.png" }) => {
       </div>
       <AbsoluteFill style={{ background: "radial-gradient(ellipse at 70% 48%,rgba(0,0,0,0) 55%,rgba(0,20,60,.6) 100%)" }} />
       {grain}
-      {/* ring on the key spot (arm cannon) */}
       <svg width="1280" height="720" style={{ position: "absolute", inset: 0 }}>
         <defs><filter id="sh"><feDropShadow dx="0" dy="5" stdDeviation="0" floodColor="#000" floodOpacity=".45" /></filter></defs>
         <g filter="url(#sh)">
