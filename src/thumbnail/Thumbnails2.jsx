@@ -4,7 +4,7 @@ import { AbsoluteFill, Img, staticFile, continueRender, delayRender } from "remo
 // Psychology-driven thumbnail set (1280x720) for "Guess the Game Character".
 //  P1 "95% FAIL"    loss aversion + staring face + pattern interrupt (yellow)  -> Sans
 //  P2 "WHO AM I?"   curiosity gap + gaze (only the eyes are revealed)          -> Kirby
-//  P3 "WHO'S THIS?" self-test + oversized crop + circle & arrow                -> Mega Man
+//  P3 "NAME ALL 50?" self-test + glowing-eye clue + ring on the cannon (v2)    -> Mega Man
 // Max 3 words of main text each; one focal point; specific number; saturated colour.
 
 const FONT = "'Big Shoulders Display','Arial Narrow',Impact,sans-serif";
@@ -78,31 +78,37 @@ export const ThumbP2 = ({ main = "kirby.png" }) => {
 };
 
 // ---------------------------------------------------------------- P3
+// v2: whole character in frame, ring only (no arrow), smaller headline, higher-stakes text,
+// glowing eyes as the "almost know it" clue, and a "50 SILHOUETTES" tag.
 export const ThumbP3 = ({ main = "mega-man.png" }) => {
   useFont();
-  const B = 880, left = 480, top = -20;
+  const B = 790, left = 585, top = -36;
+  const eye = (x) => ({ ...full, clipPath: `ellipse(2.9% 3.5% at ${x}% 25.6%)` });
   return (
     <AbsoluteFill style={{ background: "#0095ff", fontFamily: FONT, overflow: "hidden" }}>
-      <AbsoluteFill style={{ background: "radial-gradient(900px 800px at 880px 360px,#4be3ff 0%,#12b4ff 34%,#0071e0 70%,#003a8c 100%)" }} />
-      <AbsoluteFill style={{ background: "repeating-conic-gradient(from 0deg at 880px 380px,rgba(255,255,255,.16) 0deg 6deg,rgba(255,255,255,0) 6deg 15deg)" }} />
+      <AbsoluteFill style={{ background: "radial-gradient(900px 800px at 960px 360px,#4be3ff 0%,#12b4ff 34%,#0071e0 70%,#003a8c 100%)" }} />
+      <AbsoluteFill style={{ background: "repeating-conic-gradient(from 0deg at 960px 380px,rgba(255,255,255,.16) 0deg 6deg,rgba(255,255,255,0) 6deg 15deg)" }} />
       <div style={{ position: "absolute", left, top, width: B, height: B }}>
         <Img src={img(main)} style={{ ...full, filter: "brightness(0) drop-shadow(0 0 3px #fff) drop-shadow(0 0 3px #fff) drop-shadow(0 0 26px rgba(255,140,0,.95)) drop-shadow(0 16px 20px rgba(0,0,40,.5))" }} />
+        {/* only the eyes are revealed, with a glow */}
+        <div style={{ position: "absolute", inset: 0, filter: "drop-shadow(0 0 10px #fff) drop-shadow(0 0 24px rgba(120,230,255,.95)) saturate(1.3) brightness(1.15)" }}>
+          <Img src={img(main)} style={eye(46.9)} />
+          <Img src={img(main)} style={eye(54.8)} />
+        </div>
       </div>
-      <AbsoluteFill style={{ background: "radial-gradient(ellipse at 65% 48%,rgba(0,0,0,0) 55%,rgba(0,20,60,.6) 100%)" }} />
+      <AbsoluteFill style={{ background: "radial-gradient(ellipse at 70% 48%,rgba(0,0,0,0) 55%,rgba(0,20,60,.6) 100%)" }} />
       {grain}
-      {/* circle + arrow on the key spot */}
+      {/* ring on the key spot (arm cannon) */}
       <svg width="1280" height="720" style={{ position: "absolute", inset: 0 }}>
         <defs><filter id="sh"><feDropShadow dx="0" dy="5" stdDeviation="0" floodColor="#000" floodOpacity=".45" /></filter></defs>
         <g filter="url(#sh)">
-          <ellipse cx="760" cy="168" rx="108" ry="92" transform="rotate(-8 760 168)" fill="none" stroke={RED} strokeWidth="16" />
-          <path d="M500 360 C 580 360, 640 330, 690 262" fill="none" stroke={GOLD} strokeWidth="20" strokeLinecap="round" />
-          <path d="M690 262 L 634 270 M690 262 L 686 322" fill="none" stroke={GOLD} strokeWidth="20" strokeLinecap="round" />
+          <ellipse cx="822" cy="98" rx="82" ry="72" transform="rotate(-8 822 98)" fill="none" stroke={RED} strokeWidth="14" />
         </g>
       </svg>
-      <div style={{ position: "absolute", left: 44, top: 30 }}>
-        <div style={{ fontWeight: 900, fontSize: 218, lineHeight: .82, color: "#fff", letterSpacing: ".005em", ...stroke(11), textShadow: "0 12px 0 rgba(0,0,0,.4)" }}>WHO’S<br /><span style={{ color: GOLD }}>THIS?</span></div>
+      <div style={{ position: "absolute", left: 44, top: 60 }}>
+        <div style={{ fontWeight: 900, fontSize: 185, lineHeight: .82, color: "#fff", letterSpacing: ".005em", ...stroke(10), textShadow: "0 10px 0 rgba(0,0,0,.4)" }}>NAME<br /><span style={{ color: GOLD }}>ALL 50?</span></div>
       </div>
-      <Tag bg="#0a0a14">50 GAME CHARACTERS</Tag>
+      <Tag bg="#0a0a14">50 SILHOUETTES</Tag>
     </AbsoluteFill>
   );
 };
