@@ -1,5 +1,5 @@
 import React from "react";
-import { Composition, Series } from "remotion";
+import { Composition, Series, Still } from "remotion";
 import { Round } from "./Round";
 import { Teaser, Intro, Recap, Outro, cardFrames } from "./Cards";
 import { T } from "./timing";
@@ -10,6 +10,7 @@ import { Stinger } from "./game/Stinger";
 import { BonusRound } from "./game/BonusRound";
 import { framesFor, roundFrames, stingerFramesFor, stingerFrames, bonusFramesFor } from "./game/config";
 import rounds from "./rounds.json";
+import { ThumbP1, ThumbP2, ThumbP3 } from "./thumbnail/Thumbnails2";
 
 // 2560x1440 @ 60 fps. "Round" = one quiz clip; Teaser / Intro / Recap / Outro = the long-video structure cards (settings.json -> structure).
 const base = { fps: T.fps, width: 2560, height: 1440 };
@@ -83,6 +84,9 @@ export const RemotionRoot = () => (
     <Composition id="GameStinger" component={Stinger} durationInFrames={stingerFrames} {...base} defaultProps={{ index: 0 }} calculateMetadata={({ props }) => ({ durationInFrames: stingerFramesFor(props.index) })} />
     <Composition id="GameBonus" component={BonusRound} durationInFrames={bonusFramesFor(0)} {...base} defaultProps={{ index: 0 }} calculateMetadata={({ props }) => ({ durationInFrames: bonusFramesFor(props.index) })} />
     <Composition id="GameVideo" component={GameVideo} durationInFrames={gameVideoFrames} {...base} />
+    <Still id="ThumbP1" component={ThumbP1} width={1280} height={720} />
+    <Still id="ThumbP2" component={ThumbP2} width={1280} height={720} />
+    <Still id="ThumbP3" component={ThumbP3} width={1280} height={720} />
     <Composition id="Outro"     component={Outro}     durationInFrames={cardFrames("outro", 8)}   {...base} />
   </>
 );
